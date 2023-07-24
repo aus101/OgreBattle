@@ -19,7 +19,7 @@ Odds of 2 desired cards, such as Fool + Devil, are 9.09%
 Odds of at least 1 of 2 desired cards are 54.54%  
 Odds of at least 1 of 3 desired cards are 70.45%  
   
-Odds of 1 desired (i.e. Fool) card AND at least 1 of 2 other cards are 15.09%.  
+Odds of 1 desired card (i.e. Fool) AND at least 1 of 2 other cards are 15.09%.  
 Odds of 1 desired card (i.e. Fool) AND at least 1 of 3 other cards are 20.93%.  
   
 The bonus card drawn at the end alter the Opinion Leader's stats.  
