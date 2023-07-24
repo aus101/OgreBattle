@@ -15,11 +15,20 @@ package ogrebattle.tarot;
  * = SUM(HYPGEOM.DIST(1,7,3,22,0), HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
  * = 70.45%, 45 repeating of course<br>
  * <br>
- * Both possibilities from the same deck: 35700 / 170544, rough with COMBIN<br>
+ * Fool AND (at least 1 of 3 other cards) from the same deck: 35700 / 170544, rough with COMBIN<br>
  * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
  *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  = 20.93301435406699% to the spreadsheet's precision limit<br>
+ *  <br>
+ *  At least 1 of 2 desired Tarot pulled: 15504 / 170544 = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
+ *  = 1-HYPGEOM.DIST(0,7,2,22,0)<br>
+ *  = 54.54%, 54 repeating of course<br>
+ *  <br>
+ *  Fool AND (at least 1 of 2 other cards) from the same deck: 27132 / 170544, rough with COMBIN<br>
+ *  = HYPGEOM.DIST(1,7,2,22,0) * HYPGEOM.DIST(1,6,1,20,0),<br>
+ *  HYPGEOM.DIST(2,7,2,22,0) * HYPGEOM.DIST(1,5,1,20,0),<br>
+ *  = 15.90%, 90 repeating of course
  *  <br>
  *  Optimal Fool + Devil: 15504 / 170544 = COMBIN(20,5) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(2,7,2,22,0)<br>
