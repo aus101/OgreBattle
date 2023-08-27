@@ -32,7 +32,7 @@ package ogrebattle.tarot.simulate;
  *  HYPGEOM.DIST(2,7,2,22,0) * HYPGEOM.DIST(1,5,1,20,0),<br>
  *  = 15.90%, 90 repeating of course<br>
  *  <br>
- *  Optimal Fool + Devil: 15504 / 170544 = COMBIN(20,5) / COMBIN(22,7)<br>
+ *  Fool + Devil: 15504 / 170544 = COMBIN(20,5) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(2,7,2,22,0)<br>
  *  = 9.09%, 09 repeating of course<br>
  *  <br>
@@ -94,4 +94,9 @@ public class OddsExample {
  * 318199858: 31.8199858%
  * 704540543: 70.4540543%
  * 209341835: 20.9341835%
+ * 
+ * versus exact odds
+ * 31.81%
+ * 70.45%
+ * 20.93301435406699% to precision limit
  */
