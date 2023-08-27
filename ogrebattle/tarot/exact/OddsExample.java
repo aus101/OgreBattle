@@ -2,8 +2,9 @@ package ogrebattle.tarot.exact;
 
 import static ogrebattle.util.TarotComparators.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -57,6 +58,8 @@ public class OddsExample {
 		e.printAnswersByTarot(answersPhantom);
 		System.out.println();
 		e.printAnswersByTarotAlphabetical(answersPhantom);
+		System.out.println();
+		e.verifyOdds();//compared to ogrebattle.tarot.simulate.OddsExample.java
 	}
 	
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
@@ -243,8 +246,31 @@ public class OddsExample {
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[values[i].ordinal()]);			
 		}
 	}
-
 	
+	public void verifyOdds() {
+		final int combin = 170533;//COMBIN(22,7)
+		AllPossibleHands sevenCards = new AllPossibleHands(7, true);
+		System.out.println("Odds of Fool in opening hand of 7");
+		printPercent(sevenCards.countContains(Tarot.Fool), combin, 2);
+		System.out.println("Odds of 1 of 3 specific cards in opening hand of 7");
+		printPercent(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 2);
+		System.out.println("Odds of Fool and 1 of 3 other specific cards in opening hand of 7");
+		printPercent(sevenCards.countContainsAndContainsAny(Tarot.Fool,
+				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 2);
+	}
+	
+	/**
+	 * Fancy try hard division
+	 * @param successes hands that matched given criteria
+	 * @param totalHands total hands possible that were iterated through
+	 * @param precision decimal places, floating point error restricts this to 2 in practice
+	 */
+	private static void printPercent(int successes, int totalHands, int precision) {
+		BigDecimal num = new BigDecimal(successes);
+		BigDecimal denom = new BigDecimal(totalHands);
+		System.out.println(num.multiply(new BigDecimal(100)).divide(denom, 2, RoundingMode.HALF_UP) + "%");
+	}
+
 	public void printRandomHand() {
 		System.out.println(handsGenerator.returnRandomHandInList());
 	}
