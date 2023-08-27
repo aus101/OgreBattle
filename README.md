@@ -23,5 +23,5 @@ The true in-game odds could be higher or lower or variable to some extent based 
 A hardcore approach would attempt frame perfect timing in SNES/SFC to obtain consistent starting cards that would make optimal answer sets irrelevant. Could manip a card set where every answer is 1.
 This approach is far more difficul in PSX due to the card selection not locking after selecting male or female. Maniping more than the first two cards may be impossible in practice.
 
-The enumerated Tarot cards preserve the in-game ordering of Fool between Judgment and World. This was not an accident. Fool is placed there in the The Pictoral Key to the Tarot that followed the successful and influential Waite-Smith Tarot deck of 1909.
-Perhaps the ordering will be retconned in a future remaster/revision considering Fool came first in the physical Tactics Ogre PSP preorder deck.
+The enumerated Tarot cards preserve the in-game ordering of Fool before World. Fool not appearing first is deliberate. It is placed before World in the The Pictoral Key to the Tarot that followed the successful and influential Waite-Smith Tarot deck of 1909.
+Perhaps the ordering will be retconned in a future remaster/revision considering Fool came first in the physical Tactics Ogre PSP preorder deck and is first in most any deck found in modern times.
