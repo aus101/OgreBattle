@@ -16,7 +16,7 @@ import ogrebattle.util.IceCloud;
 /**
  * Not really intended to be clean, reusable code. Rather to show how to use AllPossibleHands to derive optimal solutions.
  * The commented out code shows how to iterate through Ianuki or Ice Cloud that have more than one optimal set of Tarot answers.
- * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer.
+ * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer for odds improvement.
  * More Ice Cloud solutions could theoretically exist but would be at least 3 Tarot card changes from all solutions given.
  * Perhaps the best extension would be finding optimal solutions for any Lord being the second highest total.<br>
  */
@@ -47,11 +47,16 @@ public class OddsExample {
 	}
 	
 	public static void main(String[] args) {
-		OddsExample t = new OddsExample();
-		t.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
-		t.searchForImprovement(answersThunder, 74003, true, Thunder);
+		OddsExample e = new OddsExample();
+		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
+		e.searchForImprovement(answersThunder, 74003, true, Thunder);
 		System.out.println();
-		t.printRandomHands(3);
+		e.printRandomHands(3);
+		System.out.println();
+		System.out.println("Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:");
+		e.printAnswersByTarot(answersPhantom);
+		System.out.println();
+		e.printAnswersByTarotAlphabetical(answersPhantom);
 	}
 	
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
@@ -222,8 +227,6 @@ public class OddsExample {
 	
 	public void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
-		List<Tarot> tarot = Arrays.asList(values);
-		Collections.sort(tarot, new AlphabeticalComparator());
 		for(int i=0; i<values.length; i++) {
 //			System.out.println(//pad left
 //					String.format("%" + 13 + "." + 13 + "s", new String(values[i]+": " + answers[i])));
@@ -231,6 +234,16 @@ public class OddsExample {
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);				
 		}
 	}
+	
+	public void printAnswersByTarotAlphabetical(int[] answers) {
+		Tarot[] values = Tarot.values();
+		Arrays.sort(values, new AlphabeticalComparator());
+		for(int i=0; i<values.length; i++) {
+			System.out.println(//pad right
+			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[values[i].ordinal()]);			
+		}
+	}
+
 	
 	public void printRandomHand() {
 		System.out.println(handsGenerator.returnRandomHandInList());
