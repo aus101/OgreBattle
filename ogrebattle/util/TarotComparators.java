@@ -54,6 +54,11 @@ public class TarotComparators {
 		}
 	}
 	
+	/**
+	 * Enum natural order doesn't work by default when comparing ordered sets to each other.<br>
+	 * Order goes from Magician(1) to World(22) with Fool(21) due to that being the order they are stored in the game ROM.<br>
+	 * In-game numbering of Fool as 0 is irrelevant and historically it had no numbering at all.<br>
+	 */
     public static class NaturalOrderComparator implements Comparator<Tarot> {
     	@Override
         public int compare(Tarot t1, Tarot t2) {
