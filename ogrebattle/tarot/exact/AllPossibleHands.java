@@ -32,7 +32,7 @@ import ogrebattle.tarot.Tarot;
 public class AllPossibleHands {
 	public static final int DECK_SIZE = Tarot.values().length;//22
 	public final int MAX_HAND_SIZE = 7;
-	private final int[] COMBIN = new int[]{22, 231, 1540, 7315, 26334, 74613, 170533};
+	private final int[] COMBIN = new int[]{22, 231, 1540, 7315, 26334, 74613, 170544};
 	private final int handSize;
 	private final int maxHands;
 	private static final int USE_SUBLIST = 55000;
