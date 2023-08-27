@@ -13,6 +13,7 @@ package ogrebattle.tarot.simulate;
  * = 31.81%, 81 repeating of course<br>
  * <br>
  * At least 1 of 3 desired Tarot pulled: 120156 / 170544 = SUM(COMBIN(21,6), COMBIN(20,6), COMBIN(19,6)) / COMBIN(22,7)<br>
+ * = 1 - COMBIN(19,7) / COMBIN(22,7)<br>
  * = 1 - HYPGEOM.DIST(0,7,3,22,0)<br>
  * = SUM(HYPGEOM.DIST(1,7,3,22,0), HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
  * = 70.45%, 45 repeating of course<br>
@@ -24,7 +25,8 @@ package ogrebattle.tarot.simulate;
  *  = 20.93301435406699% to the spreadsheet's precision limit<br>
  *  <br>
  *  At least 1 of 2 desired Tarot pulled: 15504 / 170544 = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
- *  = 1-HYPGEOM.DIST(0,7,2,22,0)<br>
+ *  = 1 - COMBIN(20,7) / COMBIN(22,7)<br>
+ *  = 1 - HYPGEOM.DIST(0,7,2,22,0)<br>
  *  = 54.54%, 54 repeating of course<br>
  *  <br>
  *  Fool AND (at least 1 of 2 other cards) from the same deck: 27132 / 170544, rough with COMBIN<br>
