@@ -2,29 +2,23 @@
 
 Educational, hacking and speedrunning efforts to understand the amazingly obtuse mechances behind SNES/PSX/SS Ogre Battle continue to this day.  
    
-Herein is a Warren Tarot card pulling simulator to determine the odds of various Tarot cards in the opening hand of 7: 6 questions and the 1 bonus card.  
-The initial focus is on optimizing the FIRESEAL (Dragon's Haven/Heaven) stage where starting with Fool is a necessity. Then either 1 physical attack or 1 magical attack card.  
+Herein is a Warren Tarot card pulling simulator to determine the exact odds of various Tarot cards in the opening hands of 1 to 7 cards.
+Brute forcing all hand combinations where order does not matter is done for 6 cards in under 1 second.
+By extension, the optimal answers to the 6 Tarot questions are already derived and given in ogrebattle.tarot.exact.OddsExample.java.
+
+The focus is on optimizing the FIRESEAL (Dragon's Haven/Heaven) stage where starting with Fool or Tower is a necessity, along with another damaging card. 
 Damage cards other than Tower and Sun do more damage the fewer the enemies in the unit, thus Fool boosts damage substantially.  
-Magical Tarot cards animate faster than Physical but Albeleo's high INT makes a STR approach faster. Optimal PSX is faster in part due to greater Tarot card damage.  
+Magical Tarot cards animate faster than Physical but Albeleo's high INT gives STR based cards a chance to be faster. Optimal PSX is faster in part due to later time of day of battle that derates Albeleo's stats more.
    
-Mathematical derivation of the following odds are in Init.java, which also executes the simulation that verifies the calculated odds.  
+Can find mathematical derivation of the exact odds of various Tarot card combinations in the opening hand of 7 cards in ogrebattle.tarot.simulate.OddsExample.java.
+In practice is superior to use exact odds by iterating through all possible hands versus simulate random hands to converge upon the values.
   
-Total card combinations = COMBIN(22,7) = 170544. All odds can be expressed as an integer ratio with 170544 in the denomiator.  
-If not, as in, odds * 170544 is not an integer, then the math is wrong.  
+The bonus card drawn at the end alters the Opinion Leader's stats.  
+A bonus card with significant STR or INT penalty or insufficient bonus may reduce the odds of success in a FIRESEAL run.  
   
-Odds of 1 Fool or 1 of any desired card are 31.81%.  
-  
-Odds of 2 desired cards, such as Fool + Devil, are 9.09%
-  
-Odds of at least 1 of 2 desired cards are 54.54%  
-Odds of at least 1 of 3 desired cards are 70.45%  
-  
-Odds of 1 desired card (i.e. Fool) AND at least 1 of 2 other cards are 15.09%.  
-Odds of 1 desired card (i.e. Fool) AND at least 1 of 3 other cards are 20.93%.  
-  
-The bonus card drawn at the end alter the Opinion Leader's stats.  
-A bonus card with significant STR or INT penalty or insufficient bonus may reduce the odds of success.  
-  
-OF COURSE, the RNG is biased. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls.  
+OF COURSE, the RNG is biased. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls, as well as World being favored in PSX.  
 Calcualted or simulated odds must be used with the understanding of the inevitable RNG bias of retro video games.  
-The true in-game odds could be higher or lower or variable to some extent based on the frame counter, console VRAM or other sources of entropy.  
+The true in-game odds could be higher or lower or variable to some extent based on the frame counter, console VRAM or other sources of entropy.
+
+A hardcore approach would attempt frame perfect timing in SNES/SFC to obtain consistent starting cards that would make optimal answer sets irrelevant. Could manip a card set where every answer is 1.
+This approach is far more difficul in PSX due to the card selection not locking after selecting male or female. Maniping more than the first two cards may be impossible in practice.
