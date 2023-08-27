@@ -79,6 +79,7 @@ public class TarotDeckArray extends TarotDeck {
 					drawnCards[i] == Tarot.Hermit) {
 						anyOfThree++;
 						dch = true;
+						break;
 					}
 				}
 				
