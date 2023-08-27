@@ -59,7 +59,7 @@ public class OddsExample {
 		System.out.println();
 		e.printAnswersByTarotAlphabetical(answersPhantom);
 		System.out.println();
-		e.verifyOdds();//compared to ogrebattle.tarot.simulate.OddsExample.java
+		e.verifyOdds();//compare to ogrebattle.tarot.simulate.OddsExample.java
 	}
 	
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
@@ -248,27 +248,31 @@ public class OddsExample {
 	}
 	
 	public void verifyOdds() {
-		final int combin = 170533;//COMBIN(22,7)
+		final int combin = 170544;//COMBIN(22,7)
 		AllPossibleHands sevenCards = new AllPossibleHands(7, true);
-		System.out.println("Odds of Fool in opening hand of 7");
-		printPercent(sevenCards.countContains(Tarot.Fool), combin, 2);
-		System.out.println("Odds of 1 of 3 specific cards in opening hand of 7");
-		printPercent(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 2);
-		System.out.println("Odds of Fool and 1 of 3 other specific cards in opening hand of 7");
+		System.out.println("Odds of 1 specific card in opening hand of 7:");
+		printPercent(sevenCards.countContains(Tarot.Fool), combin, 4);
+		System.out.println();
+		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
+		printPercent(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4);
+		System.out.println();
+		System.out.println("Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:");
 		printPercent(sevenCards.countContainsAndContainsAny(Tarot.Fool,
-				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 2);
+				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4);
 	}
 	
 	/**
-	 * Fancy try hard division
+	 * Exact odds of hand combinations using BigDecimal to prevent floating point error.<br>
+	 * Compare to simulated odds in <code>ogrebattle.tarot.simulate.OddsExample.java<code>.<br>
 	 * @param successes hands that matched given criteria
 	 * @param totalHands total hands possible that were iterated through
-	 * @param precision decimal places, floating point error restricts this to 2 in practice
+	 * @param precision decimal places, with rounding on last decimal
 	 */
 	private static void printPercent(int successes, int totalHands, int precision) {
+		System.out.println(successes + " / " + totalHands);
 		BigDecimal num = new BigDecimal(successes);
 		BigDecimal denom = new BigDecimal(totalHands);
-		System.out.println(num.multiply(new BigDecimal(100)).divide(denom, 2, RoundingMode.HALF_UP) + "%");
+		System.out.println(num.multiply(new BigDecimal(100)).divide(denom, precision, RoundingMode.HALF_UP) + "%");
 	}
 
 	public void printRandomHand() {
