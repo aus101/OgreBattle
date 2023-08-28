@@ -14,6 +14,7 @@ public abstract class LordType {
 	
 	//can use abstract method since implementation is guaranteed by extending classes
 	public List<int[]> returnAllSolutionsList() {
+		 //amazing how screwy converting a set of ints to a list of ints is with Java's own API
 		 return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
 	}
 	

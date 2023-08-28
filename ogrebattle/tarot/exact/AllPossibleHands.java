@@ -99,8 +99,7 @@ public class AllPossibleHands {
 		return holder;
 	}
 	
-	//TODO make protected
-	public List<TreeSet<Tarot>> returnHandsSubList(int returnHands) {
+	protected List<TreeSet<Tarot>> returnHandsSubList(int returnHands) {
 		List<TreeSet<Tarot>> holder = new ArrayList<TreeSet<Tarot>>(ALL_HANDS);
 		return holder.subList(0, returnHands);
 	}
