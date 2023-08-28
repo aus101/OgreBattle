@@ -1,6 +1,6 @@
 package ogrebattle.tarot.exact;
 
-import static ogrebattle.util.TarotComparators.*;
+import static ogrebattle.tarot.pojo.TarotSorting.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import ogrebattle.tarot.Tarot;
-import ogrebattle.tarot.TarotLord;
-import ogrebattle.util.Ianuki;
-import ogrebattle.util.IceCloud;
+import ogrebattle.lordtypes.Ianuki;
+import ogrebattle.lordtypes.IceCloud;
+import ogrebattle.tarot.pojo.Tarot;
+import ogrebattle.tarot.pojo.TarotQuestions;
 
 /**
  * Not really intended to be clean, reusable code. Rather to show how to use AllPossibleHands to derive optimal solutions.
@@ -68,7 +68,7 @@ public class OddsExample {
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
 		final int found = possibleSolutions.size();
-		TarotLord[] tarotLord = TarotLord.values();
+		TarotQuestions[] tarotLord = TarotQuestions.values();
 		
 //		Iterator<int[]> it = ianukiSolutions.iterator();
 //		while(it.hasNext()) {
@@ -101,7 +101,7 @@ public class OddsExample {
 				for (Tarot card : hand) {
 					int drawn = card.ordinal();
 					int chosen = test[drawn];
-					int[] temp = TarotLord.getValues(tarotLord[drawn], chosen);
+					int[] temp = TarotQuestions.getValues(tarotLord[drawn], chosen);
 					for (int k = 0; k < 4; k++) {
 						tracker[k] += temp[k];
 					}
@@ -167,7 +167,6 @@ public class OddsExample {
 //	}
 	
 	/**
-	 * 
 	 * @param tracker the list of Tarot card answers<br>
 	 * @return the highest and second highest Lord types with [0] being highest and [1] the second highest<br>
 	 * where 0 = Ianuki, 1 = Phantom, 2 = Ice Cloud, 3 = Thunder<br>
@@ -310,3 +309,85 @@ public class OddsExample {
 		answers[slot] = value;				
 	}
 }
+/*
+0.5886803 seconds to execute for 74613 hands
+Count of 60171 equals current record of 60171
+
+Highest Lord Type
+Ianuki:    69698
+Phantom:   0
+Ice Cloud: 4909
+Thunder:   6
+
+Second Highest Lord Type
+Ianuki:    4915
+Phantom:   2398
+Ice Cloud: 60171
+Thunder:   7129
+
+No new solutions found. Existing solution(s) for 74003 counts likely optimal.
+{2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};
+
+[Priestess, Emperor, Lovers, Chariot, Hanged_Man, Sun]
+[Emperor, Strength, Devil, Moon, Sun, Judgment]
+[Hierophant, Fortune, Justice, Devil, Moon, Fool]
+
+Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:
+Magician    : 3
+Priestess   : 3
+Empress     : 3
+Emperor     : 1
+Hierophant  : 2
+Lovers      : 3
+Chariot     : 1
+Strength    : 3
+Hermit      : 1
+Fortune     : 2
+Justice     : 1
+Hanged_Man  : 1
+Death       : 3
+Temperance  : 2
+Devil       : 1
+Tower       : 1
+Star        : 3
+Moon        : 1
+Sun         : 1
+Judgment    : 2
+Fool        : 1
+World       : 3
+
+Chariot     : 1
+Death       : 3
+Devil       : 1
+Emperor     : 1
+Empress     : 3
+Fool        : 1
+Fortune     : 2
+Hanged_Man  : 1
+Hermit      : 1
+Hierophant  : 2
+Judgment    : 2
+Justice     : 1
+Lovers      : 3
+Magician    : 3
+Moon        : 1
+Priestess   : 3
+Star        : 3
+Strength    : 3
+Sun         : 1
+Temperance  : 2
+Tower       : 1
+World       : 3
+
+Odds of 1 specific card in opening hand of 7:
+54264 / 170544
+31.8182%
+
+Odds of at least 1 of 3 specific cards in opening hand of 7:
+120156 / 170544
+70.4545%
+
+Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:
+35700 / 170544
+20.9330%
+*/

@@ -1,6 +1,6 @@
 package ogrebattle.tarot.exact;
 
-import static ogrebattle.util.TarotComparators.*;
+import static ogrebattle.tarot.pojo.TarotSorting.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
-import ogrebattle.tarot.Tarot;
+import ogrebattle.tarot.pojo.Tarot;
 
 /**
  * Generate all possible Tarot card combinations from 1 to 7 cards drawn out of the 22 card deck.<br>
@@ -130,6 +130,12 @@ public class AllPossibleHands {
 		return holder.subList(0, returnHands);
 	}
 
+	/**
+	 * Not necessary when mathematically one card is in (54264 / 170544) hands of 7
+	 * but nice to have as a check or when using hands of different card sizes.
+	 * @param tarot the card being searched for
+	 * @return the number of hands that contain the card
+	 */
 	public int countContains(Tarot tarot) {
 		int count = 0;
 		for(TreeSet<Tarot> ts : ALL_HANDS) {
@@ -140,10 +146,18 @@ public class AllPossibleHands {
 		return count;
 	}
 	
+	/**
+	 * @param tarot the card(s) being searched for
+	 * @return the number of hands that contain all the specified cards
+	 */
 	public int countContainsAll(Tarot... tarot) {
 		return countContainsAll(Arrays.asList(tarot));
 	}
 	
+	/**
+	 * @param tarot the card(s) being searched for
+	 * @return the number of hands that contain all the specified cards
+	 */
 	public int countContainsAll(List<Tarot> tarot) {
 		int count = 0;
 		for(TreeSet<Tarot> ts : ALL_HANDS) {
@@ -154,10 +168,18 @@ public class AllPossibleHands {
 		return count;
 	}
 	
+	/**
+	 * @param tarot the card(s) being searched for
+	 * @return the number of hands that contain at least one of the specified cards
+	 */
 	public int countContainsAny(Tarot... tarot) {
 		return countContainsAny(Arrays.asList(tarot));
 	}
 	
+	/**
+	 * @param tarot the card(s) being searched for
+	 * @return the number of hands that contain at least one of the specified cards
+	 */
 	public int countContainsAny(List<Tarot> tarot) {
 		int count = 0;
 		for (TreeSet<Tarot> ts : ALL_HANDS) {
@@ -171,10 +193,24 @@ public class AllPossibleHands {
 		return count;
 	}
 
+	/**
+	 * The utility is when a certain single card such as Fool is mandatory and at least one
+	 * of another group of cards is needed.
+	 * @param singleton the card that must be in each hand
+	 * @param group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain the singleton and at least one of the group
+	 */
 	public int countContainsAndContainsAny(Tarot singleton, Tarot... group) {
 		return countContainsAndContainsAny(singleton, Arrays.asList(group));
 	}
 	
+	/**
+	 * The utility is when a certain single card such as Fool is mandatory and at least one
+	 * of another group of cards is needed.
+	 * @param singleton the card that must be in each hand
+	 * @param group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain the singleton and at least one of the group
+	 */
 	public int countContainsAndContainsAny(Tarot singleton, List<Tarot> tarot) {
 		int count = 0;
 		for (TreeSet<Tarot> ts : ALL_HANDS) {
@@ -189,42 +225,12 @@ public class AllPossibleHands {
 		}
 		return count;
 	}
-
-	public int countContainsAndContainsAll(Tarot singleton, Tarot... group) {
-		return countContainsAndContainsAll(singleton, Arrays.asList(group));
-	}
 	
-	public int countContainsAndContainsAll(Tarot singleton, List<Tarot> tarot) {
-		int count = 0;
-		for (TreeSet<Tarot> ts : ALL_HANDS) {
-			if (ts.contains(singleton)) {
-				if (ts.containsAll(tarot)) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
-
-	public int countContainsAllContainsAny(List<Tarot> group1, List<Tarot> group2) {
-		return countContainsAnyContainsAll(group2, group1);
-	}
-	
-	public int countContainsAnyContainsAll(List<Tarot> group1, List<Tarot> group2) {
-		int count = 0;
-		for (TreeSet<Tarot> ts : ALL_HANDS) {
-			for (Tarot current : group1) {
-				if (ts.contains(current)) {
-					if (ts.containsAll(group2)) {
-						count++;
-					}
-					break;//go to next hand since current hand contains at least 1
-				}
-			}
-		}
-		return count;
-	}
-	
+	/**
+	 * @param group1 first group the cards of which at least one must be in each hand
+	 * @param group2 second group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain at least one from each group
+	 */
 	public int countContainsAnyContainsAny(List<Tarot> group1, List<Tarot> group2) {
 		int count = 0;
 		for (TreeSet<Tarot> ts : ALL_HANDS) {
@@ -241,5 +247,36 @@ public class AllPossibleHands {
 			}
 		}
 		return count;
+	}
+	
+	/**
+	 * @param group1 first group the cards of which at least one must be in each hand
+	 * @param group1 second group the cards of which all must be in each hand
+	 * @return the number of hands that contain all the first group and at least one of the second group
+	 */
+	public int countContainsAnyContainsAll(List<Tarot> group1, List<Tarot> group2) {
+		int count = 0;
+		for (TreeSet<Tarot> ts : ALL_HANDS) {
+			for (Tarot current : group1) {
+				if (ts.contains(current)) {
+					if (ts.containsAll(group2)) {
+						count++;
+					}
+					break;//go to next hand since current hand contains at least 1
+				}
+			}
+		}
+		return count;
+	}
+	
+
+	/**
+	 * Convenience method that calls <code>countContainsAnyContainsAll(group2, group1);</code>
+	 * @param group1 first group the cards of which all must be in each hand
+	 * @param group2 second group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain all the first group and at least one of the second group
+	 */
+	public int countContainsAllContainsAny(List<Tarot> group1, List<Tarot> group2) {
+		return countContainsAnyContainsAll(group2, group1);
 	}
 }

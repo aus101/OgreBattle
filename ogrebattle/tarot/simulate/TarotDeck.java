@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ogrebattle.tarot.Tarot;
+import ogrebattle.tarot.pojo.Tarot;
 
 public class TarotDeck {
 	public static final int DECK_SIZE = Tarot.values().length;
