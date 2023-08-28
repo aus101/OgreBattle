@@ -58,7 +58,9 @@ public class TarotDeckArray extends TarotDeck {
 	}
 	
 	/**
-	 * Check if desired cards are present using the array instead of the list
+	 * Check if desired cards are present using the array instead of the list. Not robust, only checks for Fool and
+	 * Fool + 1 of Devil/Chariot/Hermit but code can easily be adjusted and expanded upon.<br>
+	 * Is robust in the sense of working with any number of drawn cards, not just 6 or 7.<br>
 	 */
 	@Override
 	protected void contains() {

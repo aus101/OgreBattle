@@ -3,6 +3,10 @@ package ogrebattle.tarot.simulate;
 /**
  * This random hands approach is inferior to the <code>ogrebattle.tarot.exact</code> approach that finds
  * exact odds to back up the calculations given below that the simulation here merely converges to.<br>
+ * The exception where simulation is useful is for drawing more than 7 cards in one setting, such as many Joker pulls,
+ * that brute-forcing becomes impractical.<br>
+ * In such a case, adjust <code>public static final int CARDS_DRAWN = 7;</code> in TarotDeck.java and
+ * <code>setup()</code> in TarotDeckArray.java, if using that class<br>
  * @param args the number of hands to draw, default to 1 million if no args passed<br>
  * <br>
  * EXACT ODDS:<br>
