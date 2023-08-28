@@ -2,7 +2,7 @@ package ogrebattle.tarot.simulate;
 
 import java.util.Random;
 
-import ogrebattle.tarot.Tarot;
+import ogrebattle.tarot.pojo.Tarot;
 
 /**
  * Only necessary to shuffle the first 7 cards in the deck.<br>
