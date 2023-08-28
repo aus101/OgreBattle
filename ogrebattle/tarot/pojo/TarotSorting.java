@@ -24,7 +24,7 @@ public class TarotSorting {
 	}
 
 	/**
-	 * Equal length is not assumed, same order with fewer cards comes first
+	 * Equal length is not assumed, a set with same order but fewer cards comes first
 	 */
 	public static class TreeSetTarotComparator implements Comparator<TreeSet<Tarot>> {
 		@Override
