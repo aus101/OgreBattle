@@ -51,7 +51,7 @@ public class TarotDeckArray extends TarotDeck {
 //	    }
  
 		//store because final card chosen from the deck alters the Opinion Leader's starting stats
-		//chosen card is an optical illusion, each one is the same card
+		//chosen card is an optical illusion in SNES/SFC, each one is the same card
 		finalCard = drawnCards[0];
 		
 		contains();
