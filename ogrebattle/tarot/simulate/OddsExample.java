@@ -10,37 +10,58 @@ package ogrebattle.tarot.simulate;
  * @param args the number of hands to draw, default to 1 million if no args passed<br>
  * <br>
  * EXACT ODDS:<br>
+ * <br>The subtraction of occurrences in the 1 AND (1 of X) calculations is necessary to remove<br>
+ * double-counted occurrences, as it were. Odds here with the hypergeometric distribution are<br>
+ * generally easier to calculate than with combinatorics. With more complex hands, such as in<br>
+ * poker, combinatorics is the most practical approach for exact odds.<br>
  * <br>
- * Desired Tarot pulled: 54264 / 170544 = COMBIN(21,6) / COMBIN(22,7)<br>
+ * Desired Tarot pulled in first 6 cards: 20349 / 74613<br<
+ * = COMBIN(21,5) / COMBIN(22,6)<br>
+ * = HYPGEOM.DIST(1,6,1,22,0)<br>
+ * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)<br>
+ * = 27.27%, 27 repeating of course<br>
+ * <br>
+ * All further odds using 7 cards to include the bonus card unless said otherwise:<br>
+ * Desired Tarot pulled: 54264 / 170544<br>
+ * = COMBIN(21,6) / COMBIN(22,7)<br>
  * = HYPGEOM.DIST(1,7,1,22,0)<br>
  * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)*(15/16)<br>
  * = 31.81%, 81 repeating of course<br>
- * <br>
- * At least 1 of 3 desired Tarot pulled: 120156 / 170544 = SUM(COMBIN(21,6), COMBIN(20,6), COMBIN(19,6)) / COMBIN(22,7)<br>
+ *  <br>
+ *  At least 1 of 2 desired Tarot pulled: 15504 / 170544<br>
+ *  = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
+ *  = 1 - COMBIN(20,7) / COMBIN(22,7)<br>
+ *  = 1 - HYPGEOM.DIST(0,7,2,22,0)<br>
+ *  = 54.54%, 54 repeating of course<br>
+ *  <br>
+ *  Fool AND (at least 1 of 2 other cards) from the same deck: 27132 / 170544<br>
+ *  = SUM(2 * COMBIN(20,5), -COMBIN(19, 4)) / COMBIN(22, 7)<br>
+ *  = SUM(HYPGEOM.DIST(1,6,1,20,0) * HYPGEOM.DIST(1,7,2,22,0),<br>
+ *  HYPGEOM.DIST(1,5,1,20,0) * HYPGEOM.DIST(2,7,2,22,0))<br>
+ *  = 15.90%, 90 repeating of course<br>
+ *  <br>
+ * At least 1 of 3 desired Tarot pulled: 120156 / 170544<br>
+ * = SUM(COMBIN(21,6), COMBIN(20,6), COMBIN(19,6)) / COMBIN(22,7)<br>
  * = 1 - COMBIN(19,7) / COMBIN(22,7)<br>
  * = 1 - HYPGEOM.DIST(0,7,3,22,0)<br>
  * = SUM(HYPGEOM.DIST(1,7,3,22,0), HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
  * = 70.45%, 45 repeating of course<br>
  * <br>
- * Fool AND (at least 1 of 3 other cards) from the same deck: 35700 / 170544, rough with COMBIN<br>
+ * Fool AND (at least 1 of 3 other cards) from the same deck: 35700 / 170544<br>
+ *  = SUM(3 * COMBIN(20, 5), 3 * -COMBIN(19, 4), COMBIN(18, 3)) / COMBIN(22, 7)<br>
  * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
  *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
- *  = 20.93301435406699% to the spreadsheet's precision limit<br>
+ *  = 20.93%<br>
  *  <br>
- *  At least 1 of 2 desired Tarot pulled: 15504 / 170544 = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
- *  = 1 - COMBIN(20,7) / COMBIN(22,7)<br>
- *  = 1 - HYPGEOM.DIST(0,7,2,22,0)<br>
- *  = 54.54%, 54 repeating of course<br>
- *  <br>
- *  Fool AND (at least 1 of 2 other cards) from the same deck: 27132 / 170544, rough with COMBIN<br>
- *  = HYPGEOM.DIST(1,7,2,22,0) * HYPGEOM.DIST(1,6,1,20,0),<br>
- *  HYPGEOM.DIST(2,7,2,22,0) * HYPGEOM.DIST(1,5,1,20,0),<br>
- *  = 15.90%, 90 repeating of course<br>
- *  <br>
- *  Fool + Devil: 15504 / 170544 = COMBIN(20,5) / COMBIN(22,7)<br>
+ *  Fool AND Hermit: 15504 / 170544 = COMBIN(20,5) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(2,7,2,22,0)<br>
  *  = 9.09%, 09 repeating of course<br>
+ *  <br>
+ *  Tower in first 6 cards and 1 of 5 specific cards as the 7th bonus card: 101745 / 1566873<br>
+ *  = COMBIN(21,5) / COMBIN(22/6) * COMBIN(5,1) / COMBIN(21,1) = COMBIN(21,5) / COMBIN(22/6) * (5/21)<br>
+ *  = HYPGEOM.DIST(1,6,1,22,0) * HYPGEOM.DIST(1,1,5,21,0)<br>
+ *  = 6.49%<br>
  *  <br>
  *  Notice the convergence as hands increase, with diminished returns, toward the true values.<br>
  *  One limitation to this approach is difficulty in noticing Ianuki and Ice Cloud have multiple optimal solutions.<br>
@@ -82,27 +103,27 @@ public class OddsExample {
  * Example output:
  * 
  * 1 million:
- * 318751: 31.8751%
- * 704796: 70.4796%
- * 209556: 20.9556%
+ * 318751: 31.8751% hands with Fool
+ * 704796: 70.4796% hands with Devil, Chariot and/or Hermit
+ * 209556: 20.9556% hands with Devil, Chariot and/or Hermit
  * 
  * 10 million:
- * 3183461: 31.83461%
- * 7044252: 70.44252%
- * 2093905: 20.93905%
+ * 3183461: 31.83461% hands with Fool
+ * 7044252: 70.44252% hands with Devil, Chariot and/or Hermit
+ * 2093905: 20.93905% hands with Fool and at least 1 of the 3 damage cards
  * 
  * 100 million:
- * 31816471: 31.816471%
- * 70454716: 70.454716%
- * 20930914: 20.930914%
+ * 31816471: 31.816471% hands with Fool
+ * 70454716: 70.454716% hands with Devil, Chariot and/or Hermit
+ * 20930914: 20.930914% hands with Fool and at least 1 of the 3 damage cards
  * 
  * 1 billion
- * 318199858: 31.8199858%
- * 704540543: 70.4540543%
- * 209341835: 20.9341835%
+ * 318199858: 31.8199858% hands with Fool
+ * 704540543: 70.4540543% hands with Devil, Chariot and/or Hermit
+ * 209341835: 20.9341835% hands with Fool and at least 1 of the 3 damage cards
  * 
- * versus exact odds
- * 31.81%
- * 70.45%
- * 20.93301435406699% to precision limit
+ * Versus exact odds to four decimal places:
+ * 31.8181%
+ * 70.4545%
+ * 20.9330%
  */

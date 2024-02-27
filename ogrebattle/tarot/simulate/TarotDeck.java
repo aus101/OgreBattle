@@ -3,6 +3,7 @@ package ogrebattle.tarot.simulate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import ogrebattle.tarot.pojo.Tarot;
 
@@ -13,6 +14,8 @@ public class TarotDeck {
 	
 	protected Tarot finalCard;
 	protected List<Tarot> drawnCards;
+	protected List<Tarot> firstCards;
+	protected Set<Tarot> sevenCards;
 	//only need 1 instance, re-shuffled on each setup()
 	protected static List<Tarot> cards = Arrays.asList(Tarot.values());
 	protected static final Tarot[] checking2 = {Tarot.Devil, Tarot.Chariot};
@@ -56,7 +59,7 @@ public class TarotDeck {
 			fool = true;
 		}
 		
-		//check if contains at least one
+//		check if contains at least one
 		if(drawnCards.contains(checking3[0]) ||
 			drawnCards.contains(checking3[1]) ||
 				drawnCards.contains(checking3[2])) {
