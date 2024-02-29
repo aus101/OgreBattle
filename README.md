@@ -25,3 +25,11 @@ This approach is far more difficul in PSX due to the card selection not locking 
 ## Order of Cards
 The enumerated Tarot cards preserve the in-game ordering of Fool before World. Fool not appearing first is deliberate. It is placed before World in the The Pictoral Key to the Tarot that followed the successful and influential Waite-Smith Tarot deck of 1909.   
 Perhaps the ordering will be retconned in a future remaster/revision considering Fool came first in the physical Tactics Ogre PSP preorder deck and is first in most any deck found in modern times.   
+
+## Notice
+Not for distribution, or use, or use or distribution of a deriviative work on:
+    -Wiki that has advertisements or a website related to the for-profit wiki owners.
+    -Other for-profit website or message board related to for-profit wiki owners.
+    -Video with video sponsor or other form of paid promotion.
+    -Video with any association to lootboxes or gacha games.
+Derivate works must maintain this notice.
