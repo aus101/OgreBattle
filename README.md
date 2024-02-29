@@ -7,6 +7,7 @@ Brute-forcing all hand combinations where order does not matter is done for 6 ca
 
 The focus is solving for the optimal set of answers to Warren's 6 question for each lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
 Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and can be seen by running the mains. Alternatively, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc.    
+     
 Previously published sets of answers for each lord type had about a 65% success rate. The odds are raised here to 99.18-100%.   
 The lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 80.64% and 61.45%, respectively.    
 Tarot card odds for iterating each hand and counting in-code, and by both combinatorics and hypergeometic distriution calculations, match perfectly.    
