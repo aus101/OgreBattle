@@ -32,28 +32,6 @@ public class LordOddsExample {
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
 	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom, ice cloud, 45848 out of 74613 61.45%
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki, ice cloud,  60171 out of 74613 80.64%
-	public final static int[] ianukiThunder16 =      {1,1,1,1,2,1,3,1,1,1,2,2,3,1,1,2,1,1,1,1,1,1};// ianuki, thunder,    23500 out of 74613 31.50%	
-	public final static int[] ianukiThunder13 =      {1,1,1,1,2,1,3,1,1,1,2,2,3,1,2,2,1,3,1,1,2,1};// ianuki, thunder,    37792 out of 74613 50.65%
-	public final static int[] ianukiThunder12 =      {1,1,1,1,2,1,3,2,1,1,2,2,3,1,2,2,1,3,1,1,2,1};// ianuki, thunder,    42178 out of 74613 56.52%
-	public final static int[] ianukiThunder11 =      {1,1,1,1,2,2,3,2,1,1,2,2,3,1,2,2,1,3,1,1,2,1};// ianuki, thunder,    46880 out of 74613 62.83%	
-	public final static int[] ianukiThunder =        {2,2,1,1,2,3,3,2,2,1,2,2,3,3,2,2,2,3,3,1,2,2};// ianuki, thunder,    62893 out of 74613 84.29%	
-	public final static int[] ianukiThunderTX =      {1,1,1,1,2,1,3,2,2,1,2,2,3,1,1,2,1,1,1,1,2,2};// ianuki, thunder,    41165 out of 74613 55.17%	
-	public final static int[] ianukiThunderTY =      {1,1,1,1,2,1,3,2,2,1,2,2,3,1,2,1,1,1,1,1,2,2};// ianuki, thunder,    35763 out of 74613 47.93%	tower is 1
-	public final static int[] ianukiThunderTower1 =  {2,2,1,1,2,3,3,2,2,1,2,2,3,3,2,1,2,3,3,1,3,2};// ianuki, thunder,    54476 out of 74613 73.01%	
-	public final static int[] ianukiThunderT2 =      {1,1,1,1,2,3,3,2,2,1,2,2,3,1,1,2,1,3,1,1,3,1};// ianuki, thunder,    43765 out of 74613 55.88%	48115 with tower on 2 64.48% 
-	public final static int[] ianukiThunder2T =      {1,1,1,1,2,1,3,2,2,1,2,2,3,1,2,2,1,3,1,1,3,1};// ianuki, thunder,    43765 out of 74613 58.65%	
-	public final static int[] ianukiThunderT2A =     {1,1,1,1,2,3,3,2,2,1,2,2,3,1,1,2,1,3,1,1,3,2};// ianuki, thunder,    48894 out of 74613 65.53%
-	public final static int[] ianukiThunderT3 =      {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,1,1,3,1};// ianuki, thunder,    44896 out of 74613 60.17%		
-	public final static int[] ianukiThunderT4 =      {2,1,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,1,1,3,1};// ianuki, thunder,    47546 out of 74613 63.72%	
-	public final static int[] ianukiThunderTTT =     {1,1,1,1,2,1,3,1,1,1,2,2,3,1,2,1,1,1,1,1,2,1};// ianuki, thunder,    27190 out of 74613 36.44%	
-	public final static int[] thunder1 =             {1,1,1,2,1,1,1,1,1,1,2,1,1,3,1,1,1,1,1,1,1,1};// thunder             29649 out of 20349 39.74%
-	public final static int[] answersFastestIT11 =   {1,1,1,1,2,2,3,1,1,1,2,2,3,1,2,2,2,1,1,1,2,2};// 13182 out of 20349 64.78%
-	public final static int[] answersFastestIT12 =   {1,1,1,1,2,2,3,2,1,1,2,2,3,1,2,2,2,1,1,1,2,2};// 14090 out of 20349 69.24%
-	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom is most likely	
-	public final static int[] ianukiThunderTest =    {2,1,1,1,2,2,3,2,2,1,2,2,3,3,2,2,2,3,3,1,2,2};// 17337 out of 20349 85.20%	
-	public final static int[] phantomThunder1s =     {1,3,1,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};// phantom, thunder    55550 out of 74613 74.45% +6948 83.76%
-	public final static int[] phantomThunder =       {1,2,3,1,2,3,1,3,1,2,1,1,2,2,1,2,3,1,1,2,2,3};// phantom, thunder    64732 out of 74613 86.76% +2992 90.77%
-	public final static int[] phantomThunderOrIce =  {1,2,3,1,1,3,1,3,1,2,1,1,2,2,1,2,3,1,1,2,2,3};// phantom, thunder    61967 out of 74613 86.76% +7114 92.59% 9258
 	public final static int[] all1s =                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom, thunder    61967 out of 74613 86.76% +7114 92.59% 9258
 
 	private AllPossibleHands handsGenerator;
