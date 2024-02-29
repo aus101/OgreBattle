@@ -28,8 +28,10 @@ Perhaps the ordering will be retconned in a future remaster/revision considering
 
 ## Notice
 Not for distribution, or use, or use or distribution of a deriviative work on:     
+```
     - Wiki that has advertisements or a website related to the for-profit wiki owners.
     - Other for-profit website or message board related to for-profit wiki owners.
     - Video with video sponsor or other form of paid promotion.
     - Video with any association to lootboxes or gacha games.
-Derivate works must maintain this notice.
+```
+Derivate works must include and follow this notice.
