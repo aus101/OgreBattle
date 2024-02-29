@@ -12,7 +12,7 @@ Alternatively, calculations for Tarot cards odds are calculated exactly in **ogr
      
 Previously published sets of answers for each lord type had about a 65% success rate. The odds are raised here to 99.18-100%.   
 The lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 80.64% and 61.45%, respectively.    
-Tarot card odds for iterating each hand and counting in-code, and by both combinatorics and hypergeometic distriution calculations, match perfectly.    
+Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.    
 
 ## Additional Details
 The code is robust enough to work with hands of 1 to 7 cards, or more cards if using the simulate package that converges to the correct odds where brute-forcing would be impractical.    
