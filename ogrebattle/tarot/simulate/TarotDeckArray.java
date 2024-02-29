@@ -8,7 +8,7 @@ import ogrebattle.tarot.pojo.Tarot;
  * Only necessary to shuffle the first 7 cards in the deck.<br>
  * Can cut execution time down by sticking to more cumbersome arrays.<br>
  */
-public class TarotDeckArray extends TarotDeck {
+public final class TarotDeckArray extends TarotDeck {
 	//No need for slow SecureRandom here, instance level Random is also slower
 	private Random r = new Random();
 	//as opposed to List<Tarot> drawnCards;

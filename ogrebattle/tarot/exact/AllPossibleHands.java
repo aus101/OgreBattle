@@ -280,6 +280,26 @@ public class AllPossibleHands {
 	}
 	
 	/**
+	 * Fixed convenience method for 1 out of 3 instead of calling<br>
+	 * <code>countContainsAtLeastXOutOfThese(1, Tarot... group)</code>
+	 * @param card1 specific card
+	 * @param card2 specific card
+	 * @param card3 specific card
+	 * @return the number of hands that contain any 2 or all 3 of the cards
+	 */
+	public int countContainsAtLeast1OutOf3(Tarot card1, Tarot card2, Tarot card3) {
+		int totalCounter = 0;
+		for (TreeSet<Tarot> ts : ALL_HANDS) {
+			if ((ts.contains(card1)) ||
+				(ts.contains(card2)) ||
+				(ts.contains(card3))) {
+				totalCounter++;
+			}
+		}
+		return totalCounter;
+	}
+	
+	/**
 	 * Fixed convenience method for 2 out of 3 instead of calling<br>
 	 * <code>countContainsAtLeastXOutOfThese(2, Tarot... group)</code>
 	 * @param card1 specific card
@@ -314,19 +334,24 @@ public class AllPossibleHands {
 	 */
 	public int countContainsAtLeastXOutOfThese(int x, List<Tarot> group) {
 		int totalCounter = 0;
-		for (TreeSet<Tarot> ts : ALL_HANDS) {
-			int xCounter = 0;
-			for (Tarot current : group) {
-				if (ts.contains(current)) {
-					xCounter++;
-					if (xCounter == x) {
-						break;//end hand comparison early since x were found
+		if (x > 0 && x <= group.size()) {
+			for (TreeSet<Tarot> ts : ALL_HANDS) {
+				int xCounter = 0;
+				for (Tarot current : group) {
+					if (ts.contains(current)) {
+						xCounter++;
+						if (xCounter == x) {
+							break;//end hand comparison early since x were found
+						}
 					}
 				}
+				if (xCounter >= x) {
+					totalCounter++;
+				}
 			}
-			if (xCounter >= x) {
-				totalCounter++;
-			}
+		} else {
+			System.err.print("Error in parameters for countContainsAtLeastXOutOfThese: "
+					+ x + " for x and " + group.size() + " for cards");
 		}
 		return totalCounter;
 	}
@@ -339,5 +364,38 @@ public class AllPossibleHands {
 	 */
 	public int countContainsAtLeastXOutOfThese(int x, Tarot... group) {
 		return countContainsAtLeastXOutOfThese(x, Arrays.asList(group));
+	}
+	
+	/**
+	 * The utility is when a certain single card such as Fool is mandatory and at least one
+	 * of another group of cards is needed.
+	 * @param singleton the card that must be in each hand
+	 * @param group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain the singleton and at least one of the group
+	 */
+	public int countContainsAndContainsAtLeastXOutOfThese(Tarot singleton, int x, List<Tarot> group) {
+		int totalCounter = 0;
+		if (x > 0 && x <= group.size()) {
+			for (TreeSet<Tarot> ts : ALL_HANDS) {
+				int xCounter = 0;
+				if (ts.contains(singleton)) {
+					for (Tarot current : group) {
+						if (ts.contains(current)) {
+							xCounter++;
+							if (xCounter == x) {
+								break;//end hand comparison early since x were found
+							}
+						}
+					}
+				}
+				if (xCounter >= x) {
+					totalCounter++;
+				}
+			}
+		} else {
+			System.err.print("Error in parameters for countContainsAtLeastXOutOfThese: " + x + " for x and "
+					+ group.size() + " for cards");
+		}
+		return totalCounter;
 	}
 }
