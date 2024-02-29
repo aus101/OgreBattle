@@ -270,12 +270,74 @@ public class AllPossibleHands {
 	
 
 	/**
-	 * Convenience method that calls <code>countContainsAnyContainsAll(group2, group1);</code>
+	 * Convenience method that calls <code>countContainsAnyContainsAll(group2, group1)</code>
 	 * @param group1 first group the cards of which all must be in each hand
 	 * @param group2 second group the cards of which at least one must be in each hand
 	 * @return the number of hands that contain all the first group and at least one of the second group
 	 */
 	public int countContainsAllContainsAny(List<Tarot> group1, List<Tarot> group2) {
 		return countContainsAnyContainsAll(group2, group1);
+	}
+	
+	/**
+	 * Fixed convenience method for 2 out of 3 instead of calling<br>
+	 * <code>countContainsAtLeastXOutOfThese(2, Tarot... group)</code>
+	 * @param card1 specific card
+	 * @param card2 specific card
+	 * @param card3 specific card
+	 * @return the number of hands that contain any 2 or all 3 of the cards
+	 */
+	public int countContainsAtLeast2OutOf3(Tarot card1, Tarot card2, Tarot card3) {
+		int totalCounter = 0;
+		for (TreeSet<Tarot> ts : ALL_HANDS) {
+			int handCounter = 0;
+			if (ts.contains(card1)) {
+				handCounter++;
+			}
+			if (ts.contains(card2)) {
+				handCounter++;
+			}
+			if (ts.contains(card3)) {//not checking for 2 to avoid a third contains since that is unlikely
+				handCounter++;
+			}
+			if (handCounter >= 2) {
+				totalCounter++;
+			}
+		}
+		return totalCounter;
+	}
+	
+	/**
+	 * @param x the number of cards which at least that many must be in each
+	 * @param group the cards of which at least x must be in each hand
+	 * @return the number of hands that contain at least x cards out of the group
+	 */
+	public int countContainsAtLeastXOutOfThese(int x, List<Tarot> group) {
+		int totalCounter = 0;
+		for (TreeSet<Tarot> ts : ALL_HANDS) {
+			int xCounter = 0;
+			for (Tarot current : group) {
+				if (ts.contains(current)) {
+					xCounter++;
+					if (xCounter == x) {
+						break;//end hand comparison early since x were found
+					}
+				}
+			}
+			if (xCounter >= x) {
+				totalCounter++;
+			}
+		}
+		return totalCounter;
+	}
+	
+	/**
+	 * Convenience method that calls <code>countContainsAtLeastXOutOfThese(int x, List<Tarot> group)</code>
+	 * @param x the number of cards which at least that many must be in each
+	 * @param group the cards of which at least x must be in each hand
+	 * @return the number of hands that contain at least x cards out of the group
+	 */
+	public int countContainsAtLeastXOutOfThese(int x, Tarot... group) {
+		return countContainsAtLeastXOutOfThese(x, Arrays.asList(group));
 	}
 }
