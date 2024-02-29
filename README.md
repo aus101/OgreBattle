@@ -19,9 +19,9 @@ The code is robust enough to work with hands of 1 to 7 cards, or more cards if u
 The bonus card drawn at the end alters the Opinion Leader's stats. This repository does not record or delve into the stat changes.    
 
 ## Note of Caution
-OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls, as well as World being favored in PSX.  
-The true in-game odds could be higher or lower or variable to some extent based on the 0-255 RNG call, the frame counter, console VRAM or other sources of entropy.    
-Certainly in SNES not all starting 7 card hands are possible. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card.    
+OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card.     
+
+The true in-game odds could be higher or lower or variable to some extent based on the 0-255 RNG byte(s), Opinion Leader name and sex, the frame counter, or other sources of entropy for the starting seed and randomness. Most likely in SNES not all starting 7 card hands are possible.       
 
 A hardcore approach would attempt frame perfect timing in SNES/SFC to obtain consistent starting cards that would make optimal answer sets irrelevant. Could manip a card set where every answer is 1.   
 This approach is far more difficul in PSX due to the card selection not locking after selecting male or female. Maniping more than the first two cards may be impossible in practice.    
