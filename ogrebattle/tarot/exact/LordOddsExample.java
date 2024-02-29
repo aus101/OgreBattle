@@ -26,21 +26,26 @@ public class LordOddsExample {
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
 	private static boolean isInitialized = false;
 	
-	public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();     // max ianuki,         74603 out of 74613 99.99%
-	public final static int[] answersPhantom =       {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};// max phantom,        74137 out of 74613 99.36%	
-	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud,      74613 out of 74613 100%
-	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
-	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom, ice cloud, 45848 out of 74613 61.45%
-	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki, ice cloud,  60171 out of 74613 80.64%
-	public final static int[] all1s =                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom, thunder    61967 out of 74613 86.76% +7114 92.59% 9258
+	public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();     // max ianuki          74603 out of 74613 99.99%
+	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud       74613 out of 74613 100%
+	
+	public final static int[] answersIanuki =     answersIanukiAll9.get(0);                       //max ianuki          74603 out of 74613 99.99%
+	public final static int[] answersPhantom =    {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
+	public final static int[] answersIceCloud =   answersIceCloudAll65.get(0);                    //max ice cloud       74613 out of 74613 100%
+	public final static int[] answersThunder =    {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
+	
+	public final static int[] ianukiIceCloud =    {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   60171 out of 74613 80.64%
+	public final static int[] phantomIceCloud =   {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
+	
+	public final static int[] all1s =             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%
 
 	private AllPossibleHands handsGenerator;
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-		final int[] tarotAnswers = all1s;//index 6
-		final int[] desiredLord = new int[]{PHANTOM, THUNDER};
-		final int record = 15209;
+		final int[] tarotAnswers = all1s;
+		final int[] desiredLord = new int[]{PHANTOM, ICE_CLOUD};
+		final int record = 9801;
 		final boolean iterate = false;
 		
 		//e.searchFor1sEntry(tarotAnswers, record, Tarot.Justice, desiredLord);
