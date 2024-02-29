@@ -11,6 +11,7 @@ import ogrebattle.tarot.pojo.Tarot;
  */
 public class CardOddsExample {
 	private static final int COMBIN = 170544;//COMBIN(22,7)
+	private static int PRECISION_PRINT = 4;
 	private AllPossibleHands sevenCards = new AllPossibleHands(7, true);//do not sort hands so runs faster
 	private AllPossibleHands sixCards = new AllPossibleHands(6, true);//do not sort hands so runs faster
 	
@@ -22,11 +23,11 @@ public class CardOddsExample {
 		e.printRandomHandOf6();
 		
 		System.out.println("Odds of 1 specific card in opening hand of 7:");
-		Util.percentPrint(e.sevenCards.countContains(Tarot.Fool), COMBIN, 4);
+		Util.percentPrint(e.sevenCards.countContains(Tarot.Fool), COMBIN, PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
-		Util.percentPrint(e.sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), COMBIN, 4);
+		Util.percentPrint(e.sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), COMBIN, PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:");
@@ -40,15 +41,17 @@ public class CardOddsExample {
 		System.out.println();
 		
 		System.out.println("2 out of 2 specific cards in opening hand of 7:");
-		Util.percentPrint(e.sevenCards.countContainsAll(Tarot.Devil, Tarot.Chariot), COMBIN, 4);
+		Util.percentPrint(e.sevenCards.countContainsAll(Tarot.Devil, Tarot.Chariot), COMBIN, PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("at least 2 out of 3 specific cards in opening hand of 7:");
-		Util.percentPrint(e.sevenCards.countContainsAtLeastXOutOfThese(2, Tarot.Devil, Tarot.Chariot, Tarot.Hermit), COMBIN, 4);
+		Util.percentPrint(e.sevenCards.countContainsAtLeastXOutOfThese(2, Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
+				COMBIN, PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("contains one specific card and at least 2 out of 3 other specific cards in opening hand of 7:");
-		Util.percentPrint(e.sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 2, Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), COMBIN, 4);
+		Util.percentPrint(e.sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 2,
+				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), COMBIN, 4);
 	}
 	
 	/**
