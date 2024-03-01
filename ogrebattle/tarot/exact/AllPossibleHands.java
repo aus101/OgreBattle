@@ -31,7 +31,7 @@ import ogrebattle.tarot.pojo.Tarot;
  */
 public class AllPossibleHands {
 	public static final int DECK_SIZE = Tarot.values().length;//22
-	public final int MAX_HAND_SIZE = 7;
+	private final int MAX_HAND_SIZE = 7;
 	private final int[] COMBIN = new int[]{22, 231, 1540, 7315, 26334, 74613, 170544};
 	private final int handSize;
 	private final int maxHands;
@@ -78,8 +78,29 @@ public class AllPossibleHands {
 		return new ArrayList<Tarot>(ALL_HANDS_LIST.get(r.nextInt(maxHands)));
 	}
 	
+	/**
+	 * Can call this or <code>numberOfHands</code>, whichever seems to be a more logical name
+	 * @return the number of hands, can change since set is mutable
+	 */
 	public int size() {
+		return numberOfHands();
+	}
+	
+	/**
+	 * Can call this or <code>numberOfHands</code>, whichever seems to be a more logical name
+	 * @return the number of hands, can change since set is mutable
+	 */
+	public int numberOfHands() {
 		return ALL_HANDS.size();
+	}
+	
+	/**
+	 * Returns the same count as <code>numberOfHands</code> or <code>size</code>
+	 * if no hand has been added or removed after construction
+	 * @return the number of possible hands
+	 */
+	public int combinations() {
+		return maxHands;
 	}
 		
 	public List<TreeSet<Tarot>> returnHandsList(int returnHands) {
@@ -268,7 +289,6 @@ public class AllPossibleHands {
 		return count;
 	}
 	
-
 	/**
 	 * Convenience method that calls <code>countContainsAnyContainsAll(group2, group1)</code>
 	 * @param group1 first group the cards of which all must be in each hand
@@ -397,5 +417,16 @@ public class AllPossibleHands {
 					+ group.size() + " for cards");
 		}
 		return totalCounter;
+	}
+	
+	/**
+	 * The utility is when a certain single card such as Fool is mandatory and at least one
+	 * of another group of cards is needed.
+	 * @param singleton the card that must be in each hand
+	 * @param group the cards of which at least one must be in each hand
+	 * @return the number of hands that contain the singleton and at least one of the group
+	 */
+	public int countContainsAndContainsAtLeastXOutOfThese(Tarot singleton, int x, Tarot... group) {
+		return countContainsAndContainsAtLeastXOutOfThese(singleton, x, Arrays.asList(group));
 	}
 }

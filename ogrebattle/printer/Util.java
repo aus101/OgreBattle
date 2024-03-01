@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
+import ogrebattle.tarot.exact.AllPossibleHands;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.tarot.pojo.TarotSorting.AlphabeticalComparator;
 import ogrebattle.tarot.simulate.TarotDeck;
@@ -86,5 +87,19 @@ public class Util {
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[values[i].ordinal()]);			
 		}
+	}
+	
+	/**
+	 * Ordered by normal Tarot card ordering so must randomize order in deep copy if dealing as individual cards
+	 */
+	public static void printRandomHand(AllPossibleHands allHands) {
+		System.out.println(allHands.returnRandomHandInList());
+	}
+	
+	/**
+	 * Ordered by normal Tarot card ordering so must randomize order in deep copy if dealing as individual cards
+	 */
+	public static void printRandomHands(int hands, AllPossibleHands allHands) {
+		System.out.println(allHands.returnRandomHandInList());
 	}
 }
