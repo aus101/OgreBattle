@@ -97,9 +97,10 @@ public class Util {
 	}
 	
 	/**
-	 * Ordered by normal Tarot card ordering so must randomize order in deep copy if dealing as individual cards
+	 * Ordered by normal Tarot card ordering so must randomize order in deep copy if dealing as individual cards<br>
 	 */
 	public static void printRandomHands(int hands, AllPossibleHands allHands) {
-		System.out.println(allHands.returnRandomHandInList());
+		for (int i = 0; i < hands; i++)
+			System.out.println(allHands.returnRandomHandInList());
 	}
 }
