@@ -54,6 +54,18 @@ public class LordOddsExample {
 		Util.printAnswersByTarotAlphabetical(tarotAnswers);
 	}
 	
+	public LordOddsExample() {
+		if (!isInitialized) {
+			isInitialized = true;
+			long start = System.nanoTime();
+			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster
+			long end = System.nanoTime();
+	
+			System.out.println((double) (end - start) / NANOSECONDS_IN_1_SECOND + " seconds to execute for "
+					+ handsGenerator.size() + " hands");
+		}
+	}
+	
 	private class OrderHolder {
 		int correct = 0;
 		int[] first = new int[4];
@@ -80,17 +92,63 @@ public class LordOddsExample {
 				}
 			}
 		}
-	}
-	
-	public LordOddsExample() {
-		if (!isInitialized) {
-			isInitialized = true;
-			long start = System.nanoTime();
-			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster
-			long end = System.nanoTime();
-	
-			System.out.println((double) (end - start) / NANOSECONDS_IN_1_SECOND + " seconds to execute for "
-					+ handsGenerator.size() + " hands");
+		
+		/**
+		 * @param tracker the list of Tarot card answers<br>
+		 * @return the highest and second highest Lord types with [0] being highest and [1] the second highest<br>
+		 * where 0 = Ianuki, 1 = Phantom, 2 = Ice Cloud, 3 = Thunder<br>
+		 * accounts for tie breaking order of Ianuki > Phantom > Ice Cloud, Thunder<br>
+		 */
+	    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
+		private int[] findHighestSecondHighest(int[] tracker) {
+			int ianuki = tracker[0]; int phantom = tracker[1]; int icecloud = tracker[2]; int thunder = tracker[3];
+			int highestIndex = 0; int secondHighestIndex = 0;
+			int highestScore = ianuki; int secondHighestScore = 0;
+			
+			//highest
+			if (phantom > highestScore) {
+				highestIndex = 1;
+				highestScore = phantom;
+			}
+			if (icecloud > highestScore) {
+				highestIndex = 2;
+				highestScore = icecloud;
+			}
+			if (thunder > highestScore) {
+				highestIndex = 3;
+				highestScore = thunder;
+			}
+			//second highest
+			if (highestIndex != 0) {
+				secondHighestIndex = 0;
+				secondHighestScore = tracker[0];
+			}
+			if (highestIndex != 1 && tracker[1] > secondHighestScore) {
+				secondHighestIndex = 1;
+				secondHighestScore = tracker[1];
+			}
+			if (highestIndex != 2 && tracker[2] > secondHighestScore) {
+				secondHighestIndex = 2;
+				secondHighestScore = tracker[2];
+			}
+			if (highestIndex != 3 && tracker[3] > secondHighestScore) {
+				secondHighestIndex = 3;
+				secondHighestScore = tracker[3];
+			}
+			return new int[]{highestIndex, secondHighestIndex};
+		}
+		
+		private int[] trackResults(int[] test, TreeSet<Tarot> hand) {
+			int[] tracker = new int[4];
+			for (Tarot card : hand) {
+				int drawn = card.ordinal();
+				int chosen = test[drawn];
+				int[] temp = TarotQuestions.getValues(TAROT_LORD[drawn], chosen);
+				for (int k = 0; k < 4; k++) {
+					tracker[k] += temp[k];
+				}
+			}
+			return tracker;
 		}
 	}
 	
@@ -225,65 +283,6 @@ public class LordOddsExample {
 		Util.printAnswers(test, DECK_SIZE);
 	}
 //	}
-	
-	private int[] trackResults(int[] test, TreeSet<Tarot> hand) {
-		int[] tracker = new int[4];
-		for (Tarot card : hand) {
-			int drawn = card.ordinal();
-			int chosen = test[drawn];
-			int[] temp = TarotQuestions.getValues(TAROT_LORD[drawn], chosen);
-			for (int k = 0; k < 4; k++) {
-				tracker[k] += temp[k];
-			}
-		}
-		return tracker;
-	}
-	
-	/**
-	 * @param tracker the list of Tarot card answers<br>
-	 * @return the highest and second highest Lord types with [0] being highest and [1] the second highest<br>
-	 * where 0 = Ianuki, 1 = Phantom, 2 = Ice Cloud, 3 = Thunder<br>
-	 * accounts for tie breaking order of Ianuki > Phantom > Ice Cloud, Thunder<br>
-	 */
-    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
-	public static int[] findHighestSecondHighest(int[] tracker) {
-		int ianuki = tracker[0]; int phantom = tracker[1]; int icecloud = tracker[2]; int thunder = tracker[3];
-		int highestIndex = 0; int secondHighestIndex = 0;
-		int highestScore = ianuki; int secondHighestScore = 0;
-		
-		//highest
-		if (phantom > highestScore) {
-			highestIndex = 1;
-			highestScore = phantom;
-		}
-		if (icecloud > highestScore) {
-			highestIndex = 2;
-			highestScore = icecloud;
-		}
-		if (thunder > highestScore) {
-			highestIndex = 3;
-			highestScore = thunder;
-		}
-		//second highest
-		if (highestIndex != 0) {
-			secondHighestIndex = 0;
-			secondHighestScore = tracker[0];
-		}
-		if (highestIndex != 1 && tracker[1] > secondHighestScore) {
-			secondHighestIndex = 1;
-			secondHighestScore = tracker[1];
-		}
-		if (highestIndex != 2 && tracker[2] > secondHighestScore) {
-			secondHighestIndex = 2;
-			secondHighestScore = tracker[2];
-		}
-		if (highestIndex != 3 && tracker[3] > secondHighestScore) {
-			secondHighestIndex = 3;
-			secondHighestScore = tracker[3];
-		}
-		return new int[]{highestIndex, secondHighestIndex};
-	}
-
 	
 	private void rotateUp(int[] answers, int slot) {
 		int value;
