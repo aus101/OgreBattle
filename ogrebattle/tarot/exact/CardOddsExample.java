@@ -29,7 +29,7 @@ public class CardOddsExample {
 		System.out.println();
 		
 		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
-		Util.percentPrint(sixCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
+		Util.percentPrint(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
 				sevenCards.combinations(), PRECISION_PRINT);
 		System.out.println();
 		
@@ -59,18 +59,18 @@ public class CardOddsExample {
 }
 /*
 Random hand of 6 with game's Tarot ordering:
-[Emperor, Lovers, Strength, Justice, Star, World]
+[Empress, Hierophant, Tower, Sun, Fool, World]
 
 Another random hand of 6 with game's Tarot ordering:
-[Priestess, Lovers, Chariot, Hanged_Man, Tower, Moon]
+[Magician, Priestess, Empress, Emperor, Lovers, Temperance]
 
 Odds of 1 specific card in opening hand of 7:
 54264 / 170544
 31.8182%
 
 Odds of at least 1 of 3 specific cards in opening hand of 7:
-47481 / 170544
-27.8409%
+120156 / 170544
+70.4545%
 
 Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:
 35700 / 170544
