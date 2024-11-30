@@ -43,12 +43,7 @@ public class OddsExample {
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st and ice cloud 2nd, 60171 out of 74613 80.64%
 	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st and thunder second, 74137 out of 74613 99.36%
 	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st and ice cloud 2nd, 45848 out of 74613 61.45%
-	
-	public final static int[] phantomPartial =       {1,1,1,1,1,1,1,2,1,2,1,1,1,2,1,1,1,1,1,1,1,3};// Phantom: 62966 56773 52740 47583 out of 74613 99.36% 64.18%
-	public final static int[] ianukiPartial =        {1,1,1,1,1,2,1,1,1,1,1,2,3,1,1,1,1,1,1,1,1,2};// Ianuki: 38754 51.94%, Phantom: 20786 27.86%
-	public final static int[] ianukiPhantomPartial = {1,1,1,1,1,2,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,2};// Ianuki: 30960 41.50%, Phantom: 30853 41.35%
 
-	
 	private AllPossibleHands handsGenerator;
 	
 	public OddsExample() {
@@ -63,6 +58,7 @@ public class OddsExample {
 	public static void main(String[] args) {
 		OddsExample e = new OddsExample();
 		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
+		
 		e.searchForImprovement(answersThunder, 74003, true, Thunder);
 		System.out.println();
 		System.out.println("Print 3 Random Hands");
@@ -76,6 +72,14 @@ public class OddsExample {
 		e.verifyOdds();//compare to ogrebattle.tarot.simulate.OddsExample.java
 	}
 	
+	/**
+	 * Print the Tarot card question answers for the most likely possibility of getting the Lord type you want.<br>
+	 * Support for highest and second highest point totals. Default is using the point values in every release but the original Super Famicom.<br>
+	 * @param solution answers in array form from Magician to World
+	 * @param record current record for most correct results, used for iterate = true
+	 * @param iterate look for an improvement by changing each question's answer 1 at a time for 1 level of iteration
+	 * @param order 1st Lord type for highest total, 2nd Lord type, if given, for 2nd highest total, 3rd highest not supported
+	 */
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
@@ -107,11 +111,7 @@ public class OddsExample {
 			Set<TreeSet<Tarot>> all_hands = handsGenerator.returnAllHandsSet();
 			for (TreeSet<Tarot> hand : all_hands) {
 				int[] tracker = new int[4];
-				boolean tower = false;
 				for (Tarot card : hand) {
-				//	if (card == Tarot.Tower) {
-				//		tower = true;
-				//	}
 					int drawn = card.ordinal();
 					int chosen = test[drawn];
 					int[] temp = TarotQuestions.getValues(tarotLord[drawn], chosen);
@@ -119,9 +119,6 @@ public class OddsExample {
 						tracker[k] += temp[k];
 					}
 				}
-				//if (!tower) {
-				//	continue;
-				//}
 
 				int[] indices = findHighestSecondHighest(tracker);
 				int highestIndex = indices[0];
@@ -133,9 +130,7 @@ public class OddsExample {
 					if (highestIndex == order[0]) {
 						correct++;
 					}	
-				}// else {
-				 //	break;//ICE CLOUD ONLY! where 100% success from any 6 cards is possible
-				 //}
+				}
 				else if (highestIndex == order[0] && secondHighestIndex == order[1]) {
 					correct++;
 				}
@@ -247,8 +242,6 @@ public class OddsExample {
 	public void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
 		for(int i=0; i<values.length; i++) {
-//			System.out.println(//pad left
-//					String.format("%" + 13 + "." + 13 + "s", new String(values[i]+": " + answers[i])));
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);				
 		}
