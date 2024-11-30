@@ -34,8 +34,8 @@ public class OddsExample {
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
 	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom, ice cloud, 45848 out of 74613 61.45%
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki, ice cloud,  60171 out of 74613 80.64%		
-	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom is most likely
-	
+	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};//  Phantom: 30953 41.48%, Ianuki: 12717 17.04%
+
 	private AllPossibleHands handsGenerator;
 	
 	public OddsExample() {
@@ -52,6 +52,7 @@ public class OddsExample {
 		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
 		e.searchForImprovement(answersThunder, 74003, true, Thunder);
 		System.out.println();
+		System.out.println("Print 3 Random Hands:");
 		e.printRandomHands(3);
 		System.out.println();
 		System.out.println("Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:");
@@ -140,6 +141,7 @@ public class OddsExample {
 				}
 			} else if (correct > currentRecord) {
 				currentRecord = correct;
+				possibleSolutions.add(test);
 				System.out.println(System.lineSeparator() + "New Record: " + currentRecord + " up from " + record);
 				printAnswers(test);
 			}
