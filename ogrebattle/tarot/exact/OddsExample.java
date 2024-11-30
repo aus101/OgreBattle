@@ -37,13 +37,18 @@ public class OddsExample {
 	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud,      74613 out of 74613 100%
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
 	
-	//Original SFC release is phantom most likely at 31077 39.44%, ice cloud second most likely 29429 41.65%
+	//Original SFC release is phantom most likely at 31077 41.65%, ice cloud second most likely 29429 39.44%
 	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom most likely 30953 41.48%, ianuki second most likely 12717 17.04%
 	
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st and ice cloud 2nd, 60171 out of 74613 80.64%
-	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st and thunder 2nd, 74137 out of 74613 99.36%
+	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st and thunder second, 74137 out of 74613 99.36%
 	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st and ice cloud 2nd, 45848 out of 74613 61.45%
+	
+	public final static int[] phantomPartial =       {1,1,1,1,1,1,1,2,1,2,1,1,1,2,1,1,1,1,1,1,1,3};// Phantom: 62966 56773 52740 47583 out of 74613 99.36% 64.18%
+	public final static int[] ianukiPartial =        {1,1,1,1,1,2,1,1,1,1,1,2,3,1,1,1,1,1,1,1,1,2};// Ianuki: 38754 51.94%, Phantom: 20786 27.86%
+	public final static int[] ianukiPhantomPartial = {1,1,1,1,1,2,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,2};// Ianuki: 30960 41.50%, Phantom: 30853 41.35%
 
+	
 	private AllPossibleHands handsGenerator;
 	
 	public OddsExample() {
@@ -76,7 +81,6 @@ public class OddsExample {
 		possibleSolutions.add(solution);
 		final int found = possibleSolutions.size();
 		TarotQuestions[] tarotLord = TarotQuestions.values();
-		
 		final int[] test = new int[deckSize];
 		
 		System.arraycopy(solution, 0, test, 0, deckSize);// deep copy
@@ -103,7 +107,11 @@ public class OddsExample {
 			Set<TreeSet<Tarot>> all_hands = handsGenerator.returnAllHandsSet();
 			for (TreeSet<Tarot> hand : all_hands) {
 				int[] tracker = new int[4];
+				boolean tower = false;
 				for (Tarot card : hand) {
+				//	if (card == Tarot.Tower) {
+				//		tower = true;
+				//	}
 					int drawn = card.ordinal();
 					int chosen = test[drawn];
 					int[] temp = TarotQuestions.getValues(tarotLord[drawn], chosen);
@@ -111,6 +119,9 @@ public class OddsExample {
 						tracker[k] += temp[k];
 					}
 				}
+				//if (!tower) {
+				//	continue;
+				//}
 
 				int[] indices = findHighestSecondHighest(tracker);
 				int highestIndex = indices[0];
@@ -122,12 +133,14 @@ public class OddsExample {
 					if (highestIndex == order[0]) {
 						correct++;
 					}	
-				} else { 
-					if (highestIndex == order[0] && secondHighestIndex == order[1]) {// order.length == 2)
-						correct++;
-					}
+				}// else {
+				 //	break;//ICE CLOUD ONLY! where 100% success from any 6 cards is possible
+				 //}
+				else if (highestIndex == order[0] && secondHighestIndex == order[1]) {
+					correct++;
 				}
 			}
+
 			if ((!iterate) && (correct < currentRecord)) {
 				System.out.println("Count of " + correct + " is worse than current record of " + record);
 				printAnswers(test);
@@ -314,7 +327,7 @@ public class OddsExample {
 	}
 }
 /*
-0.5886803 seconds to execute for 74613 hands
+0.5865753 seconds to execute for 74613 hands
 Count of 60171 equals current record of 60171
 
 Highest Lord Type
@@ -329,12 +342,14 @@ Phantom:   2398
 Ice Cloud: 60171
 Thunder:   7129
 
-No new solutions found. Existing solution(s) for 74003 counts likely optimal.
-{2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};
 
-[Priestess, Emperor, Lovers, Chariot, Hanged_Man, Sun]
-[Emperor, Strength, Devil, Moon, Sun, Judgment]
-[Hierophant, Fortune, Justice, Devil, Moon, Fool]
+New Record: 74009 up from 74003
+{2,2,3,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};
+
+Print 3 Random Hands
+[Priestess, Hierophant, Hermit, Justice, Temperance, Devil]
+[Hierophant, Hanged_Man, Temperance, Tower, Star, Judgment]
+[Magician, Hierophant, Hermit, Tower, Star, Moon]
 
 Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:
 Magician    : 3
