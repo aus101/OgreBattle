@@ -20,6 +20,10 @@ import ogrebattle.tarot.pojo.TarotQuestions;
  * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer for odds improvement.
  * More Ice Cloud solutions could theoretically exist but would be at least 3 Tarot card changes from all solutions given.
  * Perhaps the best extension would be finding optimal solutions for any Lord being the second highest total.<br>
+ * <br>
+ * <b>These point values are for all releases except the original Super Famicom release, which has the wrong values for 20 cards and reworked ones for 2.</b>
+ * Can do a Replace All of 'TarotQuestions' for 'TarotQuestionsSFC' for original SFC release points.<br>
+ * The Nintendo Power flash cart release on Super Famicom uses these values. Need to confirm Japanese Virtual Console release values.
  */
 public class OddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
@@ -32,9 +36,13 @@ public class OddsExample {
 	public final static int[] answersPhantom =       {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};// max phantom,        74137 out of 74613 99.36%	
 	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud,      74613 out of 74613 100%
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
-	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom, ice cloud, 45848 out of 74613 61.45%
-	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki, ice cloud,  60171 out of 74613 80.64%		
-	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};//  Phantom: 30953 41.48%, Ianuki: 12717 17.04%
+	
+	//Original SFC release is phantom most likely at 31077 39.44%, ice cloud second most likely 29429 41.65%
+	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom most likely 30953 41.48%, ianuki second most likely 12717 17.04%
+	
+	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st and ice cloud 2nd, 60171 out of 74613 80.64%
+	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st and thunder 2nd, 74137 out of 74613 99.36%
+	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st and ice cloud 2nd, 45848 out of 74613 61.45%
 
 	private AllPossibleHands handsGenerator;
 	
@@ -52,7 +60,7 @@ public class OddsExample {
 		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
 		e.searchForImprovement(answersThunder, 74003, true, Thunder);
 		System.out.println();
-		System.out.println("Print 3 Random Hands:");
+		System.out.println("Print 3 Random Hands");
 		e.printRandomHands(3);
 		System.out.println();
 		System.out.println("Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:");
@@ -64,15 +72,11 @@ public class OddsExample {
 	}
 	
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
-//		Ianuki ianuki = new Ianuki();
-//		Set<int[]> ianukiSolutions = ianuki.returnAllSolutionsSet();
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
 		final int found = possibleSolutions.size();
 		TarotQuestions[] tarotLord = TarotQuestions.values();
 		
-//		Iterator<int[]> it = ianukiSolutions.iterator();
-//		while(it.hasNext()) {
 		final int[] test = new int[deckSize];
 		
 		System.arraycopy(solution, 0, test, 0, deckSize);// deep copy
@@ -118,14 +122,12 @@ public class OddsExample {
 					if (highestIndex == order[0]) {
 						correct++;
 					}	
-				}// else {
-				 //	break;//ICE CLOUD ONLY! where 100% success from any 6 cards is possible
-				 //}
-				else if (highestIndex == order[0] && secondHighestIndex == order[1]) {
-					correct++;
+				} else { 
+					if (highestIndex == order[0] && secondHighestIndex == order[1]) {// order.length == 2)
+						correct++;
+					}
 				}
 			}
-
 			if ((!iterate) && (correct < currentRecord)) {
 				System.out.println("Count of " + correct + " is worse than current record of " + record);
 				printAnswers(test);

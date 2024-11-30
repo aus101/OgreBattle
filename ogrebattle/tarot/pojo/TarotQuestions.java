@@ -6,34 +6,34 @@ package ogrebattle.tarot.pojo;
  * Ice Cloud and 4 points to Thunder.<br>
  */
 public enum TarotQuestions {
-	Magician  (new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}), 
-	Priestess (new int[][]{{5,1,5,2}, {3,1,4,2}, {2,1,5,1}}), 
-	Empress   (new int[][]{{3,2,1,4}, {4,1,4,1}, {1,4,5,3}}),  
+	Magician  (new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}), //same points given in all releases
+	Priestess (new int[][]{{5,1,5,2}, {3,1,4,2}, {2,1,5,1}}), //rearranged point values compared to the SFC original release
+	Empress   (new int[][]{{3,2,1,4}, {4,1,4,1}, {1,4,3,5}}), //Priestess points given instead in SFC original release 
 	
-	Emperor   (new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}), 
-	Hierophant(new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}), 
-	Lovers    (new int[][]{{1,2,4,2}, {5,2,5,3}, {4,5,1,4}}), 
+	Emperor   (new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}), //Empress
+	Hierophant(new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}), //Emperor
+	Lovers    (new int[][]{{1,2,4,2}, {5,2,5,3}, {4,5,1,4}}), //Hierophant
 	
-	Chariot   (new int[][]{{2,5,1,4}, {3,1,5,3}, {5,4,2,5}}), 
-	Strength  (new int[][]{{3,1,5,1}, {5,3,1,2}, {4,5,4,5}}), 
-	Hermit    (new int[][]{{3,5,1,4}, {4,1,3,3}, {2,3,4,1}}), 
+	Chariot   (new int[][]{{2,5,1,4}, {3,1,5,3}, {5,4,2,5}}), //Lovers 
+	Strength  (new int[][]{{3,1,5,1}, {5,3,1,2}, {4,5,4,5}}), //Chariot
+	Hermit    (new int[][]{{3,5,1,4}, {4,1,3,3}, {2,3,4,1}}), //Strength
 	
-	Fortune   (new int[][]{{5,1,2,1}, {1,5,2,4}, {2,4,5,3}}), 
-	Justice   (new int[][]{{1,4,4,2}, {4,1,2,5}, {2,3,1,4}}), 
-	HangedMan (new int[][]{{1,5,1,3}, {4,2,2,4}, {3,3,4,4}}),
+	Fortune   (new int[][]{{5,1,2,1}, {1,5,2,4}, {2,4,5,3}}), //Hermit
+	Justice   (new int[][]{{1,4,4,2}, {4,1,2,5}, {2,3,1,4}}), //Fortune
+	HangedMan (new int[][]{{1,5,1,3}, {4,2,2,4}, {3,3,4,4}}), //Justice
 	
-	Death     (new int[][]{{1,2,5,2}, {1,3,2,4}, {5,4,1,4}}), 
-	Temperance(new int[][]{{5,1,5,1}, {1,5,4,2}, {3,3,2,5}}), 
-	Devil     (new int[][]{{4,5,1,5}, {5,1,2,3}, {1,2,5,1}}),  
+	Death     (new int[][]{{1,2,5,2}, {1,3,2,4}, {5,4,1,4}}), //Hanged Man
+	Temperance(new int[][]{{5,1,5,1}, {1,5,4,2}, {3,3,2,5}}), //Death
+	Devil     (new int[][]{{4,5,1,5}, {5,1,2,3}, {1,2,5,1}}), //Temperance
     
-	Tower     (new int[][]{{3,5,3,1}, {4,4,2,5}, {1,2,5,2}}), 
-	Star      (new int[][]{{1,2,3,2}, {3,1,2,1}, {2,3,1,3}}), 
-	Moon      (new int[][]{{1,3,2,3}, {2,1,3,2}, {3,1,1,1}}), 
+	Tower     (new int[][]{{3,5,3,1}, {4,4,2,5}, {1,2,5,2}}), //Devil
+	Star      (new int[][]{{1,2,3,2}, {3,1,2,1}, {2,3,1,3}}), //Tower
+	Moon      (new int[][]{{1,3,2,3}, {2,1,3,2}, {3,1,1,1}}), //Star
     
-	Sun       (new int[][]{{1,4,2,4}, {3,2,3,1}, {2,1,4,2}}), 
-	Judgment  (new int[][]{{2,1,1,1}, {1,3,2,3}, {3,2,3,2}}), 
-	Fool      (new int[][]{{3,4,4,1}, {4,3,2,2}, {2,1,3,3}}), 
-	World     (new int[][]{{1,1,2,5}, {4,2,4,2}, {2,5,2,1}});
+	Sun       (new int[][]{{1,4,2,4}, {3,2,3,1}, {2,1,4,2}}), //Moon
+	Judgment  (new int[][]{{2,1,1,1}, {1,3,2,3}, {3,2,3,2}}), //Sun
+	Fool      (new int[][]{{3,4,4,1}, {4,3,2,2}, {2,1,3,3}}), //Judgment
+	World     (new int[][]{{1,1,2,5}, {4,2,4,2}, {2,5,2,1}}); //Fool points from SFC are World points here, switch is reversed
     
 	private int[][] values = new int[4][3];
 	
