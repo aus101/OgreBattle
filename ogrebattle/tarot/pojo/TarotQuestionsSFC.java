@@ -1,5 +1,13 @@
 package ogrebattle.tarot.pojo;
 
+/**
+ * Point values for the original Super Famicom release ONLY. The Nintendo Power flash cart release on Super Famicom uses <code>TarotQuestions.java</code> values.<br>
+ * Order is answer 1, 2, 3, 4 for Ianuki, Phantom, Ice Cloud, Thunder<br>
+ * since that is the order the game stores the Lord values and therefore the order used to break ties.<br>
+ * i.e. First answer Poison for Magician gives 2 points to Ianuki, 4 points to Phantom, 1 point to 
+ * Ice Cloud and 4 points to Thunder.<br>
+ * Game sums the total and determines the Lord type once the bonus card has been chosen.
+ */
 public enum TarotQuestionsSFC {
 	Magician(new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}),  //same point values given as in all other releases 
 	Priestess(new int[][]{{2,1,5,1}, {3,2,1,4}, {1,4,3,5}}), //rearranged point values in all subsequent releases

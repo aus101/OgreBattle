@@ -61,16 +61,16 @@ public class OddsExample {
 		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
 		e.searchForImprovement(answersThunder, 74003, true, Thunder);
 		
-		System.out.println();
-		System.out.println("Print 3 Random Hands");
-		e.printRandomHands(3);
-		System.out.println();
-		
 		System.out.println("Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:");
 		e.printAnswersByTarot(answersPhantom);
 		
 		System.out.println();
 		e.printAnswersByTarotAlphabetical(answersPhantom);
+		System.out.println();
+		
+		System.out.println();
+		System.out.println("Print 3 Random Hands");
+		e.printRandomHands(3);
 		System.out.println();
 		
 		e.verifyOdds();//compare to ogrebattle.tarot.simulate.OddsExample.java
