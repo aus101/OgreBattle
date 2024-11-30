@@ -34,7 +34,7 @@ public class LordOddsExample {
 	public final static int[] answersIceCloud =   answersIceCloudAll65.get(0);                    //max ice cloud       74613 out of 74613 100%
 	public final static int[] answersThunder =    {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
 	
-	public final static int[] ianukiIceCloud =    {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   60171 out of 74613 80.64%
+	public final static int[] ianukiIceCloud =    {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
 	public final static int[] phantomIceCloud =   {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
 	
 	public final static int[] all1s =             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%

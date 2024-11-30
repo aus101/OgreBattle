@@ -83,7 +83,7 @@ package ogrebattle.tarot.simulate;
  *  4 desired cards: 816 / 170544<br>
  *  = COMBIN(19,4) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(4,7,4,22,0)<br>
- *  ≈ 0.4785%<br> 
+ *  = 0.4785%<br> 
  *  <br>
  *  Notice the convergence as hands increase, with diminished returns, toward the true values.<br>
  *  One limitation to this approach is difficulty in noticing Ianuki and Ice Cloud have multiple optimal solutions.<br>
