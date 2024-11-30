@@ -5,7 +5,6 @@ import static ogrebattle.tarot.pojo.TarotSorting.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -32,17 +31,18 @@ public class OddsExample {
 	public final static int deckSize = Tarot.values().length;
 	private final static int Ianuki=0; final static int Phantom=1; final static int Ice_Cloud=2; final static int Thunder=3;
 	
-	public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();     // max ianuki,         74603 out of 74613 99.99%
-	public final static int[] answersPhantom =       {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};// max phantom,        74137 out of 74613 99.36%	
-	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud,      74613 out of 74613 100%
-	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,        74003 out of 74613 99.18%
+	//just get the first solution for Ianuki and Ice Cloud, can iterate through and see them all if you want
+	public final static int[] answersIanukiAll9 = new Ianuki().returnAllSolutionsList().get(0);     // max ianuki, 9 solutions      74603 out of 74613 99.99%
+	public final static int[] answersPhantom =       {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3}; // max phantom,                 74137 out of 74613 99.36%	
+	public final static int[] answersIceCloudAll65 = new IceCloud().returnAllSolutionsList().get(0);// max ice cloud, 65+ solutions 74613 out of 74613 100%
+	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1}; // max thunder,                 74003 out of 74613 99.18%
 	
 	//Original SFC release is phantom most likely at 31077 41.65%, ice cloud second most likely 29429 39.44%
 	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom most likely 30953 41.48%, ianuki second most likely 12717 17.04%
 	
-	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st and ice cloud 2nd, 60171 out of 74613 80.64%
-	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st and thunder second, 74137 out of 74613 99.36%
-	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st and ice cloud 2nd, 45848 out of 74613 61.45%
+	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st & ice cloud 2nd,   60171 out of 74613 80.64%
+	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st & thunder second,  74137 out of 74613 99.36%
+	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st & ice cloud 2nd,  45848 out of 74613 61.45%
 
 	private AllPossibleHands handsGenerator;
 	
@@ -57,18 +57,22 @@ public class OddsExample {
 	
 	public static void main(String[] args) {
 		OddsExample e = new OddsExample();
-		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
 		
+		e.searchForImprovement(ianukiIceCloud, 60171, false, Ianuki, Ice_Cloud);
 		e.searchForImprovement(answersThunder, 74003, true, Thunder);
+		
 		System.out.println();
 		System.out.println("Print 3 Random Hands");
 		e.printRandomHands(3);
 		System.out.println();
+		
 		System.out.println("Phantom Lord optimal answers for 99.36% chance for in-game and alphabetical order:");
 		e.printAnswersByTarot(answersPhantom);
+		
 		System.out.println();
 		e.printAnswersByTarotAlphabetical(answersPhantom);
 		System.out.println();
+		
 		e.verifyOdds();//compare to ogrebattle.tarot.simulate.OddsExample.java
 	}
 	
