@@ -43,10 +43,6 @@ public class OddsExample {
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st & ice cloud 2nd,   60171 out of 74613 80.64%
 	public final static int[] answersIanukiThunder = {1,1,1,1,2,3,3,2,2,1,2,2,3,1,2,2,1,3,2,1,3,2};// ianuki 1st & thunder second,  74137 out of 74613 99.36%
 	public final static int[] phantomIceCloud =      {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};// phantom 1st & ice cloud 2nd,  45848 out of 74613 61.45%
-	
-	public final static int[] phantomPartial =       {1,1,1,1,1,1,1,2,1,2,1,1,1,2,1,1,1,1,1,1,1,3};// Phantom: 62966 56773 52740 47583 out of 74613 99.36% 64.18%
-	public final static int[] ianukiPartial =        {1,1,1,1,1,2,1,1,1,1,1,2,3,1,1,1,1,1,1,1,1,2};// Ianuki: 38754 51.94%, Phantom: 20786 27.86%
-	public final static int[] ianukiPhantomPartial = {1,1,1,1,1,2,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,2};// Ianuki: 30960 41.50%, Phantom: 30853 41.35%
 
 	private AllPossibleHands handsGenerator;
 	
