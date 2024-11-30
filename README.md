@@ -6,12 +6,12 @@ Herein is an Ogre Battle Tarot card generator to determine the exact odds of var
 Brute-forcing all hand combinations where order does not matter is done for 6 cards in under 1 second and under 2 seconds for 7 cards on a stock i5 desktop computer.    
 No external Java libraries are used. No need for Maven or Gradle.            
 
-The focus is solving for the optimal set of answers to Warren's 6 question for each lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
+The focus is solving for the optimal set of answers to Warren's 6 question for each Lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
 Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and can be seen by running the mains.     
-Alternatively, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc.    
+Alternatively and equivalently, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc. More complex probabilities would need the code approach.  
      
-Previously published sets of answers for each lord type had about a 65% success rate. The odds are raised here to 99.18-100%.   
-The lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 80.64% and 61.45%, respectively.    
+Previously published sets of answers for each Lord type had about a 65% success rate. The odds are raised here to 99.18-100%.   
+The Lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 80.64% and 61.45%, respectively.    
 Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.    
 
 ## Additional Details
@@ -33,8 +33,7 @@ Perhaps the ordering will be retconned in a future remaster/revision considering
 ## Notice
 Not for distribution, or use, or use or distribution of a deriviative work on:     
 ```
-    - Wiki that has advertisements or a website related to the for-profit wiki owners.
-    - Other for-profit website or message board related to for-profit wiki owners.
+    - Fandon or Fandom-owned properties, including GameFAQs.
     - Video with video sponsor or other form of paid promotion.
     - Video with any association to lootboxes or gacha games.
 ```
