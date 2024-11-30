@@ -21,10 +21,10 @@ The bonus card drawn at the end alters the Opinion Leader's stats. This reposito
 ## Note of Caution
 OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card.     
 
-The true in-game odds could be higher or lower or variable to some extent based on the 0-255 RNG byte(s), Opinion Leader name and sex, the frame counter, or other sources of entropy for the starting seed and randomness. Most likely in SNES not all starting 7 card hands are possible.       
+The true in-game odds could be higher or lower or variable to some extent based on the 0-255 RNG byte(s), Opinion Leader name and sex, the frame counter, or other sources of entropy for the starting seed and randomness. Most likely in SNES and Saturn not all starting 7 card hands are possible.       
 
 A hardcore approach would attempt frame perfect timing in SNES/SFC to obtain consistent starting cards that would make optimal answer sets irrelevant. Could manip a card set where every answer is 1.   
-This approach is far more difficul in PSX due to the card selection not locking after selecting male or female. Maniping more than the first two cards may be impossible in practice.    
+This approach is far more difficult in PSX due to the card selection not locking after selecting male or female. Maniping more than the first two cards may be impossible in practice but not in a TAS.    
 
 ## Order of Cards
 The enumerated Tarot cards preserve the in-game ordering of Fool before World. Fool not appearing first is deliberate. It is placed before World in the The Pictoral Key to the Tarot that followed the successful and influential Waite-Smith Tarot deck of 1909.   
