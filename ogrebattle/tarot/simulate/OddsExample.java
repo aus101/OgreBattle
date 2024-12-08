@@ -32,10 +32,12 @@ package ogrebattle.tarot.simulate;
  *  = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
  *  = 1 - COMBIN(20,7) / COMBIN(22,7)<br>
  *  = 1 - HYPGEOM.DIST(0,7,2,22,0)<br>
+ *  = SUM(HYPGEOM.DIST(1,7,2,22,0), HYPGEOM.DIST(2,7,2,22,0))<br>
  *  = 54.54%, 54 repeating of course<br>
  *  <br>
  *  Desired card AND (at least 1 of 2 other desired Tarot cards): 27132 / 170544<br>
  *  = SUM(2 * COMBIN(20,5), -COMBIN(19,4)) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(1,7,1,22,0) * SUM(HYPGEOM.DIST(1,6,2,21,0), HYPGEOM.DIST(2,6,2,21,0))<br>
  *  = SUM(HYPGEOM.DIST(1,6,1,20,0) * HYPGEOM.DIST(1,7,2,22,0),<br>
  *  HYPGEOM.DIST(1,5,1,20,0) * HYPGEOM.DIST(2,7,2,22,0))<br>
  *  = 15.90%, 90 repeating of course<br>
@@ -49,15 +51,18 @@ package ogrebattle.tarot.simulate;
  * <br>
  * Desired card AND (at least 1 of 3 other cards): 35700 / 170544<br>
  *  = SUM(3 * COMBIN(20,5), 3 * -COMBIN(19,4), COMBIN(18, 3)) / COMBIN(22,7)<br>
- * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
+ *  = HYPGEOM.DIST(1,7,1,22,0) *<br>
+ *  SUM(HYPGEOM.DIST(1,6,3,21,0), HYPGEOM.DIST(2,6,3,21,0),  HYPGEOM.DIST(3,6,3,21,0))<br>
+ *  = SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
  *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  = 20.93%<br>
  *  <br>
  *  Desired card AND (at least 2 of 3 other cards): 9996 / 170544<br>
- *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)
- *  = SUM(HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),
- *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))
+ *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(1,7,1,22,0) * SUM(HYPGEOM.DIST(2,6,3,21,0), HYPGEOM.DIST(3,6,3,21,0))<br>
+ *  = SUM(HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
+ *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  = 5.86%<br>
  *  <br>
  *  2 desired cards: 15504 / 170544<br>
@@ -93,9 +98,21 @@ package ogrebattle.tarot.simulate;
  *  <br>
  *  NONE of 4 bad cards: 31824 / 170544<br>
  *  = COMBIN(18,7) / COMBIN(22,7)<br>
- *  = HYPGEOM.DIST(0,7,4,22,0) = HYPGEOM.DIST(7,7,189,22,0)<br>
+ *  = HYPGEOM.DIST(0,7,4,22,0) = HYPGEOM.DIST(7,7,18,22,0)<br>
  *  = (22-4)/22 * (21-4)/21 * (20-4)/20 * (19-4)/19 * (18-4)/18 * (17-4)/17 * (16-4)/16<br>
  *  = 18.66%<br>
+ *  <br>
+ *  Desired card AND NONE of 3 bad cards: 18564 / 170544<br>
+ *  = COMBIN(16,6) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(1,7,1,22,0) * HYPGEOM.DIST(0,6,3,21,0)<br>
+ *  = HYPGEOM.DIST(1,7,1,19,0) * HYPGEOM.DIST(0,7,3,22,0)<br>
+ *  = 10.89%<br>
+ *  <br>
+ *  Desired card AND NONE of 4 bad cards: 12376 / 170544<br>
+ *  = COMBIN(17,6) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(1,7,1,22,0) * HYPGEOM.DIST(0,6,4,21,0)<br>
+ *  = HYPGEOM.DIST(1,7,1,18,0) * HYPGEOM.DIST(0,7,4,22,0)<br>
+ *  = 7.26%<br>
  *  <br>
  *  Notice the convergence as hands increase, with diminished returns, toward the true values.<br>
  *  One limitation to this approach is difficulty in noticing Ianuki and Ice Cloud have multiple optimal solutions.<br>
@@ -127,6 +144,8 @@ public class OddsExample {
 			+ " hands with Devil, Chariot and/or Hermit");
 		System.out.println(TarotDeck.getValidHands() + ": " + printPercent(TarotDeck.getValidHands())
 		 + " hands with Fool and at least 1 of the 3 damage cards");
+		System.out.println(TarotDeck.getInvalidHands() + ": " + printPercent(TarotDeck.getInvalidHands())
+		 + " hands with Fool and NONE of the 3 damage cards");
 	}
 	
 	public static String printPercent(int successes) {

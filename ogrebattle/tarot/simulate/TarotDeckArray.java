@@ -85,8 +85,12 @@ public final class TarotDeckArray extends TarotDeck {
 					}
 				}
 				
-		if (fool && dch) {
-			validHands++;
+		if (fool) {
+			if (dch) {
+				validHands++;
+			} else {
+			    invalidHands++;
+			}
 		}
 	}
 }

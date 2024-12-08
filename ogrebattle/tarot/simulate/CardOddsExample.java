@@ -117,6 +117,8 @@ public class CardOddsExample {
 			+ " hands with Devil, Chariot and/or Hermit");
 		System.out.println(TarotDeck.getValidHands() + ": " + Util.percent(TarotDeck.getValidHands(), TarotDeck.getTotalHands())
 		 + " hands with Fool and at least 1 of the 3 damage cards");
+		System.out.println(TarotDeck.getInvalidHands() + ": " + Util.percent(TarotDeck.getInvalidHands(),  TarotDeck.getTotalHands())
+		 + " hands with Fool and NONE of the 3 damage cards");
 	}
 }
 /*

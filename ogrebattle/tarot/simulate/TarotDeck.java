@@ -25,6 +25,7 @@ public class TarotDeck {
 	protected static int anyOfThree = 0;//i.e. at least one of three
 	protected static int totalHands = 0;
 	protected static int validHands = 0;
+	protected static int invalidHands = 0;
 	
 	/**
 	 * Generate deck of 7 Tarot cards using lists
@@ -67,9 +68,13 @@ public class TarotDeck {
 			dch = true;
 		}
 		
-		if (fool && dch) {
-			validHands++;
-		}	
+		if (fool) {
+			if (dch) {
+				validHands++;
+			} else {
+			    invalidHands++;
+			}
+		}
 	}
 
 	public static int getfoolCount() {
@@ -86,5 +91,9 @@ public class TarotDeck {
 
 	public static int getValidHands() {
 		return validHands;
+	}
+	
+	public static int getInvalidHands() {
+		return invalidHands;
 	}
 }
