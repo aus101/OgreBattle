@@ -52,13 +52,13 @@ package ogrebattle.tarot.simulate;
  * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
  *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
- *  ≈ 20.93%<br>
+ *  = 20.93%<br>
  *  <br>
  *  Desired card AND (at least 2 of 3 other cards): 9996 / 170544<br>
  *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)
  *  = SUM(HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),
  *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))
- *  ≈ 5.86%<br>
+ *  = 5.86%<br>
  *  <br>
  *  2 desired cards: 15504 / 170544<br>
  *  = COMBIN(20,5) / COMBIN(22,7)<br>
@@ -76,7 +76,7 @@ package ogrebattle.tarot.simulate;
  *  = 22.27%, 27 repeating of course: 10x greater than previous odds
  *  <br>
  *  Tower in first 6 cards and 1 of 5 specific cards as the 7th bonus card: 101745 / 1566873<br>
- *  = COMBIN(21,5) / COMBIN(22/6) * COMBIN(5,1) / COMBIN(21,1) = COMBIN(21,5) / COMBIN(22/6) * (5/21)<br>
+ *  = COMBIN(21,5) / COMBIN(22,6) * COMBIN(5,1) / COMBIN(21,1) = COMBIN(21,5) / COMBIN(22,6) * (5/21)<br>
  *  = HYPGEOM.DIST(1,6,1,22,0) * HYPGEOM.DIST(1,1,5,21,0)<br>
  *  = 6.49%<br>
  *  <br>
@@ -84,6 +84,18 @@ package ogrebattle.tarot.simulate;
  *  = COMBIN(19,4) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(4,7,4,22,0)<br>
  *  = 0.4785%<br> 
+ *  <br>
+ *  NONE of 3 bad cards: 50388 / 170544<br>
+ *  = COMBIN(19,7) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(0,7,3,22,0) = HYPGEOM.DIST(7,7,19,22,0)<br>
+ *  = (22-3)/22 * (21-3)/21 * (20-3)/20 * (19-3)/19 * (18-3)/18 * (17-3)/17 * (16-3)/16<br>
+ *  = 29.54%<br>
+ *  <br>
+ *  NONE of 4 bad cards: 31824 / 170544<br>
+ *  = COMBIN(18,7) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(0,7,4,22,0) = HYPGEOM.DIST(7,7,189,22,0)<br>
+ *  = (22-4)/22 * (21-4)/21 * (20-4)/20 * (19-4)/19 * (18-4)/18 * (17-4)/17 * (16-4)/16<br>
+ *  = 18.66%<br>
  *  <br>
  *  Notice the convergence as hands increase, with diminished returns, toward the true values.<br>
  *  One limitation to this approach is difficulty in noticing Ianuki and Ice Cloud have multiple optimal solutions.<br>
