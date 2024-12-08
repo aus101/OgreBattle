@@ -33,7 +33,7 @@ Perhaps the ordering will be retconned in a future remaster/revision considering
 ## Notice
 Not for distribution, or use, or use or distribution of a deriviative work on:     
 ```
-    - Fandon or Fandom-owned properties, including GameFAQs.
+    - Fandom or Fandom-owned properties, including GameFAQs.
     - Video with video sponsor or other form of paid promotion.
     - Video with any association to lootboxes or gacha games.
 ```
