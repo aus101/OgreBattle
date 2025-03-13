@@ -21,10 +21,10 @@ import ogrebattle.tarot.pojo.TarotQuestionsSFC;
 public class LordOddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	public final static int DECK_SIZE = Tarot.values().length;
-	public final static int IANUKI=1; final static int PHANTOM=2; final static int ICE_CLOUD=3; final static int THUNDER=4;
+	public final static int IANUKI=0; final static int PHANTOM=1; final static int ICE_CLOUD=2; final static int THUNDER=3;
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
 	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
-	private static final boolean ORIGINAL_SFC_QUESTIONS = false;
+	private static final boolean ORIGINAL_SFC_QUESTIONS = true;
 	private static boolean isInitialized = false;
 	
 	//public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();
@@ -49,9 +49,9 @@ public class LordOddsExample {
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-		final int[] tarotAnswers = answersIanuki;
-		final int[] desiredLord = new int[]{IANUKI};
-		final int record = 74603;
+		final int[] tarotAnswers = sfcPhantom;
+		final int[] desiredLord = new int[]{PHANTOM};
+		final int record = 74386;
 		final boolean iterate = false;
 		
 		//e.searchFor1sEntry(tarotAnswers, record, desiredLord);
