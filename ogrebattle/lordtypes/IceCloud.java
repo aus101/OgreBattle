@@ -10,11 +10,16 @@ import java.util.TreeSet;
 * thus can be chosen with 100% certainty. Here the 65 sets are constructed and returned.<br>
 */
 public class IceCloud extends LordType {
-	
-	public IceCloud() {
-		BASE = new int[] {3,2,3,1,1,1,1,3,3,3,1,1,2,2,3,1,3,1,2,2,1,3};
+	private static boolean INIT = false;
+	//debatable to return the array or a shallow copy or allow at all
+	public static int[] getBASE() {
+		if (!INIT) {
+			BASE = new int[]{3,2,3,1,1,1,1,3,3,3,1,1,2,2,3,1,3,1,2,2,1,3};
+			INIT = true;
+		}
+		return BASE;
 	}
-	
+
 	public static void main(String[] args) {
 		IceCloud ic = new IceCloud();
 		ic.printSolutions();

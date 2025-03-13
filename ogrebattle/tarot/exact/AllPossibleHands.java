@@ -415,6 +415,23 @@ public class AllPossibleHands {
 		} else {
 			System.err.print("Error in parameters for countContainsAtLeastXOutOfThese: " + x + " for x and "
 					+ group.size() + " for cards");
+
+			for (TreeSet<Tarot> ts : ALL_HANDS) {
+				int xCounter = 0;
+				if (ts.contains(singleton)) {
+					for (Tarot current : group) {
+						if (ts.contains(current)) {
+							xCounter++;
+							if (xCounter > x) {
+								break;//end hand comparison early since x were found
+							}
+						}
+					}
+					if (xCounter ==  x) {
+						totalCounter++;
+					}
+				}
+			}	
 		}
 		return totalCounter;
 	}

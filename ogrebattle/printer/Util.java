@@ -75,8 +75,10 @@ public class Util {
 	public static void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
 		for(int i=0; i<values.length; i++) {
-			System.out.println(//pad right
-			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);				
+			System.out.println(
+			String.format(String.valueOf(values[i])) + ": " + answers[i]);
+			//System.out.println(//pad right
+			//String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);				
 		}
 	}
 	

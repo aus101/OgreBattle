@@ -85,16 +85,16 @@ package ogrebattle.tarot.simulate;
  *  = HYPGEOM.DIST(1,6,1,22,0) * HYPGEOM.DIST(1,1,5,21,0)<br>
  *  = 6.49%<br>
  *  <br>
- *  4 desired cards: 816 / 170544<br>
- *  = COMBIN(19,4) / COMBIN(22,7)<br>
- *  = HYPGEOM.DIST(4,7,4,22,0)<br>
- *  = 0.4785%<br> 
- *  <br>
  *  NONE of 3 bad cards: 50388 / 170544<br>
  *  = COMBIN(19,7) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(0,7,3,22,0) = HYPGEOM.DIST(7,7,19,22,0)<br>
  *  = (22-3)/22 * (21-3)/21 * (20-3)/20 * (19-3)/19 * (18-3)/18 * (17-3)/17 * (16-3)/16<br>
  *  = 29.54%<br>
+ *  <br>
+ *  4 desired cards: 816 / 170544<br>
+ *  = COMBIN(18,3) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(4,7,4,22,0)<br>
+ *  = 0.4785%<br> 
  *  <br>
  *  NONE of 4 bad cards: 31824 / 170544<br>
  *  = COMBIN(18,7) / COMBIN(22,7)<br>
@@ -113,6 +113,12 @@ package ogrebattle.tarot.simulate;
  *  = HYPGEOM.DIST(1,7,1,22,0) * HYPGEOM.DIST(0,6,4,21,0)<br>
  *  = HYPGEOM.DIST(1,7,1,18,0) * HYPGEOM.DIST(0,7,4,22,0)<br>
  *  = 7.26%<br>
+ *  <br>
+ *  5 desired cards: 136 / 170544<br>
+ *  = COMBIN(17,2) / COMBIN(22,7)<br>
+ *  = HYPGEOM.DIST(5,7,5,22,0)<br>
+ *  = 0.4785%<br> 
+ *  Certain 5 card combinations may not be possible in SFC/SNES and Saturn<br>
  *  <br>
  *  Notice the convergence as hands increase, with diminished returns, toward the true values.<br>
  *  One limitation to this approach is difficulty in noticing Ianuki and Ice Cloud have multiple optimal solutions.<br>

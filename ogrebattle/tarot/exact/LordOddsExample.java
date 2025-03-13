@@ -2,7 +2,6 @@ package ogrebattle.tarot.exact;
 
 import static ogrebattle.tarot.pojo.TarotSorting.*;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import ogrebattle.lordtypes.Ianuki;
@@ -10,6 +9,7 @@ import ogrebattle.lordtypes.IceCloud;
 import ogrebattle.printer.Util;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.tarot.pojo.TarotQuestions;
+import ogrebattle.tarot.pojo.TarotQuestionsSFC;
 
 /**
  * Not really intended to be clean, reusable code. Rather to show how to use AllPossibleHands to derive optimal solutions.
@@ -20,38 +20,45 @@ import ogrebattle.tarot.pojo.TarotQuestions;
  */
 public class LordOddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
-	//for Ice Cloud iterations since Fortune, Justice and Devil answers are constant for all 65 solutions
 	public final static int DECK_SIZE = Tarot.values().length;
-	public final static int IANUKI=0; final static int PHANTOM=1; final static int ICE_CLOUD=2; final static int THUNDER=3;
+	public final static int IANUKI=1; final static int PHANTOM=2; final static int ICE_CLOUD=3; final static int THUNDER=4;
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
+	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
+	private static final boolean ORIGINAL_SFC_QUESTIONS = false;
 	private static boolean isInitialized = false;
 	
-	public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();     // max ianuki        74603 out of 74613 99.99%
-	public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();// max ice cloud     74613 out of 74613 100%
+	//public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();
+	//public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();
 	
-	public final static int[] answersIanuki =     answersIanukiAll9.get(0);                       //max ianuki          74603 out of 74613 99.99%
+	public final static int[] answersIanuki =     Ianuki.getBASE();                               //max ianuki          74603 out of 74613 99.99%
 	public final static int[] answersPhantom =    {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
-	public final static int[] answersIceCloud =   answersIceCloudAll65.get(0);                    //max ice cloud       74613 out of 74613 100%
+	public final static int[] answersIceCloud =   IceCloud.getBASE();                             //max ice cloud       74613 out of 74613 100%
 	public final static int[] answersThunder =    {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
 	
 	public final static int[] ianukiIceCloud =    {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
 	public final static int[] phantomIceCloud =   {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
 	
+	public final static int[] sfcIanuki =         {1,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};  //ianuki most likely 74506 out of 74613 99.86%
+	public final static int[] sfcPhantom =        {3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2};  //phantom most likely 74386 out of 74613 99.70%
+	public final static int[] sfcIceCloud =       {3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};  //ice cloud most likely 74613 out of 74613 100% 9
+	public final static int[] sfcThunder =        {2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3};  //thunder most likely 72839 out of 74613 97.62%
+	
 	public final static int[] all1s =             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%
-
+	                                                
 	private AllPossibleHands handsGenerator;
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-		final int[] tarotAnswers = all1s;
-		final int[] desiredLord = new int[]{PHANTOM, ICE_CLOUD};
-		final int record = 9801;
+		final int[] tarotAnswers = answersIanuki;
+		final int[] desiredLord = new int[]{IANUKI};
+		final int record = 74603;
 		final boolean iterate = false;
 		
 		//e.searchFor1sEntry(tarotAnswers, record, desiredLord);
 		e.searchForImprovement(tarotAnswers, record, iterate, desiredLord);
 		System.out.println();
-		Util.printAnswersByTarotAlphabetical(tarotAnswers);
+		Util.printAnswersByTarot(tarotAnswers);
+		//Util.printAnswersByTarotAlphabetical(tarotAnswers);
 	}
 	
 	public LordOddsExample() {
@@ -78,7 +85,7 @@ public class LordOddsExample {
 				int highestIndex = indices[0];
 				int secondHighestIndex = indices[1];
 				first[highestIndex]++;
-				second[indices[1]]++;
+				second[secondHighestIndex]++;
 
 				if (order.length == 1) {
 					if (highestIndex == order[0]) {
@@ -143,7 +150,12 @@ public class LordOddsExample {
 			for (Tarot card : hand) {
 				int drawn = card.ordinal();
 				int chosen = test[drawn];
-				int[] temp = TarotQuestions.getValues(TAROT_LORD[drawn], chosen);
+				int[] temp = null;
+				if(!ORIGINAL_SFC_QUESTIONS) {
+					temp = TarotQuestions.getValues(TAROT_LORD[drawn], chosen);
+				} else {
+					temp = TarotQuestionsSFC.getValues(TAROT_LORD_SFC[drawn], chosen);
+				}
 				for (int k = 0; k < 4; k++) {
 					tracker[k] += temp[k];
 				}

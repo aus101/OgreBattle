@@ -10,9 +10,14 @@ import java.util.TreeSet;
  * 74603 out of 74613 (99.99%). Here they are constructed and returned.<br>
  */
 public class Ianuki extends LordType {
-	
-	public Ianuki() {
-		BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+	private static boolean INIT = false;
+	//debatable to return the array or a shallow copy or allow at all
+	public static int[] getBASE() {
+		if (!INIT) {
+			BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+			INIT = true;
+		}
+		return BASE;
 	}
 	
 	public static void main(String[] args) {
