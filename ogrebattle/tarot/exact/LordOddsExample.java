@@ -109,48 +109,48 @@ public class LordOddsExample {
 	    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
 		private int[] findHighestSecondHighest(int[] tracker) {
 			int ianuki = tracker[0]; int phantom = tracker[1]; int icecloud = tracker[2]; int thunder = tracker[3];
-			int highestIndex = 0; int secondHighestIndex = 0;
+			int highestIndex = IANUKI; int secondHighestIndex = -1;//default to Ianuki
 			int highestScore = ianuki; int secondHighestScore = 0;
 			
 			//highest
 			if (phantom > highestScore) {
-				highestIndex = 1;
+				highestIndex = PHANTOM;
 				highestScore = phantom;
 			}
 			if (icecloud > highestScore) {
-				highestIndex = 2;
+				highestIndex = ICE_CLOUD;
 				highestScore = icecloud;
 			}
 			if (thunder > highestScore) {
-				highestIndex = 3;
+				highestIndex = THUNDER;
 				highestScore = thunder;
 			}
 			//second highest
-			if (highestIndex != 0) {
-				secondHighestIndex = 0;
+			if (highestIndex != IANUKI) {
+				secondHighestIndex = IANUKI;
 				secondHighestScore = tracker[0];
 			}
-			if (highestIndex != 1 && tracker[1] > secondHighestScore) {
-				secondHighestIndex = 1;
+			if (highestIndex != PHANTOM && tracker[1] > secondHighestScore) {
+				secondHighestIndex = PHANTOM;
 				secondHighestScore = tracker[1];
 			}
-			if (highestIndex != 2 && tracker[2] > secondHighestScore) {
-				secondHighestIndex = 2;
+			if (highestIndex != ICE_CLOUD && tracker[2] > secondHighestScore) {
+				secondHighestIndex = ICE_CLOUD;
 				secondHighestScore = tracker[2];
 			}
-			if (highestIndex != 3 && tracker[3] > secondHighestScore) {
-				secondHighestIndex = 3;
+			if (highestIndex != THUNDER && tracker[3] > secondHighestScore) {
+				secondHighestIndex = THUNDER;
 				secondHighestScore = tracker[3];
 			}
 			return new int[]{highestIndex, secondHighestIndex};
 		}
 		
 		private int[] trackResults(int[] test, TreeSet<Tarot> hand) {
-			int[] tracker = new int[4];
+			final int[] tracker = new int[4]; //4 Lord Types
 			for (Tarot card : hand) {
 				int drawn = card.ordinal();
 				int chosen = test[drawn];
-				int[] temp = null;
+				int[] temp;
 				if(!ORIGINAL_SFC_QUESTIONS) {
 					temp = TarotQuestions.getValues(TAROT_LORD[drawn], chosen);
 				} else {
