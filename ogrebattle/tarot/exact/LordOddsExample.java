@@ -7,6 +7,11 @@ import java.util.TreeSet;
 import ogrebattle.lordtypes.Ianuki;
 import ogrebattle.lordtypes.IceCloud;
 import ogrebattle.printer.Util;
+//static imports to reduce clutter
+import static ogrebattle.tarot.pojo.LORD.IANUKI;
+import static ogrebattle.tarot.pojo.LORD.PHANTOM;
+import static ogrebattle.tarot.pojo.LORD.ICE_CLOUD;
+import static ogrebattle.tarot.pojo.LORD.THUNDER;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.tarot.pojo.TarotQuestions;
 import ogrebattle.tarot.pojo.TarotQuestionsSFC;
@@ -21,37 +26,36 @@ import ogrebattle.tarot.pojo.TarotQuestionsSFC;
 public class LordOddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	public final static int DECK_SIZE = Tarot.values().length;
-	public final static int IANUKI=0; final static int PHANTOM=1; final static int ICE_CLOUD=2; final static int THUNDER=3;
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
 	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
-	private static final boolean ORIGINAL_SFC_QUESTIONS = true;
+	private static final boolean ORIGINAL_SFC_QUESTIONS = false;
 	private static boolean isInitialized = false;
 	
 	//public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();
 	//public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();
 	
-	public final static int[] answersIanuki =     Ianuki.getBASE();                               //max ianuki          74603 out of 74613 99.99%
-	public final static int[] answersPhantom =    {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
-	public final static int[] answersIceCloud =   IceCloud.getBASE();                             //max ice cloud       74613 out of 74613 100%
-	public final static int[] answersThunder =    {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
+	public final static int[] answersIanuki =      Ianuki.getBASE();                               //max ianuki          74603 out of 74613 99.99%
+	public final static int[] answersPhantom =     {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
+	public final static int[] answersIceCloud =    IceCloud.getBASE();                             //max ice cloud       74613 out of 74613 100%
+	public final static int[] answersThunder =     {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
 	
-	public final static int[] ianukiIceCloud =    {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
-	public final static int[] phantomIceCloud =   {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
+	public final static int[] ianukiIceCloud =     {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
+	public final static int[] phantomIceCloud =    {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
 	
-	public final static int[] sfcIanuki =         {1,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};  //ianuki most likely 74506 out of 74613 99.86%
-	public final static int[] sfcPhantom =        {3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2};  //phantom most likely 74386 out of 74613 99.70%
-	public final static int[] sfcIceCloud =       {3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};  //ice cloud most likely 74613 out of 74613 100% 9
-	public final static int[] sfcThunder =        {2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3};  //thunder most likely 72839 out of 74613 97.62%
+	public final static int[] answersSFCIanuki =   {1,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};  //ianuki most likely 74506 out of 74613 99.86%
+	public final static int[] answersSFCPhantom =  {3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2};  //phantom most likely 74386 out of 74613 99.70%
+	public final static int[] answersSFCIceCloud = {3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};  //ice cloud most likely 74613 out of 74613 100% 9
+	public final static int[] answersSFCThunder =  {2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3};  //thunder most likely 72839 out of 74613 97.62%
 	
-	public final static int[] all1s =             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%
+	public final static int[] all1s =              {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%
 	                                                
 	private AllPossibleHands handsGenerator;
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-		final int[] tarotAnswers = sfcPhantom;
-		final int[] desiredLord = new int[]{PHANTOM};
-		final int record = 74386;
+		final int[] tarotAnswers = answersIanuki;
+		final int[] desiredLord = new int[]{IANUKI.O};
+		final int record = 74603;
 		final boolean iterate = false;
 		
 		//e.searchFor1sEntry(tarotAnswers, record, desiredLord);
@@ -68,7 +72,7 @@ public class LordOddsExample {
 			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster
 			long end = System.nanoTime();
 	
-			System.out.println((double) (end - start) / NANOSECONDS_IN_1_SECOND + " seconds to execute for "
+			System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for "
 					+ handsGenerator.size() + " hands");
 		}
 	}
@@ -109,38 +113,38 @@ public class LordOddsExample {
 	    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
 		private int[] findHighestSecondHighest(int[] tracker) {
 			int ianuki = tracker[0]; int phantom = tracker[1]; int icecloud = tracker[2]; int thunder = tracker[3];
-			int highestIndex = IANUKI; int secondHighestIndex = -1;//default to Ianuki
+			int highestIndex = IANUKI.O; int secondHighestIndex = -1;//default to Ianuki
 			int highestScore = ianuki; int secondHighestScore = 0;
 			
 			//highest
 			if (phantom > highestScore) {
-				highestIndex = PHANTOM;
+				highestIndex = PHANTOM.O;
 				highestScore = phantom;
 			}
 			if (icecloud > highestScore) {
-				highestIndex = ICE_CLOUD;
+				highestIndex = ICE_CLOUD.O;
 				highestScore = icecloud;
 			}
 			if (thunder > highestScore) {
-				highestIndex = THUNDER;
+				highestIndex = THUNDER.O;
 				highestScore = thunder;
 			}
 			//second highest
-			if (highestIndex != IANUKI) {
-				secondHighestIndex = IANUKI;
-				secondHighestScore = tracker[0];
+			if (highestIndex != IANUKI.O) {
+				secondHighestIndex = IANUKI.O;
+				secondHighestScore = ianuki;
 			}
-			if (highestIndex != PHANTOM && tracker[1] > secondHighestScore) {
-				secondHighestIndex = PHANTOM;
-				secondHighestScore = tracker[1];
+			if (highestIndex != PHANTOM.O && tracker[1] > secondHighestScore) {
+				secondHighestIndex = PHANTOM.O;
+				secondHighestScore = phantom;
 			}
-			if (highestIndex != ICE_CLOUD && tracker[2] > secondHighestScore) {
-				secondHighestIndex = ICE_CLOUD;
-				secondHighestScore = tracker[2];
+			if (highestIndex != ICE_CLOUD.O && tracker[2] > secondHighestScore) {
+				secondHighestIndex = ICE_CLOUD.O;
+				secondHighestScore = icecloud;
 			}
-			if (highestIndex != THUNDER && tracker[3] > secondHighestScore) {
-				secondHighestIndex = THUNDER;
-				secondHighestScore = tracker[3];
+			if (highestIndex != THUNDER.O && tracker[3] > secondHighestScore) {
+				secondHighestIndex = THUNDER.O;
+				secondHighestScore = thunder;
 			}
 			return new int[]{highestIndex, secondHighestIndex};
 		}
@@ -323,45 +327,45 @@ public class LordOddsExample {
 	}
 }
 /*
-0.6649104 seconds to execute for 74613 hands
-Count of 9801 equals current record of 9801
+0.5024919 seconds to execute for 74613 hands
+Count of 74603 equals current record of 74603
 
 Highest Lord Type
-Ianuki:    12717
-Phantom:   30953
-Ice Cloud: 21335
-Thunder:   9608
+Ianuki:    74603
+Phantom:   0
+Ice Cloud: 0
+Thunder:   10
 
 Second Highest Lord Type
-Ianuki:    18152
-Phantom:   19297
-Ice Cloud: 16729
-Thunder:   20435
+Ianuki:    10
+Phantom:   13223
+Ice Cloud: 32923
+Thunder:   28457
 
 
 Original Answers: 
-{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 
-Chariot     : 1
-Death       : 1
-Devil       : 1
-Emperor     : 1
-Empress     : 1
-Fool        : 1
-Fortune     : 1
-Hanged_Man  : 1
-Hermit      : 1
-Hierophant  : 1
-Judgment    : 1
-Justice     : 1
-Lovers      : 1
 Magician    : 1
-Moon        : 1
 Priestess   : 1
-Star        : 1
-Strength    : 1
-Sun         : 1
+Empress     : 2
+Emperor     : 1
+Hierophant  : 2
+Lovers      : 2
+Chariot     : 3
+Strength    : 2
+Hermit      : 2
+Fortune     : 1
+Justice     : 2
+Hanged_Man  : 2
+Death       : 3
 Temperance  : 1
+Devil       : 2
 Tower       : 1
-World       : 1
+Star        : 2
+Moon        : 3
+Sun         : 2
+Judgment    : 1
+Fool        : 2
+World       : 2
 */
