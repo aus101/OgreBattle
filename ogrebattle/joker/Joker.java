@@ -9,7 +9,7 @@ public class Joker {
 	protected final int CARDCOUNT;
 	protected int countEarlyExit = 0;
 	protected int[] tracker = new int[11];//hold counts for 0 to 9 matches each iteration and 10+ on last index
-	public static final int LOOPS = 1_000_000;//iterations
+	public static final int LOOPS = 100_000;//iterations
 	public static final int STOP = 6;//early exit on this many matches if calling iterate(int stop)
 	private static final int PRECSISION = 4;//decimal places for results percentages
 	//SecureRandom's nextFloat() is twice as fast as nextDouble()
@@ -188,35 +188,55 @@ public class Joker {
 
 10 or more found: 0.0143% (143)
 
-273068 out of 6000000
-4.5511333333333335%
-100000 iterations at 60 cards apiece
+4.6699123 seconds to execute for 100000 iterations at 60 cards apiece
+267753 matches out of 6000000 total cards
+4.4626% (267753)
 
-0 found: 5319
-1 found: 16978
-2 found: 25140
-3 found: 23743
-4 found: 16017
-5 found: 8130
-6 found: 3274
-7 found: 1055
-8 found: 277
-9 found: 55
-10 or more found: 12
+0 found: 5.7110% (5711)
 
-271956 out of 6000000
-4.5325999999999995%
-100000 iterations at 60 cards apiece
+1 found: 17.5470% (17547)
 
-0 found: 5407
-1 found: 16845
-2 found: 25501
-3 found: 23806
-4 found: 15984
-5 found: 7859
-6 found: 3179
-7 found: 1056
-8 found: 290
-9 found: 58
-10 or more found: 15
+2 found: 25.5460% (25546)
+
+3 found: 23.4890% (23489)
+
+4 found: 15.7670% (15767)
+
+5 found: 7.6540% (7654)
+
+6 found: 3.0410% (3041)
+
+7 found: 0.9750% (975)
+
+8 found: 0.2020% (202)
+
+9 found: 0.0610% (61)
+
+10 or more found: 0.0070% (7)
+
+0.5726206 seconds to execute for 10000 iterations at 60 cards apiece
+26880 matches out of 600000 total cards
+4.4800% (26880)
+
+0 found: 5.6400% (564)
+
+1 found: 17.2600% (1726)
+
+2 found: 25.6300% (2563)
+
+3 found: 23.4700% (2347)
+
+4 found: 15.9400% (1594)
+
+5 found: 7.9300% (793)
+
+6 found: 2.9200% (292)
+
+7 found: 0.8500% (85)
+
+8 found: 0.2600% (26)
+
+9 found: 0.0900% (9)
+
+10 or more found: 0.0100% (1)
  */
