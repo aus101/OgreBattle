@@ -9,7 +9,7 @@ public class Joker {
 	protected final int CARDCOUNT;
 	protected int countEarlyExit = 0;
 	protected int[] tracker = new int[11];//hold counts for 0 to 9 matches each iteration and 10+ on last index
-	public static final int LOOPS = 100_000;//iterations
+	public static final int LOOPS = 100_000_000;//iterations
 	public static final int STOP = 6;//early exit on this many matches if calling iterate(int stop)
 	private static final int PRECSISION = 4;//decimal places for results percentages
 	//SecureRandom's nextFloat() is twice as fast as nextDouble()
@@ -19,17 +19,17 @@ public class Joker {
 	private static final Random r = new SecureRandom();//SecureRandom is many times slower but not glaringly biased or predictable
 	
 	public Joker() {
-		CARDCOUNT = 60;//number of cards to draw and count matches for 1 cycle
+		CARDCOUNT = 60;//default to 60 cards to draw and count matches for 1 cycle
 	}
 	
 	public Joker(int cardCount) {
-		CARDCOUNT = cardCount;
+		CARDCOUNT = cardCount;//number of cards to draw and count matches for 1 cycle
 	}
 	
 	public static void main(String[] args) {
 		Joker j = new Joker();
 		int tally = 0;
-		int totalCards;
+		long totalCards;
 
 		long start = System.nanoTime();
 		for (int i=0; i<LOOPS; i++) {
@@ -40,14 +40,20 @@ public class Joker {
 		if (j.getCountEarlyExit() > 0) {
 			totalCards = j.getCountEarlyExit();
 		} else {
-			totalCards = LOOPS * j.getCardCount();
+			totalCards = (long) LOOPS * j.getCardCount();
+			//totalCards = new BigDecimal(LOOPS).multiply(new BigDecimal(j.getCardCount())).longValueExact();
 		}
-		System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for "
-				+ LOOPS + " iterations at " + j.getCardCount() + " cards apiece");
-		
-		System.out.println(tally + " matches out of " + totalCards + " total cards");
-		Util.percentPrintAlt(tally, totalCards, PRECSISION);
-		System.out.println();
+		System.out.println(Util.nanoToMinutesSeconds(end - start) + " to execute for " + Util.numberSeparator(LOOPS) + " iterations at "
+				+ Util.numberSeparator(j.getCardCount()) + " cards apiece = " + Util.numberSeparator(totalCards) + " total cards");
+		String s;
+		if (tally != 1) {
+			s = " matches or 1 for every ";
+		} else {
+			s = " match or 1 for every ";
+		} 
+		System.out.println(Util.percentAlt(tally, totalCards, PRECSISION, s) + " Joker/Liberation pulls");
+		System.out.println(System.lineSeparator() + "Odds of the expected number of matches for iterations of "
+				+ Util.numberSeparator(j.getCardCount()) + " cards:" + System.lineSeparator());
 		j.printTrackerPercent();
 	}
 	
@@ -103,7 +109,7 @@ public class Joker {
 	
 	/**
 	 * Pull cards <code>cardCount</code> number of times<br> with no early exit
-	 * A modest 5.5% speed increase over <code>iterate</code> with same card count attained by:<br>
+	 * A modest 5.5% faster over <code>iterate</code> with same card count attained by:<br>
 	 * No code checking for early exit possibility<br>
 	 * No calling the RNG for the card after a match guaranteed not to be a duplicate<br>
 	 * No temporary variable to hold the rate of finding a match<br>
@@ -148,9 +154,14 @@ public class Joker {
 	
 	public void printTrackerPercent() {
 		for (int i=0; i<tracker.length-1; i++) {
-			System.out.println(i + " found: " + Util.percentAlt(tracker[i], LOOPS, PRECSISION)+System.lineSeparator());
+			System.out.println(new StringBuilder().append(i).append(" found: ")
+					.append(Util.percentAlt(tracker[i], LOOPS, PRECSISION)).append(" iterations"));
 		}
-		System.out.println("10 or more found: " + Util.percentAlt(tracker[10], LOOPS, PRECSISION));//last index
+		StringBuilder s10 = new StringBuilder("10 or more found: ").append(Util.percentAlt(tracker[10], LOOPS, PRECSISION));//last index
+		if (tracker[10] > 0) {
+			s10.append(" iterations");
+		}
+		System.out.println(s10.toString());
 	}
 	
 	public int getCardCount() {
@@ -162,81 +173,124 @@ public class Joker {
 	}
 }
 /*
-48.995959 seconds to execute for 1000000 iterations at 60 cards apiece
-2726742 matches out of 60000000 total cards
-4.5446% (2726742)
+times with low tier i5 CPU on Windows 10
+-
+less than 1 second to execute for 100 iterations at 60 cards apiece = 6,000 total cards
+4.4667% (268) matches or 1 for every 22.4 Joker/Liberation pulls
 
-0 found: 5.3709% (53709)
+Odds of the expected number of matches for iterations of 60 cards:
 
-1 found: 16.8927% (168927)
+0 found: 6% (6) or 1 in 16.7 iterations
+1 found: 21% (21) or 1 in 4.8 iterations
+2 found: 20% (20) or 1 in 5 iterations
+3 found: 26% (26) or 1 in 3.8 iterations
+4 found: 13% (13) or 1 in 7.7 iterations
+5 found: 9% (9) or 1 in 11.1 iterations
+6 found: 3% (3) or 1 in 33.3 iterations
+7 found: 2% (2) or 1 in 50 iterations
+8 found: 0
+9 found: 0
+10 or more found: 0
+-
+less than 1 second to execute for 1,000 iterations at 60 cards apiece = 60,000 total cards
+4.4217% (2653) matches or 1 for every 22.6 Joker/Liberation pulls
 
-2 found: 25.1984% (251984)
+Odds of the expected number of matches for iterations of 60 cards:
 
-3 found: 23.8782% (238782)
+0 found: 5.5% (55) or 1 in 18.2 iterations
+1 found: 19.2% (192) or 1 in 5.2 iterations
+2 found: 24.3% (243) or 1 in 4.1 iterations
+3 found: 23.6% (236) or 1 in 4.2 iterations
+4 found: 15.5% (155) or 1 in 6.5 iterations
+5 found: 8% (80) or 1 in 12.5 iterations
+6 found: 3% (30) or 1 in 33.3 iterations
+7 found: 0.7% (7) or 1 in 142.9 iterations
+8 found: 0.1% (1)
+9 found: 0
+10 or more found: 0.1% (1) iterations
+-
+less than 1 second to execute for 10,000 iterations at 60 cards apiece = 600,000 total cards
+4.453% (26718) matches or 1 for every 22.5 Joker/Liberation pulls
 
-4 found: 15.9510% (159510)
+Odds of the expected number of matches for iterations of 60 cards:
 
-5 found: 8.1049% (81049)
+0 found: 5.46% (546) or 1 in 18.3 iterations
+1 found: 17.63% (1763) or 1 in 5.7 iterations
+2 found: 25.81% (2581) or 1 in 3.9 iterations
+3 found: 23.64% (2364) or 1 in 4.2 iterations
+4 found: 15.92% (1592) or 1 in 6.3 iterations
+5 found: 7.35% (735) or 1 in 13.6 iterations
+6 found: 3.01% (301) or 1 in 33.2 iterations
+7 found: 0.97% (97) or 1 in 103.1 iterations
+8 found: 0.17% (17) or 1 in 588.2 iterations
+9 found: 0.03% (3) or 1 in 3333.3 iterations
+10 or more found: 0.01% (1) iterations
+-
+4 seconds to execute for 100,000 iterations at 60 cards apiece = 6,000,000 total cards
+4.4586% (267514) matches or 1 for every 22.4 Joker/Liberation pulls
 
-6 found: 3.2340% (32340)
+Odds of the expected number of matches for iterations of 60 cards:
 
-7 found: 1.0311% (10311)
+0 found: 5.654% (5654) or 1 in 17.7 iterations
+1 found: 17.51% (17510) or 1 in 5.7 iterations
+2 found: 25.762% (25762) or 1 in 3.9 iterations
+3 found: 23.693% (23693) or 1 in 4.2 iterations
+4 found: 15.427% (15427) or 1 in 6.5 iterations
+5 found: 7.729% (7729) or 1 in 12.9 iterations
+6 found: 2.908% (2908) or 1 in 34.4 iterations
+7 found: 1.006% (1006) or 1 in 99.4 iterations
+8 found: 0.254% (254) or 1 in 393.7 iterations
+9 found: 0.046% (46) or 1 in 2173.9 iterations
+10 or more found: 0.011% (11) or 1 in 9090.9 iterations
+-
+45 seconds to execute for 1,000,000 iterations at 60 cards apiece = 60,000,000 total cards
+4.471% (2682595) matches or 1 for every 22.4 Joker/Liberation pulls
 
-8 found: 0.2655% (2655)
+Odds of the expected number of matches for iterations of 60 cards:
 
-9 found: 0.0590% (590)
+0 found: 5.7091% (57091) or 1 in 17.5 iterations
+1 found: 17.4003% (174003) or 1 in 5.7 iterations
+2 found: 25.5381% (255381) or 1 in 3.9 iterations
+3 found: 23.6723% (236723) or 1 in 4.2 iterations
+4 found: 15.6144% (156144) or 1 in 6.4 iterations
+5 found: 7.7426% (77426) or 1 in 12.9 iterations
+6 found: 3.0421% (30421) or 1 in 32.9 iterations
+7 found: 0.9772% (9772) or 1 in 102.3 iterations
+8 found: 0.2455% (2455) or 1 in 407.3 iterations
+9 found: 0.0481% (481) or 1 in 2079 iterations
+10 or more found: 0.0103% (103) or 1 in 9708.7 iterations
+-
+7 minutes, 33 seconds to execute for 10,000,000 iterations at 60 cards apiece = 600,000,000 total cards
+4.4733% (26839947) matches or 1 for every 22.4 Joker/Liberation pulls
 
-10 or more found: 0.0143% (143)
+Odds of the expected number of matches for iterations of 60 cards:
 
-4.6699123 seconds to execute for 100000 iterations at 60 cards apiece
-267753 matches out of 6000000 total cards
-4.4626% (267753)
+0 found: 5.6319% (563188) or 1 in 17.8 iterations
+1 found: 17.3926% (1739264) or 1 in 5.7 iterations
+2 found: 25.5641% (2556407) or 1 in 3.9 iterations
+3 found: 23.7367% (2373666) or 1 in 4.2 iterations
+4 found: 15.6357% (1563573) or 1 in 6.4 iterations
+5 found: 7.749% (774902) or 1 in 12.9 iterations
+6 found: 3.0331% (303309) or 1 in 33 iterations
+7 found: 0.9496% (94964) or 1 in 105.3 iterations
+8 found: 0.2437% (24367) or 1 in 410.4 iterations
+9 found: 0.0525% (5252) or 1 in 1904 iterations
+10 or more found: 0.0111% (1108) or 1 in 9025.3 iterations
+-
+78 minutes, 9 seconds to execute for 100,000,000 iterations at 60 cards apiece = 6,000,000,000 total cards
+4.4731% (268386067) matches or 1 for every 22.4 Joker/Liberation pulls
 
-0 found: 5.7110% (5711)
+Odds of the expected number of matches for iterations of 60 cards:
 
-1 found: 17.5470% (17547)
-
-2 found: 25.5460% (25546)
-
-3 found: 23.4890% (23489)
-
-4 found: 15.7670% (15767)
-
-5 found: 7.6540% (7654)
-
-6 found: 3.0410% (3041)
-
-7 found: 0.9750% (975)
-
-8 found: 0.2020% (202)
-
-9 found: 0.0610% (61)
-
-10 or more found: 0.0070% (7)
-
-0.5726206 seconds to execute for 10000 iterations at 60 cards apiece
-26880 matches out of 600000 total cards
-4.4800% (26880)
-
-0 found: 5.6400% (564)
-
-1 found: 17.2600% (1726)
-
-2 found: 25.6300% (2563)
-
-3 found: 23.4700% (2347)
-
-4 found: 15.9400% (1594)
-
-5 found: 7.9300% (793)
-
-6 found: 2.9200% (292)
-
-7 found: 0.8500% (85)
-
-8 found: 0.2600% (26)
-
-9 found: 0.0900% (9)
-
-10 or more found: 0.0100% (1)
+0 found: 5.6362% (5636173) or 1 in 17.7 iterations
+1 found: 17.4122% (17412164) or 1 in 5.7 iterations
+2 found: 25.5582% (25558207) or 1 in 3.9 iterations
+3 found: 23.7123% (23712349) or 1 in 4.2 iterations
+4 found: 15.6204% (15620425) or 1 in 6.4 iterations
+5 found: 7.7684% (7768443) or 1 in 12.9 iterations
+6 found: 3.033% (3032962) or 1 in 33 iterations
+7 found: 0.9517% (951705) or 1 in 105.1 iterations
+8 found: 0.2441% (244098) or 1 in 409.7 iterations
+9 found: 0.0525% (52549) or 1 in 1903 iterations
+10 or more found: 0.0109% (10925) or 1 in 9153.3 iterations
  */
