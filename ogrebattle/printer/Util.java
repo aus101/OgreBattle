@@ -16,6 +16,7 @@ import ogrebattle.tarot.simulate.TarotDeck;
  * Print! Print! Print! Or return a String to print!
  */
 public class Util {
+	public static int PRECISION_PRINT = 4;//4 decimals
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 	private static final NumberFormat COMMAS = NumberFormat.getInstance(Locale.US);
