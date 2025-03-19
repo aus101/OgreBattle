@@ -37,7 +37,6 @@ public class OddsExample {
 	public final static int[] answersIceCloudAll65 = new IceCloud().returnAllSolutionsList().get(0);// max ice cloud, 65+ solutions 74613 out of 74613 100%
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1}; // max thunder,                 74003 out of 74613 99.18%
 	
-	//Original SFC release is phantom most likely at 31077 41.65%, ice cloud second most likely 29429 39.44%
 	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom most likely 30953 41.48%, ianuki second most likely 12717 17.04%
 	
 	public final static int[] ianukiIceCloud =       {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};// ianuki 1st & ice cloud 2nd,   60171 out of 74613 80.64%
