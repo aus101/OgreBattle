@@ -34,9 +34,9 @@ public class LordOddsExample {
 	//public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();
 	//public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();
 	
-	public final static int[] answersIanuki =      Ianuki.getBASE();                               //max ianuki          74603 out of 74613 99.99%
+	public final static int[] answersIanuki =      Ianuki.getBaseDeepCopy();                       //max ianuki          74603 out of 74613 99.99%
 	public final static int[] answersPhantom =     {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
-	public final static int[] answersIceCloud =    IceCloud.getBASE();                             //max ice cloud       74613 out of 74613 100%
+	public final static int[] answersIceCloud =    IceCloud.getBaseDeepCopy();                      //max ice cloud       74613 out of 74613 100%
 	public final static int[] answersThunder =     {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
 	
 	public final static int[] ianukiIceCloud =     {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
