@@ -35,6 +35,7 @@ public class Joker {
 		for (int i=0; i<LOOPS; i++) {
 			tally += j.iterateFaster();//Start drawing cards and return the matches
 		    //tally += j.iterate(STOP);//Stop drawing each loop if matches equal STOP
+			//tally += j.iterate1in22();
 		}
 		long end = System.nanoTime();
 		if (j.getCountEarlyExit() > 0) {
@@ -136,6 +137,22 @@ public class Joker {
 			}
 		}
 		//not a virtual method, not did not run faster with the code in-lined
+		iterateTracker(tally);
+		return tally;
+	}
+	
+	/**
+	 * This is a control to check the way the matching is implemented versus simulating<br>
+	 * a binomial distribution here with p = 1/22.<br>
+	 * @return The number of matches<br>
+	 */
+	public int iterate1in22() {
+		int tally = 0;
+		for (int i=0; i<CARDCOUNT; i++)
+		{
+			if (r.nextFloat() < UPPER_LIMIT) 
+				tally++;
+		}
 		iterateTracker(tally);
 		return tally;
 	}
@@ -279,5 +296,5 @@ Odds of the expected number of matches for iterations of 60 cards:
 8 found: 0.2708% (270833) or 1 in 369.2 iterations
 9 found: 0.0589% (58862) or 1 in 1698.9 iterations
 10 or more found: 0.0127% (12739) or 1 in 7849.9 iterations
-
+-
  */

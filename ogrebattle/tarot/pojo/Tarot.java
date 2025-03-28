@@ -9,7 +9,7 @@ package ogrebattle.tarot.pojo;
  */
 public enum Tarot {
 	Magician, Priestess, Empress, Emperor, Hierophant, Lovers, Chariot, Strength, Hermit, Fortune, Justice,
-	Hanged_Man, Death, Temperance, Devil, Tower, Star, Moon, Sun, Judgment, Fool, World;
+	HangedMan, Death, Temperance, Devil, Tower, Star, Moon, Sun, Judgment, Fool, World;
    
 /*   If not using TarotComparators.java then can use these instead: 
     //Tarot.values() orders this way by default

@@ -7,21 +7,18 @@ import java.util.Set;
 import ogrebattle.tarot.pojo.Tarot;
 
 public abstract class LordType {
-	protected static int[] BASE = new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 	protected static final int CARDS = Tarot.values().length;//22
 	
 	public abstract Set<int[]> returnAllSolutionsSet();
 	
-	//can use abstract method since implementation is guaranteed by extending classes
 	public List<int[]> returnAllSolutionsList() {
 		 //amazing how screwy converting a set of ints to a list of ints is with Java's own API
 		 return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
 	}
 	
-	//can use abstract method since implementation is guaranteed by extending classes
 	public void printSolutions() {
 		Set<int[]> solutions = this.returnAllSolutionsSet();
-		System.out.println("Count: " + solutions.size());// 56 expected
+		System.out.println("Count: " + solutions.size());// 65 expected for IceCloud and 9 for Ianuki
 		for (int[] lhs : solutions) {
 			System.out.print("{");
 			for (int i = 0; i < lhs.length - 1; i++) {
@@ -31,21 +28,13 @@ public abstract class LordType {
 		}
 	}
 	
-	protected int conutDifferences(int[] found) {
+	protected abstract int conutDifferences(int[] found);
+	
+	protected int conutDifferences(int[] found, int[] BASE) {
 		int count = 0;
 		for(int i=0; i<CARDS; i++)
 		{
 			if(BASE[i] != found[i])
-				count++;
-		}
-		return count;
-	}
-	
-	protected int countOnes(int[] solution) {
-		int count = 0;
-		for(int i=0; i<CARDS; i++)
-		{
-			if(solution[i] == 1)
 				count++;
 		}
 		return count;
@@ -67,6 +56,16 @@ public abstract class LordType {
 				System.out.println(answers[answers.length - 1] + "};" + System.lineSeparator());
 			}
 		}
+	}
+	
+	protected int countOnes(int[] solution) {
+		int count = 0;
+		for(int i=0; i<CARDS; i++)
+		{
+			if(solution[i] == 1)
+				count++;
+		}
+		return count;
 	}
 	
 	/**
