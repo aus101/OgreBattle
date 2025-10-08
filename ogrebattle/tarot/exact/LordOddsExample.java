@@ -31,9 +31,6 @@ public class LordOddsExample {
 	private static final boolean ORIGINAL_SFC_QUESTIONS = false;
 	private static boolean isInitialized = false;
 	
-	//public final static List<int[]> answersIanukiAll9 = new Ianuki().returnAllSolutionsList();
-	//public final static List<int[]> answersIceCloudAll65 = new IceCloud().returnAllSolutionsList();
-	
 	public final static int[] answersIanuki =      Ianuki.getBaseDeepCopy();                       //max ianuki          74603 out of 74613 99.99%
 	public final static int[] answersPhantom =     {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
 	public final static int[] answersIceCloud =    IceCloud.getBaseDeepCopy();                      //max ice cloud       74613 out of 74613 100%
@@ -69,7 +66,7 @@ public class LordOddsExample {
 		if (!isInitialized) {
 			isInitialized = true;
 			long start = System.nanoTime();
-			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster
+			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster, NUMBER OF CARDS should be 6 or 7
 			long end = System.nanoTime();
 	
 			System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for "
@@ -84,7 +81,7 @@ public class LordOddsExample {
 
 		OrderHolder(int[] test, int[] order, int loops, AllPossibleHands handsGenerator) {
 			Set<TreeSet<Tarot>> all_hands = handsGenerator.returnAllHandsSet();
-			for (TreeSet<Tarot> hand : all_hands) {
+			for (TreeSet<Tarot> hand : all_hands) {	
 				int[] indices = findHighestSecondHighest(trackResults(test, hand));
 				int highestIndex = indices[0];
 				int secondHighestIndex = indices[1];
@@ -112,39 +109,34 @@ public class LordOddsExample {
 		 */
 	    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
 		private int[] findHighestSecondHighest(int[] tracker) {
-			int ianuki = tracker[0]; int phantom = tracker[1]; int icecloud = tracker[2]; int thunder = tracker[3];
-			int highestIndex = IANUKI.O; int secondHighestIndex = -1;//default to Ianuki
-			int highestScore = ianuki; int secondHighestScore = 0;
+			int ianukiScore = tracker[0]; int phantomScore = tracker[1]; int icecloudScore = tracker[2]; int thunderScore = tracker[3];
+			int highestIndex = IANUKI.O; int secondHighestIndex = THUNDER.O;//defaults for faster execution
+			int highestScore = ianukiScore; int secondHighestScore = thunderScore;
 			
-			//highest
-			if (phantom > highestScore) {
+			//highest, default to Ianuki
+			if (phantomScore > highestScore) {
 				highestIndex = PHANTOM.O;
-				highestScore = phantom;
+				highestScore = phantomScore;
 			}
-			if (icecloud > highestScore) {
+			if (icecloudScore > highestScore) {
 				highestIndex = ICE_CLOUD.O;
-				highestScore = icecloud;
+				highestScore = icecloudScore;
 			}
-			if (thunder > highestScore) {
+			if (thunderScore > highestScore) {
 				highestIndex = THUNDER.O;
-				highestScore = thunder;
 			}
-			//second highest
-			if (highestIndex != IANUKI.O) {
+			//second highest, default to Thunder
+			if (highestIndex != IANUKI.O && ianukiScore > secondHighestScore) {
 				secondHighestIndex = IANUKI.O;
-				secondHighestScore = ianuki;
+				secondHighestScore = ianukiScore;
 			}
-			if (highestIndex != PHANTOM.O && tracker[1] > secondHighestScore) {
+			if (highestIndex != PHANTOM.O && phantomScore > secondHighestScore) {
 				secondHighestIndex = PHANTOM.O;
-				secondHighestScore = phantom;
+				secondHighestScore = phantomScore;
 			}
-			if (highestIndex != ICE_CLOUD.O && tracker[2] > secondHighestScore) {
+			if (highestIndex != ICE_CLOUD.O && icecloudScore > secondHighestScore) {
 				secondHighestIndex = ICE_CLOUD.O;
-				secondHighestScore = icecloud;
-			}
-			if (highestIndex != THUNDER.O && tracker[3] > secondHighestScore) {
-				secondHighestIndex = THUNDER.O;
-				secondHighestScore = thunder;
+				secondHighestScore = icecloudScore;
 			}
 			return new int[]{highestIndex, secondHighestIndex};
 		}

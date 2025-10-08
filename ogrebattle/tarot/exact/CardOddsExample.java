@@ -56,12 +56,12 @@ public class CardOddsExample {
 				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Util.PRECISION_PRINT);
 		
 		System.out.println();
-		System.out.println("Odds of containing one specific card NONE of 3 other specific cards in opening hand of 7:");
+		System.out.println("Odds of containing one specific card and NONE of 3 other specific cards in opening hand of 7:");
 		Util.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
 				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Util.PRECISION_PRINT);
 		
 		System.out.println();
-		System.out.println("Odds of containing one specific card NONE of 4 other specific cards in opening hand of 7:");
+		System.out.println("Odds of containing one specific card and NONE of 4 other specific cards in opening hand of 7:");
 		Util.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
 				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit, Tarot.Tower)), sevenCards.combinations(), Util.PRECISION_PRINT);
 	}
