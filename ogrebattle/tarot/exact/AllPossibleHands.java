@@ -390,7 +390,8 @@ public class AllPossibleHands {
 	 * The utility is when a certain single card such as Fool is mandatory and at least one
 	 * of another group of cards is needed.
 	 * @param singleton the card that must be in each hand
-	 * @param group the cards of which at least one must be in each hand
+	 * @param x the minimum number of cards to be found from group, can be 0 to operate as wanting to find NONE
+	 * @param group the cards of which to check for
 	 * @return the number of hands that contain the singleton and at least one of the group
 	 */
 	public int countContainsAndContainsAtLeastXOutOfThese(Tarot singleton, int x, List<Tarot> group) {
@@ -412,10 +413,7 @@ public class AllPossibleHands {
 					totalCounter++;
 				}
 			}
-		} else {
-			System.err.print("Error in parameters for countContainsAtLeastXOutOfThese: " + x + " for x and "
-					+ group.size() + " for cards");
-
+		} else if (x == 0) {
 			for (TreeSet<Tarot> ts : ALL_HANDS) {
 				int xCounter = 0;
 				if (ts.contains(singleton)) {
@@ -432,6 +430,9 @@ public class AllPossibleHands {
 					}
 				}
 			}	
+		} else { // x > group.size()
+			System.err.println("Minimum number of cards to find in group, " + x
+					+ ", is greater than the number of cards in the group, " + group.size());
 		}
 		return totalCounter;
 	}

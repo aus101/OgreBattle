@@ -17,15 +17,16 @@ import ogrebattle.printer.Util;
  * generally easier to calculate than with combinatorics. With more complex hands, such as in<br>
  * poker, combinatorics is the most practical approach for exact odds.<br>
  * <br>
- * Desired Tarot pulled in the first 6 cards: 20349 / 74613<br<
+ * Desired Tarot pulled in the first 6 cards: 20349 / 74613<br>
  * = COMBIN(21,5) / COMBIN(22,6)<br>
  * = HYPGEOM.DIST(1,6,1,22,0)<br>
  * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)<br>
  * = 27.27%, 27 repeating of course:  31x less than odds of at least 1 of 3<br>
  * <br>
- * All further odds using 7 cards to include the bonus card unless said otherwise:<br>
+ * All further odds account for 7 cards, including the bonus card:<br><br>
  * Desired Tarot pulled: 54264 / 170544<br>
  * = COMBIN(21,6) / COMBIN(22,7)<br>
+ * = COMBIN(21,15) / COMBIN(22,7)<br>
  * = HYPGEOM.DIST(1,7,1,22,0)<br>
  * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)*(15/16)<br>
  * = 31.81%, 81 repeating of course<br>
@@ -37,43 +38,53 @@ import ogrebattle.printer.Util;
  *  = 54.54%, 54 repeating of course<br>
  *  <br>
  *  Desired card AND (at least 1 of 2 other desired Tarot cards): 27132 / 170544<br>
+ *  = COMBIN(19,6) / COMBIN(22,7), = 0.5 * COMBIN(21,6) / COMBIN(22,7)<br>
+ *  = 0.5 * SUM(COMBIN(20,6), COMBIN(20,5)) / COMBIN(22,7)<br>
  *  = SUM(2 * COMBIN(20,5), -COMBIN(19,4)) / COMBIN(22,7)<br>
- *  = SUM(HYPGEOM.DIST(1,6,1,20,0) * HYPGEOM.DIST(1,7,2,22,0),<br>
+ *  = SUM(HYPGEOM.DIST(1,6,1,20,0) * HYPGEOM.DIST(1,7,2,22,0),
  *  HYPGEOM.DIST(1,5,1,20,0) * HYPGEOM.DIST(2,7,2,22,0))<br>
  *  = 15.90%, 90 repeating of course<br>
  *  <br>
  * At least 1 of 3 desired Tarot cards pulled: 120156 / 170544<br>
  * = SUM(COMBIN(21,6), COMBIN(20,6), COMBIN(19,6)) / COMBIN(22,7)<br>
+ * = SUM(2 * COMBIN(21,6), COMBIN(19,5)) / COMBIN(22,7)<br>
+ * = SUM(COMBIN(20,6), 3 * COMBIN(19,6)) / COMBIN(22,7)<br>
  * = 1 - COMBIN(19,7) / COMBIN(22,7)<br>
  * = 1 - HYPGEOM.DIST(0,7,3,22,0)<br>
  * = SUM(HYPGEOM.DIST(1,7,3,22,0), HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
  * = 70.45%, 45 repeating of course<br>
  * <br>
  * Desired card AND (at least 1 of 3 other cards): 35700 / 170544<br>
- *  = SUM(3 * COMBIN(20,5), 3 * -COMBIN(19,4), COMBIN(18, 3)) / COMBIN(22,7)<br>
- * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),<br>
- *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),<br>
+ *  = SUM(COMBIN(19,6), COMBIN(19,5), -COMBIN(18,4)) / COMBIN(22,7)<br>
+ *  = SUM(COMBIN(18,6), 2 * COMBIN(18,5)) / COMBIN(22,7)<br>
+ *  = SUM(3 * COMBIN(20,5), 3 * -COMBIN(19,4), COMBIN(18, 3)) / COMBIN(22,7)
+ * 	= SUM(HYPGEOM.DIST(1,7,3,22,0) * HYPGEOM.DIST(1,6,1,19,0),
+ *  HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  ≈ 20.93%<br>
  *  <br>
  *  Desired card AND (at least 2 of 3 other cards): 9996 / 170544<br>
- *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)
+ *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)<br>
+ *  = SUM(COMBIN(19,4),  2 * COMBIN(18,4)) / COMBIN(22,7)<br>
  *  = SUM(HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),
- *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))
+ *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  ≈ 5.86%<br>
  *  <br>
  *  2 desired cards: 15504 / 170544<br>
  *  = COMBIN(20,5) / COMBIN(22,7)<br>
+ *  = COMBIN(20,15) / COMBIN(22,7)
  *  = HYPGEOM.DIST(2,7,2,22,0)<br>
  *  = 9.09%, 09 repeating of course: 6x less than odds of at least 1 of 2 <br>
  *  <br>
  *  3 desired cards: 3876 / 170544<br>
  *  = COMBIN(19,4) / COMBIN(22,7)<br>
+ *  = COMBIN(19,15) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(3,7,3,22,0)<br>
  *  = 2.27%, 27 repeating of course<br>
  *  <br>
  *  At least 2 out of 3 desired cards: 38760 / 170544<br>
  *  = SUM(3 * COMBIN(20,5), 2 * -COMBIN(19,4)) / COMBIN(22,7)<br>
+ *  = SUM(3 * COMBIN(19,5), COMBIN(19,4)) / COMBIN(22,7)<br>
  *  = SUM(HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
  *  = 22.27%, 27 repeating of course: 10x greater than previous odds
  *  <br>

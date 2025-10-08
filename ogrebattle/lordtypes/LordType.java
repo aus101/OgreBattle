@@ -1,25 +1,29 @@
 package ogrebattle.lordtypes;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ogrebattle.tarot.pojo.Tarot;
 
 public abstract class LordType {
 	protected static final int CARDS = Tarot.values().length;//22
+	protected static TreeSet<int[]> selection;
+	protected static boolean INIT = false;
 	
-	public abstract Set<int[]> returnAllSolutionsSet();
-	
-	public List<int[]> returnAllSolutionsList() {
-		 //amazing how screwy converting a set of ints to a list of ints is with Java's own API
-		 return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
+	public static Set<int[]> returnAllSolutionsSet() {
+		 return selection;
 	}
 	
+	public static List<int[]> returnAllSolutionsList() {
+		 return new ArrayList<int[]>(selection);
+		 //return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
+	}
+
 	public void printSolutions() {
-		Set<int[]> solutions = this.returnAllSolutionsSet();
-		System.out.println("Count: " + solutions.size());// 65 expected for IceCloud and 9 for Ianuki
-		for (int[] lhs : solutions) {
+		System.out.println("Count: " + selection.size());// 65 expected for IceCloud and 9 for Ianuki
+		for (int[] lhs : selection) {
 			System.out.print("{");
 			for (int i = 0; i < lhs.length - 1; i++) {
 				System.out.print(lhs[i] + ",");
