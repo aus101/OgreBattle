@@ -4,9 +4,9 @@ import static ogrebattle.tarot.pojo.TarotSorting.*;
 
 import java.util.TreeSet;
 
-/** Ice Cloud lord type has at least 65 sets (!) of answers that guarantee Ice Cloud is selected.<br>
-* Unlike other lord type, Ice Cloud has no question that forced another lord type to receive more points,<br>
-* thus can be chosen with 100% certainty. Here the 65 sets are constructed and returned.<br>
+/** Ice Cloud lord type has at least 18 sets of answers that guarantee Ice Cloud is selected.<br>
+* Unlike other lord type, Ice Cloud has only 1 question that forces another lord type to receive more points,<br>
+* thus can be chosen with 100% certainty. Here the 18 sets are constructed and returned.<br>
 */
 public class IceCloud extends LordType {
 	public static final int[] BASE = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};
