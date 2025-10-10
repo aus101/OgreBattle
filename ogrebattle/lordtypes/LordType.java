@@ -9,15 +9,15 @@ import ogrebattle.tarot.pojo.Tarot;
 
 public abstract class LordType {
 	protected static final int CARDS = Tarot.values().length;//22
-	protected static TreeSet<int[]> selection;
-	protected static boolean INIT = false;
+	protected TreeSet<int[]> selection;
+	protected boolean INIT = false;
 	
-	public static Set<int[]> returnAllSolutionsSet() {
+	public Set<int[]> returnAllSolutionsSet() {
 		 return selection;
 	}
 	
-	public static List<int[]> returnAllSolutionsList() {
-		 return new ArrayList<int[]>(selection);
+	public List<int[]> returnAllSolutionsList() {
+		return new ArrayList<int[]>(selection);
 		 //return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
 	}
 
@@ -32,9 +32,9 @@ public abstract class LordType {
 		}
 	}
 	
-	protected abstract int conutDifferences(int[] found);
+	protected abstract int countDifferences(int[] found);
 	
-	protected int conutDifferences(int[] found, int[] BASE) {
+	protected static int countDifferences(int[] found, int[] BASE) {
 		int count = 0;
 		for(int i=0; i<CARDS; i++)
 		{
@@ -46,7 +46,7 @@ public abstract class LordType {
 	
 	public void countDifferences(Set<int[]> solution) {
 		for (int[] answers : solution) {
-			int diff = conutDifferences(answers);
+			int diff = countDifferences(answers);
 			if (diff > 0) {
 				if (diff == 1) {
 					System.out.println(diff + " Difference");

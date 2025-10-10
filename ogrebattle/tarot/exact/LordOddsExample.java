@@ -12,7 +12,9 @@ import static ogrebattle.tarot.pojo.LORD.IANUKI;
 import static ogrebattle.tarot.pojo.LORD.PHANTOM;
 import static ogrebattle.tarot.pojo.LORD.ICE_CLOUD;
 import static ogrebattle.tarot.pojo.LORD.THUNDER;
+
 import ogrebattle.tarot.pojo.Tarot;
+import ogrebattle.tarot.pojo.TarotAnswers;
 import ogrebattle.tarot.pojo.TarotQuestions;
 import ogrebattle.tarot.pojo.TarotQuestionsSFC;
 
@@ -28,37 +30,32 @@ public class LordOddsExample {
 	public final static int DECK_SIZE = Tarot.values().length;
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
 	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
+	private static final int NUMBER_OF_CARDS = 6;
 	private static final boolean ORIGINAL_SFC_QUESTIONS = false;
 	private static boolean isInitialized = false;
 	
-	public final static int[] answersIanuki =      Ianuki.getBaseDeepCopy();                       //max ianuki          74603 out of 74613 99.99%
-	public final static int[] answersPhantom =     {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};  //max phantom         74137 out of 74613 99.36%	
-	public final static int[] answersIceCloud =    IceCloud.getBaseDeepCopy();                      //max ice cloud       74613 out of 74613 100%
-	public final static int[] answersThunder =     {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};  //max thunder         74003 out of 74613 99.18%
+	public static TarotAnswers ianuki = new TarotAnswers(Ianuki.getBaseDeepCopy(), new int[]{IANUKI.O}, 74603);//max Ianuki, 74603 out of 74613                    99.99%
+	public static TarotAnswers phantom = new TarotAnswers(new int[]{3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3}, new int[]{PHANTOM.O}, 74137);//max Phantom       99.36%
+	public static TarotAnswers iceCloud = new TarotAnswers(IceCloud.getBaseDeepCopy(), new int[]{ICE_CLOUD.O}, 74613);//max Ice Cloud                              100%	
+	public static TarotAnswers thunder = new TarotAnswers(new int[]{2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1}, new int[]{THUNDER.O}, 74003);//max Thunder                                     99.18%
+	public static TarotAnswers ianukiIceCloud = new TarotAnswers(new int[]{1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2}, new int[]{IANUKI.O, ICE_CLOUD.O}, 60171);//Ianuki 1st, Ice Cloud 2nd    93.41%
+	public static TarotAnswers phantomIceCloud = new TarotAnswers(new int[]{3,2,3,1,1,1,1,3,3,3,1,1,2,2,3,1,1,1,2,2,1,3}, new int[]{PHANTOM.O, ICE_CLOUD.O}, 43612);//Phantom 1st, Ice Cloud 2nd 61.45%
 	
-	public final static int[] ianukiIceCloud =     {1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2};  //ianuki, ice cloud   69698 out of 74613 93.41%
-	public final static int[] phantomIceCloud =    {3,2,3,1,1,1,1,3,3,2,1,1,2,2,3,1,1,1,2,2,1,3};  //phantom, ice cloud  45848 out of 74613 61.45%
-	
-	public final static int[] answersSFCIanuki =   {1,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};  //ianuki most likely 74506 out of 74613 99.86%
-	public final static int[] answersSFCPhantom =  {3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2};  //phantom most likely 74386 out of 74613 99.70%
-	public final static int[] answersSFCIceCloud = {3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};  //ice cloud most likely 74613 out of 74613 100% 9
-	public final static int[] answersSFCThunder =  {2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3};  //thunder most likely 72839 out of 74613 97.62%
-	
-	public final static int[] all1s =              {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  //phantom most likely 30953 out of 74613 41.48%
+	public static TarotAnswers ianukiSFC = new TarotAnswers(new int[]{2,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2}, new int[]{IANUKI.O}, 74506);//max Thunder                                     99.86%	
+	public static TarotAnswers phantomSFC = new TarotAnswers(new int[]{3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2}, new int[]{PHANTOM.O}, 74386);//max Thunder                                   99.70%
+	public static TarotAnswers iceCloudSFC = new TarotAnswers(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1}, new int[]{ICE_CLOUD.O}, 74613);//max Thunder                                100%
+	public static TarotAnswers thunderSFC = new TarotAnswers(new int[]{2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3}, new int[]{THUNDER.O}, 72839);//max Thunder                                   97.62%
+	public static TarotAnswers all1s = new TarotAnswers(new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, new int[]{PHANTOM.O}, 30953);//Phantom most likely 41.48%, 41.65% Original Release
 	                                                
 	private AllPossibleHands handsGenerator;
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-		final int[] tarotAnswers = answersIanuki;
-		final int[] desiredLord = new int[]{IANUKI.O};
-		final int record = 74603;
 		final boolean iterate = false;
 		
-		//e.searchFor1sEntry(tarotAnswers, record, desiredLord);
-		e.searchForImprovement(tarotAnswers, record, iterate, desiredLord);
-		System.out.println();
-		Util.printAnswersByTarot(tarotAnswers);
+		//e.searchFor1sEntry(ianuki);
+		e.searchForImprovement(ianuki, iterate);
+		Util.printAnswersByTarot(ianuki.getAnswers());
 		//Util.printAnswersByTarotAlphabetical(tarotAnswers);
 	}
 	
@@ -66,7 +63,7 @@ public class LordOddsExample {
 		if (!isInitialized) {
 			isInitialized = true;
 			long start = System.nanoTime();
-			handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster, NUMBER OF CARDS should be 6 or 7
+			handsGenerator = new AllPossibleHands(NUMBER_OF_CARDS, true);// unsorted (true) is faster, NUMBER OF CARDS should be 6 or 7
 			long end = System.nanoTime();
 	
 			System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for "
@@ -81,7 +78,7 @@ public class LordOddsExample {
 
 		OrderHolder(int[] test, int[] order, int loops, AllPossibleHands handsGenerator) {
 			Set<TreeSet<Tarot>> all_hands = handsGenerator.returnAllHandsSet();
-			for (TreeSet<Tarot> hand : all_hands) {	
+			for (TreeSet<Tarot> hand : all_hands) {		
 				int[] indices = findHighestSecondHighest(trackResults(test, hand));
 				int highestIndex = indices[0];
 				int secondHighestIndex = indices[1];
@@ -92,9 +89,7 @@ public class LordOddsExample {
 					if (highestIndex == order[0]) {
 						correct++;
 					}
-				} // else {
-					// break;//ICE CLOUD ONLY! where 100% success from any 6 cards is possible
-					// }
+				}
 				else if (highestIndex == order[0] && secondHighestIndex == order[1]) {
 					correct++;
 				}
@@ -110,40 +105,54 @@ public class LordOddsExample {
 	    //cleaner ways to do this but overhead of n*log(n) for small n would take longer
 		private int[] findHighestSecondHighest(int[] tracker) {
 			int ianukiScore = tracker[0]; int phantomScore = tracker[1]; int icecloudScore = tracker[2]; int thunderScore = tracker[3];
-			int highestIndex = IANUKI.O; int secondHighestIndex = THUNDER.O;//defaults for faster execution
-			int highestScore = ianukiScore; int secondHighestScore = thunderScore;
+			int highestIndex = IANUKI.O; int secondHighestIndex;//default for faster execution
+			int highestScore = ianukiScore; int secondHighestScore;
 			
-			//highest, default to Ianuki
+			//highest
 			if (phantomScore > highestScore) {
 				highestIndex = PHANTOM.O;
 				highestScore = phantomScore;
-			}
+			} 
 			if (icecloudScore > highestScore) {
 				highestIndex = ICE_CLOUD.O;
 				highestScore = icecloudScore;
 			}
 			if (thunderScore > highestScore) {
 				highestIndex = THUNDER.O;
+				highestScore = thunderScore;
 			}
-			//second highest, default to Thunder
-			if (highestIndex != IANUKI.O && ianukiScore > secondHighestScore) {
-				secondHighestIndex = IANUKI.O;
-				secondHighestScore = ianukiScore;
-			}
-			if (highestIndex != PHANTOM.O && phantomScore > secondHighestScore) {
+			//second highest
+//			if (highestIndex != IANUKI.O) {
+//			secondHighestIndex = IANUKI.O;
+//			secondHighestScore = ianukiScore;
+//		}
+//		if (highestIndex != PHANTOM.O && phantomScore > secondHighestScore) {
+//			secondHighestIndex = PHANTOM.O;
+//			secondHighestScore = phantomScore;
+//		}
+			if ((highestIndex == IANUKI.O) || (highestIndex != PHANTOM.O && phantomScore > ianukiScore)) {
 				secondHighestIndex = PHANTOM.O;
 				secondHighestScore = phantomScore;
+			} else {
+				secondHighestIndex = IANUKI.O;
+				secondHighestScore = ianukiScore;
 			}
 			if (highestIndex != ICE_CLOUD.O && icecloudScore > secondHighestScore) {
 				secondHighestIndex = ICE_CLOUD.O;
 				secondHighestScore = icecloudScore;
 			}
+			if (highestIndex != THUNDER.O && thunderScore > secondHighestScore) {
+				secondHighestIndex = THUNDER.O;
+			}
 			return new int[]{highestIndex, secondHighestIndex};
 		}
-		
+			
 		private int[] trackResults(int[] test, TreeSet<Tarot> hand) {
 			final int[] tracker = new int[4]; //4 Lord Types
+			int i = 0;
 			for (Tarot card : hand) {
+				i++;
+				if (i == 7) continue;//bonus card does not affect Lord Type
 				int drawn = card.ordinal();
 				int chosen = test[drawn];
 				int[] temp;
@@ -158,6 +167,10 @@ public class LordOddsExample {
 			}
 			return tracker;
 		}
+	}
+	
+	public void searchFor1sEntry(TarotAnswers answers) {
+		searchFor1sEntry(answers.getAnswers(), answers.getRecord(), answers.getDesiredLord());
 	}
 	
 	public void searchFor1sEntry(int[] solution, int record, int... order) {
@@ -223,19 +236,17 @@ public class LordOddsExample {
 		Util.printAnswers(test, DECK_SIZE);
 	}
 	
+	public void searchForImprovement(TarotAnswers answers, boolean iterate) {
+		searchForImprovement(answers.getAnswers(), answers.getRecord(), iterate, answers.getDesiredLord());
+	}
+	
 	public void searchForImprovement(int[] solution, int record, boolean iterate, int... order) {	
-//		Ianuki ianuki = new Ianuki();
-//		Set<int[]> ianukiSolutions = ianuki.returnAllSolutionsSet();
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
-//		final int found = possibleSolutions.size();
-		
-//		Iterator<int[]> it = ianukiSolutions.iterator();
-//		while(it.hasNext()) {
 		final int[] test = new int[DECK_SIZE];
 		boolean newRecord = false;
 		int currentRecord = 0;
-		System.arraycopy(solution, 0, test, 0, DECK_SIZE);// deep copy
+		System.arraycopy(solution, 0, test, 0, DECK_SIZE);//deep copy
 		final int loops = (iterate) ? DECK_SIZE * 2 : 1;//1 loop if not iterating
 		for (int i=0; i<loops; i++) {
 			currentRecord = record;
@@ -276,9 +287,8 @@ public class LordOddsExample {
 			} else {
 				System.out.println(System.lineSeparator()+"Highest Lord Type");
 				Util.printIndex(holder.first);
-				System.out.println(System.lineSeparator()+"Second Highest Lord Type");
+				System.out.println("Second Highest Lord Type");
 				Util.printIndex(holder.second);
-				System.out.println();
 			}
 		}
 		if (!newRecord) {
@@ -290,7 +300,6 @@ public class LordOddsExample {
 		System.out.println(System.lineSeparator() + "Original Answers: ");
 		Util.printAnswers(test, DECK_SIZE);
 	}
-//	}
 	
 	private void rotateUp(int[] answers, int slot) {
 		int value;
@@ -319,7 +328,7 @@ public class LordOddsExample {
 	}
 }
 /*
-0.5024919 seconds to execute for 74613 hands
+0.5756881 seconds to execute for 74613 hands
 Count of 74603 equals current record of 74603
 
 Highest Lord Type
@@ -337,7 +346,6 @@ Thunder:   28457
 
 Original Answers: 
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
-
 Magician    : 1
 Priestess   : 1
 Empress     : 2
@@ -349,7 +357,7 @@ Strength    : 2
 Hermit      : 2
 Fortune     : 1
 Justice     : 2
-Hanged_Man  : 2
+HangedMan   : 2
 Death       : 3
 Temperance  : 1
 Devil       : 2
