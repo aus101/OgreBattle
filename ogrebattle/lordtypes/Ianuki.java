@@ -5,7 +5,7 @@ import static ogrebattle.tarot.pojo.TarotSorting.*;
 import java.util.TreeSet;
 
 /**
- * Ianuki lord type has 9 sets of answers that yield the same optimal rate of<br>
+ * Ianuki lord type has 8 sets of answers that yield the same optimal rate of<br>
  * 74603 out of 74613 (99.99%). Here they are constructed and returned.<br>
  */
 public class Ianuki extends LordType {
@@ -28,11 +28,6 @@ public class Ianuki extends LordType {
 	        selection.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
 		}
 	}
-
-	public static void main(String[] args) {
-		Ianuki i = new Ianuki();
-		i.printSolutions();
-	}
 	
 	public static int[] getBase() {
 		return BASE;
@@ -48,18 +43,22 @@ public class Ianuki extends LordType {
 	protected int countDifferences(int[] found) {
 		return(countDifferences(found, BASE));
 	}
+	
+	public static void main(String[] args) {
+		Ianuki i = new Ianuki();
+		i.printSolutions();
+	}
 }
 /*
 Only Magician, Emperor, Tower and Judgment change
 
-Count: 9
+Count: 8
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2};
 {1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 {1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2};
 {2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 {2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2};
-{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,2,2,3,2,1,2,2};
 {2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 {2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2};
 */
