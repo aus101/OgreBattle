@@ -2,7 +2,6 @@ package ogrebattle.lordtypes;
 
 import static ogrebattle.tarot.pojo.TarotSorting.*;
 
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -11,20 +10,23 @@ import java.util.TreeSet;
  */
 public class Ianuki extends LordType {
 	public static final int[] BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
-	static {
-		selection = new TreeSet<int[]>(new IntArrayComparator());
-		
-		selection.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//base and 7 ones
-		selection.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
-		selection.add(new int[]{1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//also 7 ones
-        
-		selection.add(new int[]{1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
-        selection.add(new int[]{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
-        selection.add(new int[]{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
-        
-        selection.add(new int[]{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,2,2,3,2,1,2,2});
-        selection.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
-        selection.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
+	
+	public Ianuki() {
+		if (!INIT) {
+			INIT = true;
+			selection = new TreeSet<int[]>(new IntArrayComparator());
+			
+			selection.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//base and 7 ones
+			selection.add(new int[]{1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//also 7 ones
+			selection.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
+	        
+			selection.add(new int[]{1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
+	        selection.add(new int[]{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
+	        selection.add(new int[]{2,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
+	        
+	        selection.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
+	        selection.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
+		}
 	}
 
 	public static void main(String[] args) {
@@ -43,12 +45,8 @@ public class Ianuki extends LordType {
 	}
 	
 	@Override
-	protected int conutDifferences(int[] found) {
-		return(conutDifferences(found, BASE));
-	}
-
-	public static Set<int[]> returnAllSolutionsSet() {        
-		return selection;
+	protected int countDifferences(int[] found) {
+		return(countDifferences(found, BASE));
 	}
 }
 /*

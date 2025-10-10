@@ -109,10 +109,12 @@ public class Util {
 	}
 	
 	public static void printIndex(int[] answers) {
-		System.out.println("Ianuki:    " + answers[LORD.IANUKI.O]);
-		System.out.println("Phantom:   " + answers[LORD.PHANTOM.O]);
-		System.out.println("Ice Cloud: " + answers[LORD.ICE_CLOUD.O]);
-		System.out.println("Thunder:   " + answers[LORD.THUNDER.O]);
+		String s = System.lineSeparator();
+		System.out.println(new StringBuilder
+				       ("Ianuki:    ").append(answers[LORD.IANUKI.O]).append(s)
+				.append("Phantom:   ").append(answers[LORD.PHANTOM.O]).append(s)
+				.append("Ice Cloud: ").append(answers[LORD.ICE_CLOUD.O]).append(s)
+				.append("Thunder:   ").append(answers[LORD.THUNDER.O]).append(s));//extra linebreak is useful
 	}
 	
 	public static void printAnswers(int[] answers, int deckSize) {

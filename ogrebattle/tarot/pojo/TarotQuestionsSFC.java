@@ -9,34 +9,34 @@ package ogrebattle.tarot.pojo;
  * Game sums the total and determines the Lord type once the bonus card has been chosen.
  */
 public enum TarotQuestionsSFC {
-	Magician(new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}),  //same point values given as in all other releases 
-	Priestess(new int[][]{{2,1,5,1}, {3,2,1,4}, {1,4,3,5}}), //rearranged point values in all subsequent releases
-	Empress(new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}),   //new point values given in all subsequent release 
+	Magician  (new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}),  //same point values given as in all other releases 
+	Priestess (new int[][]{{2,1,5,1}, {3,2,1,4}, {1,4,3,5}}), //rearranged point values in all subsequent releases
+	Empress   (new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}),   //new point values given in all subsequent release 
 	
-	Emperor(new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}),   //Gives Empress point values in all subsequent releases, this downward shift applies for all subsequent cards
+	Emperor   (new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}),   //Gives Empress point values in all subsequent releases, this downward shift applies for all subsequent cards
 	Hierophant(new int[][]{{1,2,4,2}, {5,2,5,3}, {4,5,1,4}}),
-	Lovers(new int[][]{{2,5,1,4}, {3,1,5,3}, {5,4,2,5}}),
+	Lovers    (new int[][]{{2,5,1,4}, {3,1,5,3}, {5,4,2,5}}),
 	
-	Chariot(new int[][]{{3,1,5,1}, {5,3,1,2}, {4,5,4,5}}),
-	Strength(new int[][]{{3,5,1,4}, {4,1,3,3}, {2,3,4,1}}),
-	Hermit(new int[][]{{5,1,2,1}, {1,5,2,4}, {2,4,5,3}}),
+	Chariot   (new int[][]{{3,1,5,1}, {5,3,1,2}, {4,5,4,5}}),
+	Strength  (new int[][]{{3,5,1,4}, {4,1,3,3}, {2,3,4,1}}),
+	Hermit    (new int[][]{{5,1,2,1}, {1,5,2,4}, {2,4,5,3}}),
 	
-	Fortune(new int[][]{{1,4,4,2}, {4,1,2,5}, {2,3,1,4}}),
-	Justice(new int[][]{{1,5,1,3}, {4,2,2,4}, {3,3,4,4}}),
-	HangedMan(new int[][]{{1,2,5,2}, {1,3,2,4}, {5,4,1,4}}),
+	Fortune   (new int[][]{{1,4,4,2}, {4,1,2,5}, {2,3,1,4}}),
+	Justice   (new int[][]{{1,5,1,3}, {4,2,2,4}, {3,3,4,4}}),
+	HangedMan (new int[][]{{1,2,5,2}, {1,3,2,4}, {5,4,1,4}}),
 	
-  	Death(new int[][]{{5,1,5,1}, {1,5,4,2}, {3,3,2,5}}),
+  	Death     (new int[][]{{5,1,5,1}, {1,5,4,2}, {3,3,2,5}}),
     Temperance(new int[][]{{4,5,1,5}, {5,1,2,3}, {1,2,5,1}}),      
-    Devil(new int[][]{{3,5,3,1}, {4,4,2,5}, {1,2,5,2}}),
+    Devil     (new int[][]{{3,5,3,1}, {4,4,2,5}, {1,2,5,2}}),
     
-    Tower(new int[][]{{1,2,3,2}, {3,1,2,1}, {2,3,1,3}}), 
-    Star(new int[][]{{1,3,2,3}, {2,1,3,2}, {3,1,1,1}}), 
-    Moon(new int[][]{{1,4,2,4}, {3,2,3,1}, {2,1,4,2}}),
+    Tower     (new int[][]{{1,2,3,2}, {3,1,2,1}, {2,3,1,3}}), 
+    Star      (new int[][]{{1,3,2,3}, {2,1,3,2}, {3,1,1,1}}), 
+    Moon      (new int[][]{{1,4,2,4}, {3,2,3,1}, {2,1,4,2}}),
     
-    Sun(new int[][]{{2,1,1,1}, {1,3,2,3}, {3,2,3,2}}),
-    Judgment(new int[][]{{3,4,4,1}, {4,3,2,2}, {2,1,3,3}}), 
-    Fool(new int[][]{{1,1,2,5}, {4,2,4,2}, {2,5,2,1}}),
-    World(new int[][]{{15,12,15,8}, {15,14,0,8}, {0,3,15,8}});//much higher point values than all other releases, has Fool points in those
+    Sun       (new int[][]{{2,1,1,1}, {1,3,2,3}, {3,2,3,2}}),
+    Judgment  (new int[][]{{3,4,4,1}, {4,3,2,2}, {2,1,3,3}}), 
+    Fool      (new int[][]{{1,1,2,5}, {4,2,4,2}, {2,5,2,1}}),
+    World     (new int[][]{{15,12,15,8}, {15,14,0,8}, {0,3,15,8}});//much higher point values than all other releases, has Fool points in those
     
 	private int[][] values = new int[4][3];
 	
