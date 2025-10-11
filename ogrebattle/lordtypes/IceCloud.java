@@ -63,7 +63,7 @@ public class IceCloud extends LordType {
 	}
 }
 /*
-card slot at index 9, 10, 14 never changes aka Fortune(3), Justice(1) and Devil(1)
+Only cards at indices 1, 3, 4, 5, 18 change aka Priestess, Emperor, Hierophant, Lovers, Sun
 
 ----------
 

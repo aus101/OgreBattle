@@ -50,7 +50,7 @@ public class Ianuki extends LordType {
 	}
 }
 /*
-Only Magician, Emperor, Tower and Judgment change
+Only cards at indices 0, 4, 19 change aka Magician, Hierophant, Judgment
 
 Count: 8
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
