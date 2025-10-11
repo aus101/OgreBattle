@@ -9,6 +9,7 @@ import java.util.Locale;
 import ogrebattle.tarot.exact.AllPossibleHands;
 import ogrebattle.tarot.pojo.LORD;
 import ogrebattle.tarot.pojo.Tarot;
+import ogrebattle.tarot.pojo.TarotAnswers;
 import ogrebattle.tarot.pojo.TarotSorting.AlphabeticalComparator;
 import ogrebattle.tarot.simulate.TarotDeck;
 
@@ -49,6 +50,11 @@ public class Util {
 	 */
 	public static String percent(int successes, int totalHands, int precision) {
 		System.out.println(successes + " / " + totalHands);
+		return percentCalc(successes, totalHands, precision);
+	}
+	
+	public static String percentCalc(int successes, int totalHands, int precision) {
+		if (successes == totalHands) precision = 0;//display 100% instead of 100.00%
 		BigDecimal num = new BigDecimal(successes);
 		BigDecimal denom = new BigDecimal(totalHands);
 		return (num.multiply(new BigDecimal(100)).divide(denom, precision, RoundingMode.HALF_UP) + "%");
@@ -108,6 +114,10 @@ public class Util {
 		System.out.println(percentAlt(successes, totalHands, precision));
 	}
 	
+	public static void printIndex(TarotAnswers solution) {
+		printIndex(solution.getAnswers());
+	}
+	
 	public static void printIndex(int[] answers) {
 		String s = System.lineSeparator();
 		System.out.println(new StringBuilder
@@ -115,6 +125,10 @@ public class Util {
 				.append("Phantom:   ").append(answers[LORD.PHANTOM.O]).append(s)
 				.append("Ice Cloud: ").append(answers[LORD.ICE_CLOUD.O]).append(s)
 				.append("Thunder:   ").append(answers[LORD.THUNDER.O]).append(s));//extra linebreak is useful
+	}
+	
+	public static void printAnswers(TarotAnswers solution, int deckSize) {
+		printAnswers(solution.getAnswers(), deckSize);
 	}
 	
 	public static void printAnswers(int[] answers, int deckSize) {
@@ -125,6 +139,10 @@ public class Util {
 		System.out.print(answers[deckSize-1]+"};"+System.lineSeparator());
 	}
 	
+	public static void printAnswersByTarot(TarotAnswers solution) {
+		printAnswersByTarot(solution.getAnswers());
+	}
+	
 	public static void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
 		for(int i=0; i<values.length; i++) {
@@ -132,6 +150,48 @@ public class Util {
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);
 			//String.format(String.valueOf(values[i])) + ": " + answers[i]);
 		}
+	}
+	
+	public static void printAnswersByGroup(TarotAnswers solution) {
+		printAnswersByGroup(solution.getAnswers());
+	}
+
+	public static void printAnswersByGroup(int[] answers) {
+		Tarot[] values = Tarot.values();
+		final int DECK_SIZE = answers.length;
+		int[] ones = new int[DECK_SIZE];//in case all answers are the same
+		int[] twos = new int[DECK_SIZE];
+		int[] threes = new int[DECK_SIZE];
+		//4x loops in linear time are good enough versus making a new comparator on new data type for (n)(log n) sort + 1 print loop
+		for(int i=0; i<DECK_SIZE; i++) {
+			if (answers[i] == 1) {
+				ones[i] = answers[i];
+			} else if (answers[i] == 2) {
+				twos[i] = answers[i];
+			} else {
+				threes[i] = answers[i];
+			}
+		}
+		System.out.println();
+		for(int i=0; i<DECK_SIZE; i++) {
+			if (ones[i] != 0)
+				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + ones[i]);//pad right
+		}
+		System.out.println();
+		for(int i=0; i<DECK_SIZE; i++) {
+			if (twos[i] != 0)
+				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + twos[i]);//pad right
+		}
+		System.out.println();
+		for(int i=0; i<DECK_SIZE; i++) {
+			if (threes[i] != 0)
+				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + threes[i]);//pad right
+		}
+		System.out.println();
+	}
+	
+	public static void printAnswersByTarotAlphabetical(TarotAnswers solution) {
+		printAnswersByTarotAlphabetical(solution.getAnswers());
 	}
 	
 	public static void printAnswersByTarotAlphabetical(int[] answers) {
