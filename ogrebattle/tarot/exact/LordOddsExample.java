@@ -29,8 +29,6 @@ import ogrebattle.tarot.pojo.TarotQuestionsSFC;
  * Perhaps the best extension would be finding optimal solutions for any Lord being the second highest total.<br>
  */
 public class LordOddsExample {
-	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
-	public final static int DECK_SIZE = Tarot.values().length;
 	private static final TarotQuestions[] TAROT_LORD = TarotQuestions.values();
 	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
 	private static final int NUMBER_OF_CARDS = 6;//6 or 7 cards work just fine, bonus card not answered for points
@@ -68,7 +66,7 @@ public class LordOddsExample {
 		System.out.println(System.lineSeparator() + "searchForImprovement(all1s) start");
 		e.searchForImprovement(all1s);
 		System.out.println(System.lineSeparator() + "countRecord(ianuki) start");
-		e.countRecord(ianuki);
+		e.countMatches(ianuki);
 		Util.printAnswersByTarot(ianuki);
 		
 //		e.iterate = true;
@@ -205,18 +203,18 @@ public class LordOddsExample {
 		Tarot[] values = Tarot.values();
 		possibleSolutions.add(solution);
 		//final int ordinal = doNotChange.ordinal()-1; 
-		final int[] test = new int[DECK_SIZE];
-		int[] maxSolution = new int[DECK_SIZE];
+		final int[] test = new int[Util.DECK_SIZE];
+		int[] maxSolution = new int[Util.DECK_SIZE];
 		int maxRecord = 0;
 		int currentRecord = 0;
-		System.arraycopy(solution, 0, test, 0, DECK_SIZE);// deep copy
+		System.arraycopy(solution, 0, test, 0, Util.DECK_SIZE);// deep copy
 		int originalAnswer = 0;
 		int tarot = 0;
 		int changes = 0;
-		final int loops = DECK_SIZE;
+		final int loops = Util.DECK_SIZE;
 		
 		System.out.println(System.lineSeparator() + "Starting: " + givenRecord);
-		Util.printAnswers(test, DECK_SIZE);
+		Util.printAnswers(test);
 		
 		for (int i=0; i<loops; i++) {
 			if (test[i] == 1) continue;// || (i == ordinal)) //if 1 or the preserved card
@@ -234,19 +232,19 @@ public class LordOddsExample {
 				possibleSolutions.add(test);
 				if (possibleSolutions.size() > before) {
 					System.out.println(System.lineSeparator() + "Alternate for same count of " + currentRecord + " Changing " + values[i]);
-					Util.printAnswers(test, DECK_SIZE);
+					Util.printAnswers(test);
 				} else {
 					System.out.println("Count of " + holder.correct + " equals current record of " + currentRecord);
-					Util.printAnswers(test, DECK_SIZE);
+					Util.printAnswers(test);
 				}
 			} else {//(correct > currentRecord) and can change this card
 				System.out.println(System.lineSeparator() + "New Record: " + holder.correct + " Changing " + values[i]);
 				currentRecord = holder.correct;
 				tarot = i;
-				Util.printAnswers(test, DECK_SIZE);
+				Util.printAnswers(test);
 				if (holder.correct > maxRecord) {
 					maxRecord = holder.correct;
-					System.arraycopy(test, 0, maxSolution, 0, DECK_SIZE);//deep copy, necessary due to rotation on test
+					System.arraycopy(test, 0, maxSolution, 0, Util.DECK_SIZE);//deep copy, necessary due to rotation on test
 				}
 			}
 			test[i] = originalAnswer;// switch back to avoid another full array copy	
@@ -254,7 +252,7 @@ public class LordOddsExample {
 		if (changes > 0) {
 			if (maxRecord > 0) {
 				System.out.println(System.lineSeparator() + "Max Record: " + maxRecord);
-				Util.printAnswers(maxSolution, DECK_SIZE);
+				Util.printAnswers(maxSolution);
 			}
 			System.out.print(System.lineSeparator()+"Max Record " + currentRecord + getPercent(currentRecord, handsGenerator.size()) + "is "); 
 			if (givenRecord > currentRecord) {
@@ -267,9 +265,9 @@ public class LordOddsExample {
 				System.out.println(" somehow equal to the starting record");
 				iterate = false;
 			}
-			System.out.println(values[tarot] + " at Position " + (tarot+1) + " changed from " + test[tarot]+ " for " + (DECK_SIZE - changes) + " total 1's");
+			System.out.println(values[tarot] + " at Position " + (tarot+1) + " changed from " + test[tarot]+ " for " + (Util.DECK_SIZE - changes) + " total 1's");
 			System.out.println(System.lineSeparator() + "Original Answers: ");
-			Util.printAnswers(test, DECK_SIZE);
+			Util.printAnswers(test);
 		} else System.out.println(System.lineSeparator()+"Every answer is 1 to begin with, nothing to do");
 	}
 	
@@ -289,7 +287,7 @@ public class LordOddsExample {
 		searchForImprovement( 0, false, answers, order);
 	}
 	
-	public void countRecord(TarotAnswers solution) {
+	public void countMatches(TarotAnswers solution) {
 		searchForImprovement(0, false, solution.getAnswers(), solution.getDesiredLord());
 	}
 	
@@ -315,19 +313,19 @@ public class LordOddsExample {
 		}
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
-		final int[] test = new int[DECK_SIZE];
-		int[] maxSolution = new int[DECK_SIZE];
+		final int[] test = new int[Util.DECK_SIZE];
+		int[] maxSolution = new int[Util.DECK_SIZE];
 		int maxRecord = 0;
 		int currentRecord = givenRecord;
-		System.arraycopy(solution, 0, test, 0, DECK_SIZE);//deep copy
-		final int loops = (iterate) ? DECK_SIZE * 2 : 1;//1 loop if not iterating
+		System.arraycopy(solution, 0, test, 0, Util.DECK_SIZE);//deep copy
+		final int loops = (iterate) ? Util.DECK_SIZE * 2 : 1;//1 loop if not iterating
 		final String startPercent = getPercent(givenRecord, handsGenerator.size());
 		for (int i=0; i<loops; i++) {
 			if(iterate) {
-				if (i < DECK_SIZE)
+				if (i < Util.DECK_SIZE)
 					rotateUp(test, i);
 				else
-					rotateDown(test, i - DECK_SIZE);
+					rotateDown(test, i - Util.DECK_SIZE);
 			}
 			OrderHolder holder = new OrderHolder(test, order, loops, handsGenerator);
 			if (holder.correct > maxRecord) {
@@ -338,14 +336,14 @@ public class LordOddsExample {
 			if ((!iterate) && (holder.correct < currentRecord)) {
 				System.out.println(System.lineSeparator() + "Count of " + holder.correct + holderPercent + "is worse than current record of "
 						+ currentRecord + startPercent);
-				Util.printAnswers(test, DECK_SIZE);
+				Util.printAnswers(test);
 			}
 			if (holder.correct == currentRecord) {
 				int before = possibleSolutions.size();
 				possibleSolutions.add(test);
 				if (possibleSolutions.size() > before) {
 					System.out.println(System.lineSeparator() + "Alternate: same record of " + currentRecord);
-					Util.printAnswers(test, DECK_SIZE);
+					Util.printAnswers(test);
 				} else if(!iterate) {
 					System.out.println("Count of " + holder.correct + holderPercent + "equals current record of " + givenRecord);
 				}
@@ -356,15 +354,15 @@ public class LordOddsExample {
 				} else {
 					System.out.println(System.lineSeparator() + "The Record: " + holder.correct + holderPercent);
 				}
-				Util.printAnswers(test, DECK_SIZE);
-				System.arraycopy(test, 0, maxSolution, 0, DECK_SIZE);// deep copy, necessary due to rotating test
+				Util.printAnswers(test);
+				System.arraycopy(test, 0, maxSolution, 0, Util.DECK_SIZE);// deep copy, necessary due to rotating test
 			}
 			//switch back to avoid another full array copy
 			if (iterate) {
-				if (i < DECK_SIZE)
+				if (i < Util.DECK_SIZE)
 					rotateDown(test, i);
 				else
-					rotateUp(test, i - DECK_SIZE);
+					rotateUp(test, i - Util.DECK_SIZE);
 			} else {
 				System.out.println(System.lineSeparator() + "Highest Lord Type");
 				Util.printIndex(holder.first);
@@ -382,12 +380,12 @@ public class LordOddsExample {
 			} else {
 				System.out.println(System.lineSeparator() + "Max Record: " + maxRecord + getPercent(maxRecord, handsGenerator.size()));
 				tempAnswers = new TarotAnswers(maxRecord, maxSolution, tempAnswers.getDesiredLord());
-				Util.printAnswers(tempAnswers.getAnswers(), DECK_SIZE);
+				Util.printAnswers(tempAnswers.getAnswers());
 			}
 		} else {
 			if (givenRecord > 0) {
 				System.out.println(System.lineSeparator() + "Starting Answers: " +  givenRecord + startPercent);
-				Util.printAnswers(test, DECK_SIZE);
+				Util.printAnswers(test);
 			}
 		}
 	}
