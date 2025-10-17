@@ -7,4 +7,37 @@ public enum LORD {
 	private LORD(int ordinal) {
 		O = ordinal;
 	}
+	
+	public static LORD reverse(int o) {
+		LORD reverse;
+		switch (o)//Java 12 can return in the switch and not need breaks but let's not force Java 12+
+		{
+		    case 0: reverse = IANUKI;
+		        break;
+		    case 1: reverse = PHANTOM;
+		        // code to execute if expression equals value2
+		        break;
+		    case 2: reverse = ICE_CLOUD;
+		    	break;
+		    case 3: reverse = THUNDER;
+		    	break;
+		    default: reverse = null;
+		}
+		return reverse;
+	}
+	
+	public static void main(String[] args) {
+		LORD i = IANUKI;
+		System.out.println(i);
+		System.out.println(i.O);
+		System.out.println(reverse(i.O));
+		LORD j = IANUKI;
+		System.out.println(i == j);
+	}
+	/**
+	 *IANUKI
+     *0
+     *IANUKI
+     *true
+	 */
 }
