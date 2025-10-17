@@ -22,7 +22,7 @@ public abstract class LordType {
 	}
 
 	public void printSolutions() {
-		System.out.println("Count: " + selection.size());// 65 expected for IceCloud and 9 for Ianuki
+		System.out.println("Count: " + selection.size());// 18 expected for IceCloud and 8 for Ianuki
 		for (int[] lhs : selection) {
 			System.out.print("{");
 			for (int i = 0; i < lhs.length - 1; i++) {

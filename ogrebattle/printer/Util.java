@@ -54,10 +54,14 @@ public class Util {
 	}
 	
 	public static String percentCalc(int successes, int totalHands, int precision) {
-		if (successes == totalHands) precision = 0;//display 100% instead of 100.00%
-		BigDecimal num = new BigDecimal(successes);
-		BigDecimal denom = new BigDecimal(totalHands);
-		return (num.multiply(new BigDecimal(100)).divide(denom, precision, RoundingMode.HALF_UP) + "%");
+		String percent;
+		if (successes != totalHands) {
+			BigDecimal num = new BigDecimal(successes);
+			BigDecimal denom = new BigDecimal(totalHands);
+			percent = (num.multiply(ONE_HUNDRED).divide(denom, precision, RoundingMode.HALF_UP) + "%");
+			if (percent.equals("100.00%")) percent = "99.99%";//prevents 99.995 and greater from rounding up to 100%, overriding precision
+		} else percent = "100";//display 100% instead of 100.00%
+		return percent;
 	}
 	
 	/**

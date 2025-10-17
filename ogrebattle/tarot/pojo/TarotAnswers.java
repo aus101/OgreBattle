@@ -24,6 +24,8 @@ public class TarotAnswers {
 	}
 	
 	public TarotAnswers(int[] answers, int[] desiredLord, int record, boolean deepCopyArrays) {
+		this.answers = new int[answers.length];
+		this.desiredLord = new int[desiredLord.length];
 		System.arraycopy(answers, 0, this.answers, 0, answers.length);
 		System.arraycopy(desiredLord, 0, this.desiredLord, 0, desiredLord.length);
 		this.record = record;
