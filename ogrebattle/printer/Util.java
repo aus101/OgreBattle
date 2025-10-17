@@ -19,6 +19,7 @@ import ogrebattle.tarot.simulate.TarotDeck;
 public class Util {
 	public static int PRECISION_PRINT = 4;//4 decimals
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
+	public static final int DECK_SIZE = Tarot.values().length;
 	private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 	private static final NumberFormat COMMAS = NumberFormat.getInstance(Locale.US);
 
@@ -132,15 +133,15 @@ public class Util {
 	}
 	
 	public static void printAnswers(TarotAnswers solution, int deckSize) {
-		printAnswers(solution.getAnswers(), deckSize);
+		printAnswers(solution.getAnswers());
 	}
 	
-	public static void printAnswers(int[] answers, int deckSize) {
+	public static void printAnswers(int[] answers) {
 		System.out.print("{");
-		for(int i=0; i<deckSize-1; i++) {
+		for(int i=0; i<DECK_SIZE-1; i++) {
 			System.out.print(answers[i] + ",");
 		}
-		System.out.print(answers[deckSize-1]+"};"+System.lineSeparator());
+		System.out.print(answers[DECK_SIZE-1]+"};"+System.lineSeparator());
 	}
 	
 	public static void printAnswersByTarot(TarotAnswers solution) {
@@ -149,7 +150,7 @@ public class Util {
 	
 	public static void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
-		for(int i=0; i<values.length; i++) {
+		for(int i=0; i<DECK_SIZE; i++) {
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);
 			//String.format(String.valueOf(values[i])) + ": " + answers[i]);
@@ -162,7 +163,6 @@ public class Util {
 
 	public static void printAnswersByGroup(int[] answers) {
 		Tarot[] values = Tarot.values();
-		final int DECK_SIZE = answers.length;
 		int[] ones = new int[DECK_SIZE];//in case all answers are the same
 		int[] twos = new int[DECK_SIZE];
 		int[] threes = new int[DECK_SIZE];
@@ -201,7 +201,7 @@ public class Util {
 	public static void printAnswersByTarotAlphabetical(int[] answers) {
 		Tarot[] values = Tarot.values();
 		Arrays.sort(values, new AlphabeticalComparator());
-		for(int i=0; i<values.length; i++) {
+		for(int i=0; i<DECK_SIZE; i++) {
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[values[i].ordinal()]);			
 		}
