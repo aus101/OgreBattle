@@ -222,6 +222,20 @@ public class Util {
 			System.out.println(allHands.returnRandomHandInList());
 	}
 	
+	public String lordOrder(int... order) {//loop is overkill and more complicated given text difference
+		StringBuilder sb = new StringBuilder();
+		if (order.length >= 1)
+			sb.append("First Match: ").append(LORD.reverse(order[0]).toString());
+		if (order.length >= 2)
+			sb.append(", Second Match: ").append(LORD.reverse(order[1]).toString());
+		if (order.length >= 3)
+			sb.append(", Third Match: ").append(LORD.reverse(order[2]).toString());
+		if (order.length >= 4)
+			sb.append(", Fourth Match: ").append(LORD.reverse(order[3]).toString());
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * @param nanoTime the time as a long in nanoseconds, such as the difference with 2 System.nanoTime() calls
 	 * @return String in human readable minutes and seconds with < 1 second as "less than 1 second"
