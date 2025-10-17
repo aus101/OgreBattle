@@ -58,8 +58,8 @@ public class IceCloud extends LordType {
 	}
 
 	public static void main(String[] args) {
-		IceCloud ic = new IceCloud();
-		ic.printSolutions();
+		IceCloud ice = new IceCloud();
+		ice.printSolutions();
 	}
 }
 /*

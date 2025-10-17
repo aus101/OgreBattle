@@ -45,8 +45,8 @@ public class Ianuki extends LordType {
 	}
 	
 	public static void main(String[] args) {
-		Ianuki i = new Ianuki();
-		i.printSolutions();
+		Ianuki ian = new Ianuki();
+		ian.printSolutions();
 	}
 }
 /*
