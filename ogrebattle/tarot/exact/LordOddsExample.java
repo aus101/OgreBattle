@@ -32,7 +32,7 @@ public class LordOddsExample {
 	private static final TarotQuestionsSFC[] TAROT_LORD_SFC = TarotQuestionsSFC.values();
 	private static boolean isInitialized = false;
 	private final int NUMBER_OF_CARDS = 6;//6 or 7 cards work just fine, bonus card not answered for points
-	private final boolean ORIGINAL_SFC_QUESTIONS = true;
+	private final boolean ORIGINAL_SFC_QUESTIONS = false;
 	private boolean iterate = false;
 	private TarotAnswers tempAnswers;
 	private AllPossibleHands handsGenerator;
@@ -43,7 +43,7 @@ public class LordOddsExample {
 	public static final TarotAnswers thunder = new TarotAnswers(74009, new int[]{2,2,3,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1}, THUNDER);//max Thunder                                     99.19%
 	
 	public static final TarotAnswers ianukiIceCloud = new TarotAnswers(60171, new int[]{1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2}, IANUKI, ICE_CLOUD);//Ianuki 1st, Ice Cloud 2nd      80.64%
-	public static final TarotAnswers phantomIceCloud = new TarotAnswers(new int[]{43612, 3,2,3,1,1,1,1,3,3,3,1,1,2,2,3,1,1,1,2,2,1,3}, PHANTOM, ICE_CLOUD);//Phantom 1st, Ice Cloud 2nd   58.45%
+	public static final TarotAnswers phantomIceCloud = new TarotAnswers(44814, new int[]{3,2,3,1,1,1,1,3,3,3,1,1,2,2,3,1,1,1,2,2,1,3}, PHANTOM, ICE_CLOUD);//Phantom 1st, Ice Cloud 2nd   58.45%
 
 	public static final TarotAnswers ianukiSFC =   new TarotAnswers(74535, new int[]{2,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2}, IANUKI);//max Ianuki                                   99.90%
 	public static final TarotAnswers phantomSFC = new TarotAnswers(74386, new int[]{3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2}, PHANTOM);//max Phantom                                  99.70%
@@ -66,8 +66,8 @@ public class LordOddsExample {
 		e.countMatches(all1s);
 		Util.printAnswersByTarot(ianuki);
 		
-//		System.out.println(System.lineSeparator() "continuousSearchForImprovement(new TarotAnswers(0, true, all1s.getAnswers(), PHANTOM, ICE_CLOUD)) start:
-//		e.continuousSearchForImprovement(new TarotAnswers(0, true, all1s.getAnswers(), PHANTOM, ICE_CLOUD));//generate phantomIceCloud solution set up from nothing! 	
+//		System.out.println(System.lineSeparator() + "continuousSearchForImprovement(new TarotAnswers(0, true, all1s.getAnswers(), PHANTOM, ICE_CLOUD)) start");
+//		e.continuousSearchForImprovement(new TarotAnswers(0, true, al.getAnswers(), PHANTOM, ICE_CLOUD));//generate phantomIceCloud solution set up from nothing! 	
 //		Util.printAnswersByGroup(e.tempAnswers);//answers for ianukiIceCloud grouped for speedrunning!
 	}
 	
