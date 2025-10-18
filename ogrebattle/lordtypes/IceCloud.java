@@ -14,31 +14,31 @@ public class IceCloud extends LordType {
 	public IceCloud() {
 		if (!INIT) {
 			INIT = true;
-			selection = new TreeSet<int[]>(new IntArrayComparator());
+			solutions = new TreeSet<int[]>(new IntArrayComparator());
 			
-			selection.add(new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//base and 8 ones
-			selection.add(new int[]{3,1,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//also 8 ones
-			selection.add(new int[]{3,2,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
+			solutions.add(new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//base and 8 ones
+			solutions.add(new int[]{3,1,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//also 8 ones
+			solutions.add(new int[]{3,2,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
 			
-			selection.add(new int[]{3,2,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
-			selection.add(new int[]{3,2,2,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
-			selection.add(new int[]{3,2,2,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,2,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
+			solutions.add(new int[]{3,2,2,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
+			solutions.add(new int[]{3,2,2,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 			
-			selection.add(new int[]{3,2,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});	
-			selection.add(new int[]{3,2,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
-			selection.add(new int[]{3,2,2,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,2,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});	
+			solutions.add(new int[]{3,2,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
+			solutions.add(new int[]{3,2,2,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 			
-			selection.add(new int[]{3,2,2,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
-			selection.add(new int[]{3,3,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
-			selection.add(new int[]{3,3,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,2,2,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
+			solutions.add(new int[]{3,3,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
+			solutions.add(new int[]{3,3,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 			
-			selection.add(new int[]{3,3,2,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
-			selection.add(new int[]{3,3,2,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
-			selection.add(new int[]{3,3,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
+			solutions.add(new int[]{3,3,2,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});	
+			solutions.add(new int[]{3,3,2,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,3,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
 			
-			selection.add(new int[]{3,3,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
-			selection.add(new int[]{3,3,2,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
-			selection.add(new int[]{3,3,2,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,3,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});		
+			solutions.add(new int[]{3,3,2,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
+			solutions.add(new int[]{3,3,2,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 		}
 	}
 	

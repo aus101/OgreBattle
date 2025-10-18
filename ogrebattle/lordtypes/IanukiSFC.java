@@ -14,10 +14,10 @@ public class IanukiSFC extends LordType {
 	public IanukiSFC() {
 		if (!INIT) {
 			INIT = true;
-			selection = new TreeSet<int[]>(new IntArrayComparator());
+			solutions = new TreeSet<int[]>(new IntArrayComparator());
 
-			selection.add(new int[]{1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2});//base and 6 ones
-			selection.add(new int[]{2,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2});//
+			solutions.add(new int[]{1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2});//base and 6 ones
+			solutions.add(new int[]{2,2,3,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2});//
 		}
 	}
 	
