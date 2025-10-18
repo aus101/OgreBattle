@@ -166,32 +166,53 @@ public class Util {
 		int[] ones = new int[DECK_SIZE];//in case all answers are the same
 		int[] twos = new int[DECK_SIZE];
 		int[] threes = new int[DECK_SIZE];
+		boolean onesInit = false;//whole reason is to prevent the println when there are no answers to print
+		boolean twosInit = false;
+		boolean threesInit = false;
 		//4x loops in linear time are good enough versus making a new comparator on new data type for (n)(log n) sort + 1 print loop
 		for(int i=0; i<DECK_SIZE; i++) {
 			if (answers[i] == 1) {
 				ones[i] = answers[i];
+				if (!onesInit) {
+					onesInit = true;
+				}
 			} else if (answers[i] == 2) {
 				twos[i] = answers[i];
+				if (!twosInit) {
+					twosInit = true;
+				}
 			} else {
 				threes[i] = answers[i];
+				if (!threesInit) {
+					threesInit = true;
+				}
 			}
 		}
-		System.out.println();
-		for(int i=0; i<DECK_SIZE; i++) {
-			if (ones[i] != 0)
-				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + ones[i]);//pad right
+		if (onesInit) {
+			System.out.println();
+			for(int i=0; i<DECK_SIZE; i++) {
+				if (ones[i] != 0) {
+					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + ones[i]);//pad right
+				}
+			}
 		}
-		System.out.println();
-		for(int i=0; i<DECK_SIZE; i++) {
-			if (twos[i] != 0)
-				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + twos[i]);//pad right
+		if (twosInit) {
+			System.out.println();
+			for(int i=0; i<DECK_SIZE; i++) {
+				if (twos[i] != 0) {
+					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + twos[i]);//pad right
+				}
+			}
 		}
-		System.out.println();
-		for(int i=0; i<DECK_SIZE; i++) {
-			if (threes[i] != 0)
-				System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + threes[i]);//pad right
+		if (threesInit) {
+			System.out.println();
+			for(int i=0; i<DECK_SIZE; i++) {
+				if (threes[i] != 0) {
+					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + threes[i]);//pad right
+				}
+			}
+			System.out.println();
 		}
-		System.out.println();
 	}
 	
 	public static void printAnswersByTarotAlphabetical(TarotAnswers solution) {
