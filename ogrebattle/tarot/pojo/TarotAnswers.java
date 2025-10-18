@@ -5,6 +5,21 @@ public class TarotAnswers {
 	protected int[] desiredLord;
 	protected int record;
 	
+	public TarotAnswers(TarotAnswers solution) {
+		this.answers = solution.getAnswers();
+		this.desiredLord = solution.getDesiredLord();
+		this.record = solution.getRecord();
+	}
+	
+	public TarotAnswers(boolean deepCopyArrays, TarotAnswers solution) {
+		this.answers = new int[solution.getAnswers().length];
+		this.desiredLord = new int[solution.getDesiredLord().length];
+		System.arraycopy(solution.getAnswers(), 0, this.answers, 0, answers.length);
+		System.arraycopy(solution.getDesiredLord(), 0, this.desiredLord, 0, desiredLord.length);
+		this.record = solution.getRecord();
+	}
+
+	
 	public TarotAnswers(int[] answers, int... desiredLord) {
 		this.answers = answers;
 		this.desiredLord = desiredLord;
@@ -18,6 +33,8 @@ public class TarotAnswers {
 	}
 	
 	public TarotAnswers(boolean deepCopyArrays, int[] answers, int... desiredLord) {
+		this.answers = new int[answers.length];
+		this.desiredLord = new int[desiredLord.length];
 		System.arraycopy(answers, 0, this.answers, 0, answers.length);
 		System.arraycopy(desiredLord, 0, this.desiredLord, 0, desiredLord.length);
 		this.record = 0;

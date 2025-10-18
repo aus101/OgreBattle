@@ -10,7 +10,7 @@ import java.util.TreeSet;
  */
 public class Ianuki extends LordType {
 	public static final int[] BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
-	
+
 	public Ianuki() {
 		if (!INIT) {
 			INIT = true;
