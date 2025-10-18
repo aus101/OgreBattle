@@ -25,19 +25,4 @@ public enum LORD {
 		}
 		return reverse;
 	}
-	
-	public static void main(String[] args) {
-		LORD i = IANUKI;
-		System.out.println(i);
-		System.out.println(i.O);
-		System.out.println(reverse(i.O));
-		LORD j = IANUKI;
-		System.out.println(i == j);
-	}
-	/**
-	 *IANUKI
-     *0
-     *IANUKI
-     *true
-	 */
 }

@@ -61,8 +61,8 @@ public class LordOddsExample {
 	
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
-//		System.out.println(System.lineSeparator() + "searchFor1sEntry(ianuki) start");
-//      e.searchFor1sEntry(ianuki);
+		System.out.println(System.lineSeparator() + "searchFor1sEntry(ianuki) start");
+        e.searchFor1sEntry(ianuki);
 		System.out.println(System.lineSeparator() + "searchForImprovement(all1s) start");
 		e.searchForImprovement(all1s);
 		System.out.println(System.lineSeparator() + "countRecord(ianuki) start");
@@ -422,9 +422,29 @@ public class LordOddsExample {
 	}
 }
 /*
-0.5544929 seconds to generate all 74613 hands drawing 6 cards from the deck
+0.5830699 seconds to generate all 74613 hands drawing 6 cards from the deck
 
-searchForImprovement() start
+searchFor1sEntry(ianuki) start
+
+Starting: 74603
+{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+
+New Record: 74468 Changing Empress
+{1,1,1,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+
+New Record: 74512 Changing Fool
+{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,1,2};
+
+Max Record: 74512
+{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,1,2};
+
+Max Record 74512 (99.86%) is 91 less than original record of 74603 (99.99%) 
+Fool at Position 21 changed from 2 for 7 total 1's
+
+Original Answers: 
+{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+
+searchForImprovement(all1s) start
 
 New Record: 32583 (43.67%) up from 30953 (41.48%) 
 {1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};

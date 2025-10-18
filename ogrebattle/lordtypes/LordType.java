@@ -9,21 +9,31 @@ import ogrebattle.tarot.pojo.Tarot;
 
 public abstract class LordType {
 	protected static final int CARDS = Tarot.values().length;//22
-	protected TreeSet<int[]> selection;
+	protected TreeSet<int[]> solutions;
 	protected boolean INIT = false;
 	
-	public Set<int[]> returnAllSolutionsSet() {
-		 return selection;
+	public Set<int[]> getSolutionsSet() {
+		 return solutions;
 	}
 	
-	public List<int[]> returnAllSolutionsList() {
-		return new ArrayList<int[]>(selection);
+	public List<int[]> getSolutionsList() {
+		return new ArrayList<int[]>(solutions);
 		 //return Arrays.asList(returnAllSolutionsSet().toArray(new int[0][0]));
+	}
+	
+	public List<int[]> getSolutionsListDeepCopy() {
+		List<int[]> temp = new ArrayList<int[]>(solutions.size());
+		for(int[] s : solutions) {
+			int[] toAdd = new int[s.length];//22 but let's not hardcore it
+			System.arraycopy(s, 0, toAdd, 0, s.length);
+			temp.add(toAdd);
+		}
+		return temp;
 	}
 
 	public void printSolutions() {
-		System.out.println("Count: " + selection.size());// 18 expected for IceCloud and 8 for Ianuki
-		for (int[] lhs : selection) {
+		System.out.println("Count: " + solutions.size());//18 expected for IceCloud and 8 for Ianuki
+		for (int[] lhs : solutions) {
 			System.out.print("{");
 			for (int i = 0; i < lhs.length - 1; i++) {
 				System.out.print(lhs[i] + ",");
@@ -44,7 +54,7 @@ public abstract class LordType {
 		return count;
 	}
 	
-	public void countDifferences(Set<int[]> solution) {
+	protected void countDifferences(Set<int[]> solution) {
 		for (int[] answers : solution) {
 			int diff = countDifferences(answers);
 			if (diff > 0) {
@@ -76,7 +86,7 @@ public abstract class LordType {
 	 * First choice for Tarot questions is desirable in speedrunning due to
 	 * 3 frames + human reaction time needed to switch to answer 2 or 3.
 	 */
-	public void countOnes(Set<int[]> solution) {
+	protected void countOnes(Set<int[]> solution) {
 	for(int[] answers : solution) {
 		int ones = countOnes(answers);
 		if (ones > 0) {

@@ -33,9 +33,9 @@ public class OddsExample {
 	public final static int deckSize = Tarot.values().length;
 
 	//just get the first solution for Ianuki and Ice Cloud, can iterate through and see them all if you want
-	final static List<int[]> answersIanukiAll8 =     new Ianuki().returnAllSolutionsList();              // max ianuki, 8 solutions      74603 out of 74613 99.99%
+	final static List<int[]> answersIanukiAll8 =     new Ianuki().getSolutionsList();              // max ianuki, 8 solutions      74603 out of 74613 99.99%
 	public final static int[] answersPhantom =       {3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3};// max phantom,                 74137 out of 74613 99.36%	
-	public final static List<int[]> answersIceCloudAll18 = new IceCloud().returnAllSolutionsList();      // max ice cloud, 18+ solutions 74613 out of 74613 100%
+	public final static List<int[]> answersIceCloudAll18 = new IceCloud().getSolutionsList();      // max ice cloud, 18+ solutions 74613 out of 74613 100%
 	public final static int[] answersThunder =       {2,2,1,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1};// max thunder,                 74003 out of 74613 99.18%
 	
 	public final static int[] answersFastest =       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};// phantom most likely 30953 41.48%, ianuki second most likely 12717 17.04%
