@@ -8,7 +8,6 @@ import java.util.TreeSet;
 import ogrebattle.tarot.pojo.Tarot;
 
 public abstract class LordType {
-	protected static final int CARDS = Tarot.values().length;//22
 	protected TreeSet<int[]> solutions;
 	protected boolean INIT = false;
 	
@@ -42,11 +41,9 @@ public abstract class LordType {
 		}
 	}
 	
-	protected abstract int countDifferences(int[] found);
-	
 	protected static int countDifferences(int[] found, int[] BASE) {
 		int count = 0;
-		for(int i=0; i<CARDS; i++)
+		for(int i=0; i<Tarot.DECK_SIZE; i++)
 		{
 			if(BASE[i] != found[i])
 				count++;
@@ -54,9 +51,9 @@ public abstract class LordType {
 		return count;
 	}
 	
-	protected void countDifferences(Set<int[]> solution) {
+	protected void countDifferences(Set<int[]> solution,  int[] BASE) {
 		for (int[] answers : solution) {
-			int diff = countDifferences(answers);
+			int diff = countDifferences(answers, BASE);
 			if (diff > 0) {
 				if (diff == 1) {
 					System.out.println(diff + " Difference");
@@ -74,7 +71,7 @@ public abstract class LordType {
 	
 	protected int countOnes(int[] solution) {
 		int count = 0;
-		for(int i=0; i<CARDS; i++)
+		for(int i=0; i<Tarot.DECK_SIZE; i++)
 		{
 			if(solution[i] == 1)
 				count++;

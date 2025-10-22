@@ -4,9 +4,6 @@ import static ogrebattle.tarot.pojo.TarotSorting.*;
 
 import java.util.Set;
 import java.util.TreeSet;
-import ogrebattle.lordtypes.Ianuki;
-import ogrebattle.lordtypes.IceCloud;
-import ogrebattle.lordtypes.IceCloudSFC;
 import ogrebattle.printer.Util;
 //static imports to reduce clutter
 import static ogrebattle.tarot.pojo.LORD.IANUKI;
@@ -37,9 +34,9 @@ public class LordOddsExample {
 	private TarotAnswers tempAnswers;
 	private AllPossibleHands handsGenerator;
 		
-	public static final TarotAnswers ianuki = new TarotAnswers(74603, Ianuki.getBaseDeepCopy(), IANUKI);//max Ianuki, 74603 out of 74613                                                  99.99%
+	public static final TarotAnswers ianuki = new TarotAnswers(74603, Util.IanukiBaseDeepCopy(), IANUKI);//max Ianuki, 74603 out of 74613                                                 99.99%
 	public static final TarotAnswers phantom = new TarotAnswers(74137, new int[]{3,3,3,1,2,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3}, PHANTOM);//max Phantom                                     98.74%
-	public static final TarotAnswers iceCloud = new TarotAnswers(74613, IceCloud.getBaseDeepCopy(), ICE_CLOUD);//max Ice Cloud                                                            100%
+	public static final TarotAnswers iceCloud = new TarotAnswers(74613, Util.IceCloudBaseDeepCopy(), ICE_CLOUD);//max Ice Cloud                                                           100%
 	public static final TarotAnswers thunder = new TarotAnswers(74009, new int[]{2,2,3,2,2,1,3,3,2,2,3,2,2,3,1,2,3,1,1,2,3,1}, THUNDER);//max Thunder                                     99.19%
 	
 	public static final TarotAnswers ianukiIceCloud = new TarotAnswers(60171, new int[]{1,1,2,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,3,2,2}, IANUKI, ICE_CLOUD);//Ianuki 1st, Ice Cloud 2nd      80.64%
@@ -47,7 +44,7 @@ public class LordOddsExample {
 
 	public static final TarotAnswers ianukiSFC =   new TarotAnswers(74535, new int[]{2,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2}, IANUKI);//max Ianuki                                   99.90%
 	public static final TarotAnswers phantomSFC = new TarotAnswers(74386, new int[]{3,3,1,1,3,1,3,1,2,1,1,3,2,1,1,3,1,1,2,1,3,2}, PHANTOM);//max Phantom                                  99.70%
-	public static final TarotAnswers iceCloudSFC = new TarotAnswers(74613, IceCloudSFC.getBaseDeepCopy(), ICE_CLOUD);//max Ice Cloud                                                      100%
+	public static final TarotAnswers iceCloudSFC = new TarotAnswers(74613, Util.IceCloudSFCBaseDeepCopy(), ICE_CLOUD);//max Ice Cloud                                                     100%
 	public static final TarotAnswers thunderSFC = new TarotAnswers(72839, new int[]{2,2,2,2,3,3,3,1,2,2,2,2,3,1,2,3,1,1,2,3,1,3}, THUNDER);//max Thunder                                  97.62%
 
 	public static final TarotAnswers ianukiIceCloudSFC = new TarotAnswers(56723, new int[]{2,1,3,3,2,2,1,2,1,2,2,3,1,2,1,2,3,2,1,2,2,1}, THUNDER);//Ianuki 1st, Ice Cloud 2nd             76.02%
@@ -59,12 +56,13 @@ public class LordOddsExample {
 	public static void main(String[] args) {
 		LordOddsExample e = new LordOddsExample();
 		System.out.println(System.lineSeparator() + "searchFor1sEntry(ianuki) start");
-        e.searchFor1sEntry(ianuki);
-		System.out.println(System.lineSeparator() + "searchForImprovement(all1s) start");
-		e.searchForImprovement(all1s);
-		System.out.println(System.lineSeparator() + "countMatches(ianuki) start");
+		e.searchFor1sEntry(ianuki);
+		System.out.println(System.lineSeparator() + "print answers for Phantom Lord that work 98.74% of the time");
+		Util.printAnswersByTarot(phantom);
+		System.out.println(System.lineSeparator() + "countMatches(all1s) start");
 		e.countMatches(all1s);
-		Util.printAnswersByTarot(ianuki);
+		System.out.println(System.lineSeparator() + "searchForImprovement(all1s) start for Phantom Lord");
+		e.searchForImprovement(all1s);
 		
 //		System.out.println(System.lineSeparator() + "continuousSearchForImprovement(new TarotAnswers(0, true, all1s.getAnswers(), PHANTOM, ICE_CLOUD)) start");
 //		e.continuousSearchForImprovement(new TarotAnswers(0, true, al.getAnswers(), PHANTOM, ICE_CLOUD));//generate phantomIceCloud solution set up from nothing! 	
@@ -196,24 +194,22 @@ public class LordOddsExample {
 	public void searchFor1sEntry(int[] solution, int givenRecord, int... order) {
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		Tarot[] values = Tarot.values();
-		possibleSolutions.add(solution);
-		//final int ordinal = doNotChange.ordinal()-1; 
-		final int[] test = new int[Util.DECK_SIZE];
-		int[] maxSolution = new int[Util.DECK_SIZE];
+		possibleSolutions.add(solution); 
+		final int[] test = new int[Tarot.DECK_SIZE];
+		int[] maxSolution = new int[Tarot.DECK_SIZE];
 		int maxRecord = 0;
 		int currentRecord = 0;
-		System.arraycopy(solution, 0, test, 0, Util.DECK_SIZE);// deep copy
+		System.arraycopy(solution, 0, test, 0, Tarot.DECK_SIZE);//deep copy
 		int originalAnswer = 0;
 		int tarot = 0;
 		int changes = 0;
-		final int loops = Util.DECK_SIZE;
+		final int loops = Tarot.DECK_SIZE;
 		
 		System.out.println(System.lineSeparator() + "Starting: " + givenRecord);
 		Util.printAnswers(test);
 		
 		for (int i=0; i<loops; i++) {
-			if (test[i] == 1) continue;// || (i == ordinal)) //if 1 or the preserved card
-			
+			if (test[i] == 1) continue;// || (i == ordinal)) //if 1 or a card not to consider			
 			changes++;
 			originalAnswer = test[i];
 			test[i] = 1;
@@ -239,10 +235,10 @@ public class LordOddsExample {
 				Util.printAnswers(test);
 				if (holder.correct > maxRecord) {
 					maxRecord = holder.correct;
-					System.arraycopy(test, 0, maxSolution, 0, Util.DECK_SIZE);//deep copy, necessary due to rotation on test
+					System.arraycopy(test, 0, maxSolution, 0, Tarot.DECK_SIZE);//deep copy, necessary due to rotation on test
 				}
 			}
-			test[i] = originalAnswer;// switch back to avoid another full array copy	
+			test[i] = originalAnswer;//switch back to avoid another full array copy	
 		}
 		if (changes > 0) {
 			if (maxRecord > 0) {
@@ -260,7 +256,7 @@ public class LordOddsExample {
 				System.out.println("somehow equal to the starting record");
 				iterate = false;
 			}
-			System.out.println(values[tarot] + " at Position " + (tarot+1) + " changed from " + test[tarot]+ " for " + (Util.DECK_SIZE - changes) + " total 1's");
+			System.out.println(values[tarot] + " at index " + (tarot) + " changed from " + test[tarot]+ " for " + (Tarot.DECK_SIZE - changes) + " total 1's");
 			System.out.println(System.lineSeparator() + "Original Answers: ");
 			Util.printAnswers(test);
 		} else System.out.println(System.lineSeparator()+"Every answer is 1 to begin with, nothing to do");
@@ -302,7 +298,7 @@ public class LordOddsExample {
 	}
 	
 	public void countMatches(int[] answers, int... order) {
-		searchForImprovement( 0, false, answers, order);
+		searchForImprovement(0, false, answers, order);
 	}
 	
 	public void countMatches(TarotAnswers solution) {
@@ -331,19 +327,19 @@ public class LordOddsExample {
 		}
 		Set<int[]> possibleSolutions = new TreeSet<int[]>(new IntArrayComparator());
 		possibleSolutions.add(solution);
-		final int[] test = new int[Util.DECK_SIZE];
-		int[] maxSolution = new int[Util.DECK_SIZE];
+		final int[] test = new int[Tarot.DECK_SIZE];
+		int[] maxSolution = new int[Tarot.DECK_SIZE];
 		int maxRecord = 0;
 		int currentRecord = givenRecord;
-		System.arraycopy(solution, 0, test, 0, Util.DECK_SIZE);//deep copy
-		final int loops = (iterate) ? Util.DECK_SIZE * 2 : 1;//1 loop if not iterating
+		System.arraycopy(solution, 0, test, 0, Tarot.DECK_SIZE);//deep copy
+		final int loops = (iterate) ? Tarot.DECK_SIZE * 2 : 1;//1 loop if not iterating
 		final String startPercent = getPercent(givenRecord, handsGenerator.size());
 		for (int i=0; i<loops; i++) {
 			if(iterate) {
-				if (i < Util.DECK_SIZE)
+				if (i < Tarot.DECK_SIZE)
 					rotateUp(test, i);
 				else
-					rotateDown(test, i - Util.DECK_SIZE);
+					rotateDown(test, i - Tarot.DECK_SIZE);
 			}
 			OrderHolder holder = new OrderHolder(test, order, loops, handsGenerator);
 			if (holder.correct > maxRecord) {
@@ -368,19 +364,21 @@ public class LordOddsExample {
 			} else if (holder.correct > currentRecord) {
 				if (iterate) {
 					currentRecord = holder.correct;
+					if (holder.correct >= givenRecord)
 					System.out.println(System.lineSeparator() + "New Record: " + currentRecord + holderPercent + "up from " + givenRecord + startPercent);
 				} else {
+					if (holder.correct >= givenRecord)
 					System.out.println(System.lineSeparator() + "The Record: " + holder.correct + holderPercent);
+					Util.printAnswers(test);
 				}
-				Util.printAnswers(test);
-				System.arraycopy(test, 0, maxSolution, 0, Util.DECK_SIZE);// deep copy, necessary due to rotating test
+				System.arraycopy(test, 0, maxSolution, 0, Tarot.DECK_SIZE);// deep copy, necessary due to rotating test
 			}
 			//switch back to avoid another full array copy
 			if (iterate) {
-				if (i < Util.DECK_SIZE)
+				if (i < Tarot.DECK_SIZE)
 					rotateDown(test, i);
 				else
-					rotateUp(test, i - Util.DECK_SIZE);
+					rotateUp(test, i - Tarot.DECK_SIZE);
 			} else {
 				System.out.println(System.lineSeparator() + "Highest Lord Type");
 				Util.printIndex(holder.first);
@@ -442,6 +440,8 @@ public class LordOddsExample {
 /*
 0.5544093 seconds to generate all 74613 hands drawing 6 cards from the deck
 
+1.4234258 seconds to generate all 74613 hands drawing 6 cards from the deck
+
 searchFor1sEntry(ianuki) start
 
 Starting: 74603
@@ -457,32 +457,36 @@ Max Record: 74512
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,1,2};
 
 Max Record 74512 (99.86%) is 91 less than original record of 74603 (99.99%) 
-Fool at Position 21 changed from 2 for 7 total 1's
+Fool at index 20 changed from 2 for 7 total 1's
 
 Original Answers: 
 {1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
 
-searchForImprovement(all1s) start
+print answers for Phantom Lord that work 98.74% of the time
+Magician    : 3
+Priestess   : 3
+Empress     : 3
+Emperor     : 1
+Hierophant  : 2
+Lovers      : 3
+Chariot     : 1
+Strength    : 3
+Hermit      : 1
+Fortune     : 2
+Justice     : 1
+HangedMan   : 1
+Death       : 3
+Temperance  : 2
+Devil       : 1
+Tower       : 1
+Star        : 3
+Moon        : 1
+Sun         : 1
+Judgment    : 2
+Fool        : 1
+World       : 3
 
-New Record: 32583 (43.67%) up from 30953 (41.48%) 
-{1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-
-New Record: 34322 (46.00%) up from 30953 (41.48%) 
-{1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-
-New Record: 38765 (51.95%) up from 30953 (41.48%) 
-{1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1};
-
-New Record: 40518 (54.30%) up from 30953 (41.48%) 
-{1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1};
-
-New Record: 41410 (55.50%) up from 30953 (41.48%) 
-{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3};
-
-Max Record: 41410 (55.50%) 
-{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3};
-
-countMatches(ianuki) start
+countMatches(all1s) start
 
 The Record: 30953 (41.48%) 
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
@@ -499,26 +503,19 @@ Phantom:   19297
 Ice Cloud: 16729
 Thunder:   20435
 
-Magician    : 1
-Priestess   : 1
-Empress     : 2
-Emperor     : 1
-Hierophant  : 2
-Lovers      : 2
-Chariot     : 3
-Strength    : 2
-Hermit      : 2
-Fortune     : 1
-Justice     : 2
-HangedMan   : 2
-Death       : 3
-Temperance  : 1
-Devil       : 2
-Tower       : 1
-Star        : 2
-Moon        : 3
-Sun         : 2
-Judgment    : 1
-Fool        : 2
-World       : 2
+
+searchForImprovement(all1s) start for Phantom Lord
+
+New Record: 32583 (43.67%) up from 30953 (41.48%) 
+
+New Record: 34322 (46.00%) up from 30953 (41.48%) 
+
+New Record: 38765 (51.95%) up from 30953 (41.48%) 
+
+New Record: 40518 (54.30%) up from 30953 (41.48%) 
+
+New Record: 41410 (55.50%) up from 30953 (41.48%) 
+
+Max Record: 41410 (55.50%) 
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3};
 */

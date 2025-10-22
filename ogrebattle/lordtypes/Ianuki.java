@@ -9,13 +9,11 @@ import java.util.TreeSet;
  * 74603 out of 74613 (99.99%). Here they are constructed and returned.<br>
  */
 public class Ianuki extends LordType {
-	public static final int[] BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
-
 	public Ianuki() {
 		if (!INIT) {
 			INIT = true;
 			solutions = new TreeSet<int[]>(new IntArrayComparator());
-			
+			                      //0,1,0,0,0,2,0,0,0,0,2,2,3,0,0,0,0,3,2,0,0,2
 			solutions.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//base and 7 ones
 			solutions.add(new int[]{1,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});//also 7 ones
 			solutions.add(new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
@@ -27,21 +25,6 @@ public class Ianuki extends LordType {
 	        solutions.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,3,2,2});
 	        solutions.add(new int[]{2,1,2,1,3,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2});
 		}
-	}
-	
-	public static int[] getBase() {
-		return BASE;
-	}
-	
-	public static int[] getBaseDeepCopy() {
-		int[] temp = new int[CARDS];
-		System.arraycopy(BASE, 0, temp, 0, CARDS);
-		return temp;
-	}
-	
-	@Override
-	protected int countDifferences(int[] found) {
-		return(countDifferences(found, BASE));
 	}
 	
 	public static void main(String[] args) {

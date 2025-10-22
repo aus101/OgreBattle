@@ -19,10 +19,31 @@ import ogrebattle.tarot.simulate.TarotDeck;
 public class Util {
 	public static int PRECISION_PRINT = 4;//4 decimals
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
-	public static final int DECK_SIZE = Tarot.values().length;
 	private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 	private static final NumberFormat COMMAS = NumberFormat.getInstance(Locale.US);
+	//one answer set for each lord type with multiple optimal answer sets, chosen for max 1's
+	protected static final int[] IANUKI_BASE = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};
+	protected static final int[] ICE_CLOUD_BASE = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};
+	protected static final int[] ICE_CLOUD_SFC_BASE = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};
+	
+	public static int[] IanukiBaseDeepCopy() {
+		int[] temp = new int[Tarot.DECK_SIZE];
+		System.arraycopy(IANUKI_BASE, 0, temp, 0, Tarot.DECK_SIZE);
+		return temp;
+	}
+	
+	public static int[] IceCloudBaseDeepCopy() {
+		int[] temp = new int[Tarot.DECK_SIZE];
+		System.arraycopy(ICE_CLOUD_BASE, 0, temp, 0, Tarot.DECK_SIZE);
+		return temp;
+	}
 
+	public static int[] IceCloudSFCBaseDeepCopy() {
+		int[] temp = new int[Tarot.DECK_SIZE];
+		System.arraycopy(ICE_CLOUD_SFC_BASE, 0, temp, 0, Tarot.DECK_SIZE);
+		return temp;
+	}
+	
 	/**
 	 * Print odds of hand combinations without regard to precision or floating point error<br>
 	 * @param successes hands that matched given criteria
@@ -138,11 +159,20 @@ public class Util {
 	
 	public static void printAnswers(int[] answers) {
 		System.out.print("{");
-		for(int i=0; i<DECK_SIZE-1; i++) {
+		for(int i=0; i<Tarot.DECK_SIZE-1; i++) {
 			System.out.print(answers[i] + ",");
 		}
-		System.out.print(answers[DECK_SIZE-1]+"};"+System.lineSeparator());
+		System.out.print(answers[Tarot.DECK_SIZE-1]+"};"+System.lineSeparator());
 	}
+	
+	public static void printAnswers(int[] answers, int solutionSize) {
+		System.out.print("{");
+		for(int i=0; i<solutionSize-1; i++) {
+			System.out.print(answers[i] + ",");
+		}
+		System.out.print(answers[solutionSize-1]+"};"+System.lineSeparator());
+	}
+
 	
 	public static void printAnswersByTarot(TarotAnswers solution) {
 		printAnswersByTarot(solution.getAnswers());
@@ -150,7 +180,7 @@ public class Util {
 	
 	public static void printAnswersByTarot(int[] answers) {
 		Tarot[] values = Tarot.values();
-		for(int i=0; i<DECK_SIZE; i++) {
+		for(int i=0; i<Tarot.DECK_SIZE; i++) {
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[i]);
 			//String.format(String.valueOf(values[i])) + ": " + answers[i]);
@@ -163,14 +193,14 @@ public class Util {
 
 	public static void printAnswersByGroup(int[] answers) {
 		Tarot[] values = Tarot.values();
-		int[] ones = new int[DECK_SIZE];//in case all answers are the same
-		int[] twos = new int[DECK_SIZE];
-		int[] threes = new int[DECK_SIZE];
+		int[] ones = new int[Tarot.DECK_SIZE];//in case all answers are the same
+		int[] twos = new int[Tarot.DECK_SIZE];
+		int[] threes = new int[Tarot.DECK_SIZE];
 		boolean onesInit = false;//whole reason is to prevent the println when there are no answers to print
 		boolean twosInit = false;
 		boolean threesInit = false;
 		//4x loops in linear time are good enough versus making a new comparator on new data type for (n)(log n) sort + 1 print loop
-		for(int i=0; i<DECK_SIZE; i++) {
+		for(int i=0; i<Tarot.DECK_SIZE; i++) {
 			if (answers[i] == 1) {
 				ones[i] = answers[i];
 				if (!onesInit) {
@@ -190,7 +220,7 @@ public class Util {
 		}
 		if (onesInit) {
 			System.out.println();
-			for(int i=0; i<DECK_SIZE; i++) {
+			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (ones[i] != 0) {
 					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + ones[i]);//pad right
 				}
@@ -198,7 +228,7 @@ public class Util {
 		}
 		if (twosInit) {
 			System.out.println();
-			for(int i=0; i<DECK_SIZE; i++) {
+			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (twos[i] != 0) {
 					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + twos[i]);//pad right
 				}
@@ -206,7 +236,7 @@ public class Util {
 		}
 		if (threesInit) {
 			System.out.println();
-			for(int i=0; i<DECK_SIZE; i++) {
+			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (threes[i] != 0) {
 					System.out.println(String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + threes[i]);//pad right
 				}
@@ -222,7 +252,7 @@ public class Util {
 	public static void printAnswersByTarotAlphabetical(int[] answers) {
 		Tarot[] values = Tarot.values();
 		Arrays.sort(values, new AlphabeticalComparator());
-		for(int i=0; i<DECK_SIZE; i++) {
+		for(int i=0; i<Tarot.DECK_SIZE; i++) {
 			System.out.println(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])) + ": " + answers[values[i].ordinal()]);			
 		}

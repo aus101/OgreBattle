@@ -1,5 +1,6 @@
 package ogrebattle.tarot.pojo;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeSet;
@@ -68,6 +69,53 @@ public class TarotSorting {
     	@Override
 		public int compare(Tarot t1, Tarot t2) {
 			return t1.toString().compareTo(t2.toString());	
+		}
+	}
+	
+	/**
+	 * Equal length is assumed
+	 */
+	public static class SolutionsComparator implements Comparator<ArrayList<Integer>> {
+		@Override
+		public int compare(ArrayList<Integer> ts1, ArrayList<Integer> ts2) {
+			if (ts1 == ts2)
+				return 0;
+			
+			for(int i=0; i<Tarot.DECK_SIZE; i++) {
+//				int result = ts1.get(i).compareTo(ts2.get(i));
+//				if (result == 0)
+//					continue;
+//				else
+//					return result;
+//			}
+             // Integer compare above appears 5% faster than unboxing for int compare
+				int card1 = ts1.get(i);
+				int card2 = ts2.get(i);
+				if (card1 == card2)
+					continue;
+				else return card1 - card2;
+		}
+			return 0;//all numbers are equal
+		}
+	}
+	
+	/**
+	 * Equal length is assumed
+	 */
+	public static class SolutionsHelperComparator implements Comparator<SolutionsHelper> {
+		@Override
+		public int compare(SolutionsHelper ts1, SolutionsHelper ts2) {
+			if (ts1 == ts2) 
+				return 0;
+			int[] array1 = ts1.getComparableValues();
+			int[] array2 = ts2.getComparableValues();
+			
+			for(int i=0; i<Tarot.DECK_SIZE; i++) {
+				if (array1[i] == array2[i])
+					continue;
+				else return array1[i] - array2[i];
+			}
+			return 0;//all numbers are equal
 		}
 	}
 }

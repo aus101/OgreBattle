@@ -10,8 +10,10 @@ package ogrebattle.tarot.pojo;
 public enum Tarot {
 	Magician, Priestess, Empress, Emperor, Hierophant, Lovers, Chariot, Strength, Hermit, Fortune, Justice,
 	HangedMan, Death, Temperance, Devil, Tower, Star, Moon, Sun, Judgment, Fool, World;
+	
+	public static final int DECK_SIZE = values().length;
    
-/*   If not using TarotComparators.java then can use these instead: 
+/*   If not using TarotSorting.java then can use these instead: 
     //Tarot.values() orders this way by default
     public static Comparator<Tarot> NaturalOrderComparator = new Comparator<Tarot>() {
         public int compare(Tarot t1, Tarot t2) {
