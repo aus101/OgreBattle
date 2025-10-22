@@ -30,7 +30,6 @@ public class OddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	//for Ice Cloud iterations since Fortune, Justice and Devil answers are constant for all 65 solutions
 	private final static int[] validCards = new int[] {0,1,2,3,4,5,6,7,8,11,12,13,15,16,17,18,19,20,21};
-	public final static int deckSize = Tarot.values().length;
 
 	//just get the first solution for Ianuki and Ice Cloud, can iterate through and see them all if you want
 	final static List<int[]> answersIanukiAll8 =     new Ianuki().getSolutionsList();              // max ianuki, 8 solutions      74603 out of 74613 99.99%
@@ -90,9 +89,9 @@ public class OddsExample {
 		possibleSolutions.add(solution);
 		final int found = possibleSolutions.size();
 		TarotQuestions[] tarotLord = TarotQuestions.values();
-		final int[] test = new int[deckSize];
+		final int[] test = new int[Tarot.DECK_SIZE];
 		
-		System.arraycopy(solution, 0, test, 0, deckSize);// deep copy
+		System.arraycopy(solution, 0, test, 0, Tarot.DECK_SIZE);// deep copy
 		
 		int loops = validCards.length * 2;
 		if (!iterate) {
@@ -103,10 +102,10 @@ public class OddsExample {
 			int currentRecord = record;
 
 			if(iterate) {
-				if (i < deckSize)
+				if (i < Tarot.DECK_SIZE)
 					rotateUp(test, i);
 				else
-					rotateDown(test, i - deckSize);
+					rotateDown(test, i - Tarot.DECK_SIZE);
 			}
 			
 			int correct = 0;
@@ -162,10 +161,10 @@ public class OddsExample {
 			}
 			// switch back to avoid another full array copy		
 			if (iterate) {
-				if (i < deckSize)
+				if (i < Tarot.DECK_SIZE)
 					rotateDown(test, i);
 				else
-					rotateUp(test, i - deckSize);
+					rotateUp(test, i - Tarot.DECK_SIZE);
 			} else {
 				System.out.println(System.lineSeparator()+"Highest Lord Type");
 				printIndex(first);
@@ -238,10 +237,10 @@ public class OddsExample {
 
 	public void printAnswers(int[] answers) {
 		System.out.print("{");
-		for(int i=0; i<deckSize-1; i++) {
+		for(int i=0; i<Tarot.DECK_SIZE-1; i++) {
 			System.out.print(answers[i] + ",");
 		}
-		System.out.print(answers[deckSize-1]+"};"+System.lineSeparator());
+		System.out.print(answers[Tarot.DECK_SIZE-1]+ "};" +System.lineSeparator());
 	}
 	
 	public void printAnswersByTarot(int[] answers) {

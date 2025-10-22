@@ -30,7 +30,6 @@ import ogrebattle.tarot.pojo.Tarot;
  * Is 22*21*20*19*18*17 = 53,721,360 permutations versus easily brute forced 74613 combinations with 6 cards where order does not matter.<br>
  */
 public class AllPossibleHands {
-	public static final int DECK_SIZE = Tarot.values().length;//22
 	private final int MAX_HAND_SIZE = 7;
 	private final int[] COMBIN = new int[]{22, 231, 1540, 7315, 26334, 74613, 170544};
 	private final int handSize;
@@ -63,7 +62,7 @@ public class AllPossibleHands {
 		while(ALL_HANDS.size() < maxHands) {
 			TreeSet<Tarot> oneHand = new TreeSet<>();
 			while(oneHand.size() < this.handSize) {
-				oneHand.add(holder[r.nextInt(DECK_SIZE)]);
+				oneHand.add(holder[r.nextInt(Tarot.DECK_SIZE)]);
 			}
 			ALL_HANDS.add(oneHand);
 		}
@@ -141,11 +140,12 @@ public class AllPossibleHands {
 	}
 	
 	public List<TreeSet<Tarot>> returnHandsSorted(int returnHands) {
+		if (!doNotSort)
+			return ALL_HANDS_LIST.subList(0, returnHands);
+			
 		List<TreeSet<Tarot>> holder = new ArrayList<TreeSet<Tarot>>(ALL_HANDS_LIST);
 		//ALL_HANDS_LIST remains unsorted
-		if (doNotSort) {//forcing sort, else is already sorted so can skip
-			Collections.sort(holder, new TreeSetTarotComparator());
-		}
+		Collections.sort(holder, new TreeSetTarotComparator());
 		//mutable to underlying ALL_HANDS_LIST
 		return holder.subList(0, returnHands);
 	}

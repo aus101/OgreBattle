@@ -19,7 +19,6 @@ public class TarotAnswers {
 		this.record = solution.getRecord();
 	}
 
-	
 	public TarotAnswers(int[] answers, int... desiredLord) {
 		this.answers = answers;
 		this.desiredLord = desiredLord;
@@ -41,6 +40,7 @@ public class TarotAnswers {
 	}
 	
 	public TarotAnswers(boolean deepCopyArrays, int[] answers, LORD... desiredLord) {
+		this.answers = new int[answers.length];
 		System.arraycopy(answers, 0, this.answers, 0, answers.length);
 		this.desiredLord(desiredLord);
 		this.record = 0;

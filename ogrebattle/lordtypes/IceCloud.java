@@ -9,13 +9,10 @@ import java.util.TreeSet;
 * thus can be chosen with 100% certainty. Here the 18 sets are constructed and returned.<br>
 */
 public class IceCloud extends LordType {
-	public static final int[] BASE = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};
-	
 	public IceCloud() {
 		if (!INIT) {
 			INIT = true;
 			solutions = new TreeSet<int[]>(new IntArrayComparator());
-			
 			solutions.add(new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//base and 8 ones
 			solutions.add(new int[]{3,1,2,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});//also 8 ones
 			solutions.add(new int[]{3,2,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2});
@@ -40,21 +37,6 @@ public class IceCloud extends LordType {
 			solutions.add(new int[]{3,3,2,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 			solutions.add(new int[]{3,3,2,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2});
 		}
-	}
-	
-	public static int[] getBase() {
-		return BASE;
-	}
-	
-	public static int[] getBaseDeepCopy() {
-		int[] temp = new int[CARDS];
-		System.arraycopy(BASE, 0, temp, 0, CARDS);
-		return temp;
-	}
-	
-	@Override
-	protected int countDifferences(int[] found) {
-		return(countDifferences(found, BASE));
 	}
 
 	public static void main(String[] args) {
