@@ -35,8 +35,9 @@ Perhaps the ordering will be retconned in a future remaster/revision considering
 ## Notice
 Not for distribution or use, or use or distribution of a deriviative work on:     
 ```
-    - Fandom or Fandom-owned properties, including GameFAQs.
-    - Video with video sponsor or other form of paid promotion.
-    - Video with any association to lootboxes or gacha games.
+    - Fandom or Fandom-owned properties, including GameFAQs
+    - Creative Commons licenses, ideal for Fandom   
+    - Video with video sponsor or other form of paid promotion
+    - Video with any association to lootboxes or gacha games
 ```
 Derivate works must include and follow this notice.
