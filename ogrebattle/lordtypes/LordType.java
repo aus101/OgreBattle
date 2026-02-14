@@ -23,7 +23,7 @@ public abstract class LordType {
 	public List<int[]> getSolutionsListDeepCopy() {
 		List<int[]> temp = new ArrayList<int[]>(solutions.size());
 		for(int[] s : solutions) {
-			int[] toAdd = new int[s.length];//22 but let's not hardcore it
+			int[] toAdd = new int[s.length];//DECK_SIZE of 22 but let's not hardcore it
 			System.arraycopy(s, 0, toAdd, 0, s.length);
 			temp.add(toAdd);
 		}
@@ -31,7 +31,7 @@ public abstract class LordType {
 	}
 
 	public void printSolutions() {
-		System.out.println("Count: " + solutions.size());//18 expected for IceCloud and 8 for Ianuki
+		System.out.println("Count: " + solutions.size());//8 expected for Ianuki, 18 for IceCloud and 5 for SFC's IceCloud
 		for (int[] lhs : solutions) {
 			System.out.print("{");
 			for (int i = 0; i < lhs.length - 1; i++) {

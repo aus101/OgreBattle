@@ -3,6 +3,7 @@ package ogrebattle.tarot.exact;
 import java.util.Arrays;
 
 import ogrebattle.printer.Util;
+import ogrebattle.tarot.generator.AllPossibleHands;
 import ogrebattle.tarot.pojo.Tarot;
 
 /**

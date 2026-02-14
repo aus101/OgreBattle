@@ -4,9 +4,10 @@ import static ogrebattle.tarot.pojo.TarotSorting.*;
 
 import java.util.TreeSet;
 
-/** Ice Cloud Original SFC lord type has at least 5 sets of answers that guarantee Ice Cloud is selected.<br>
-* Unlike other lord type, Ice Cloud has only 1 question that forces another lord type to receive more points,<br>
-* thus can be chosen with 100% certainty. Here the 3 sets are constructed and returned.<br>
+/** 
+* Ice Cloud Original SFC lord type has at least 20 sets of answers that guarantee Ice Cloud is selected.<br>
+* Unlike the other types, Ice Cloud has only 1 question that forces another lord type to receive more points,<br>
+* thus can be chosen with 100% certainty. Here the 20 sets are constructed and returned.<br>
 */
 public class IceCloudSFC extends LordType {
 	public IceCloudSFC() {
@@ -17,9 +18,29 @@ public class IceCloudSFC extends LordType {
 			solutions.add(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1});//base and 9 ones
 			solutions.add(new int[]{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1});//also 9 ones
 			solutions.add(new int[]{1,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});//also 9 ones
-			
+
 			solutions.add(new int[]{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,1});//also 9 ones
+			solutions.add(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,1});//also 9 ones
 			solutions.add(new int[]{3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1});
+
+			solutions.add(new int[]{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3});
+			solutions.add(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3});
+			solutions.add(new int[]{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+			                        
+			solutions.add(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});	
+			solutions.add(new int[]{3,1,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3});
+			solutions.add(new int[]{3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3});
+			
+			solutions.add(new int[]{3,1,2,1,1,2,1,2,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+			solutions.add(new int[]{3,1,3,1,1,2,1,2,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+			solutions.add(new int[]{3,1,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+
+			solutions.add(new int[]{3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+			solutions.add(new int[]{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,2,2,3,3,3,2,3});
+			solutions.add(new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,2,2,3,3,3,2,3});
+			
+			solutions.add(new int[]{3,1,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
+			solutions.add(new int[]{3,1,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3});
 		}
 	}
 
@@ -29,10 +50,25 @@ public class IceCloudSFC extends LordType {
 	}
 }
 /*
-Count: 5
+Count: 20
 {1,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,2,1,1,2,1,2,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
 {3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,1};
+{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3};
 {3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};
+{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,2,1,1,2,1,3,3,1,3,1,1,3,3,2,2,3,3,3,2,3};
+{3,1,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3};
+{3,1,2,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,2,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,3,1,1,2,1,2,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,1};
+{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3};
 {3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};
+{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,2,2,3,3,3,2,3};
+{3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,2,3,3,2,3};
 {3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};
+{3,1,3,1,2,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
+{3,1,3,3,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,3};
 */

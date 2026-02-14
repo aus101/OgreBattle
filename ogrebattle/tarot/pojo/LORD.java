@@ -15,7 +15,6 @@ public enum LORD {
 		    case 0: reverse = IANUKI;
 		        break;
 		    case 1: reverse = PHANTOM;
-		        // code to execute if expression equals value2
 		        break;
 		    case 2: reverse = ICE_CLOUD;
 		    	break;
