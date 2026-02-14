@@ -1,6 +1,6 @@
 package ogrebattle.tarot.pojo;
 /**
- * Point values for every release but the original Super Famicom. The Nintendo Power release uses these values.<br>
+ * Point values for every release but the original Super Famicom at {@link TarotQuestionsSFC}. The Nintendo Power release uses these values.<br>
  * Order is answer 1, 2, 3, 4 for Ianuki, Phantom, Ice Cloud, Thunder<br>
  * since that is the order the game stores the Lord values and therefore the order used to break ties.<br>
  * i.e. First answer Poison for Magician gives 2 points to Ianuki, 4 points to Phantom, 1 point to 

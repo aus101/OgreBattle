@@ -8,7 +8,7 @@ import static ogrebattle.tarot.pojo.LORD.*;
 import ogrebattle.tarot.pojo.TarotAnswers;
 
 /**
- * Not really intended to be clean, reusable code. Rather to show how to use AllPossibleHands to derive optimal solutions.
+ * Not really intended to be clean, reusable code. Rather to show how to use {@link ogrebattle.tarot.generator.AllPossibleHands} to derive optimal solutions.
  * The commented out code shows how to iterate through Ianuki or Ice Cloud that have more than one optimal set of Tarot answers.
  * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer for odds improvement.
  * More Ice Cloud solutions could theoretically exist but would be at least 3 Tarot card changes from all solutions given.
