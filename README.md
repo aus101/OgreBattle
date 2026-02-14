@@ -7,7 +7,7 @@ Brute-forcing all hand combinations where order does not matter is done for 6 ca
 No external Java libraries are used. No need for Maven or Gradle.            
 
 The focus is solving for the optimal set of answers to Warren's 6 question for each Lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
-Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and can be seen by running the mains.     
+Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.CardOddsExample.java** as can be seen by running the mains.     
 Alternatively and equivalently, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc. More complex probabilities would need the code approach.  
      
 Previously published sets of answers for each Lord type had about a 65% success rate. The odds are raised here to 99.18-100% for all releases but the original Super Famicom. That release has bugged point values except for Magician and boosted points for World. Is 97.62-100% instead.   
@@ -15,6 +15,8 @@ The Lord type with the second highest and third highest point totals do affect s
 Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.  
 
 More recently, **ogrebattle.joker.Joker.java** was added to determine the distribution of drawing Tarot cards with Jokers. Speficially, the Fool count is tracked as that the the difference between a successful speedrun and a reset. The same card twice in a row is impossible whether liberating or drawing a Joker. Under the hood, the RNG will iterate again if the card repeats. The RNG cycle is > 256.
+
+The most recent update included **ogrebattle.tarot.pojo.TarotBonusCardStats** that shows the Opinion Leader's starting stat adjustments that are possible from the 7th bonus card. The values are consistent in every release.
 
 ## Additional Details
 The code is robust enough to work with hands of 1 to 7 cards, or more cards if using the simulate package that converges to the correct odds where brute-forcing would be impractical.    
