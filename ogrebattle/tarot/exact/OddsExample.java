@@ -24,7 +24,6 @@ import ogrebattle.tarot.pojo.TarotQuestions;
  * <br>
  * <b>These point values are for all releases except the original Super Famicom release, which has the wrong values for 20 cards and reworked ones for 2.</b>
  * Can do a Replace All of 'TarotQuestions' for 'TarotQuestionsSFC' for original SFC release points.<br>
- * The Nintendo Power flash cart release on Super Famicom uses these values. Need to confirm Japanese Virtual Console release values.
  */
 public class OddsExample {
 	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;

@@ -20,7 +20,7 @@ import ogrebattle.tarot.pojo.TarotSorting;
 * which is very easy to code.<br>
 * This is the coupon collector's problem where n "coupons" to collect are every permutation of answering 1, 2 or 3,<br>
 * for the number of questions. Questions / variable answers are represented by the number of zeroes in the starting array.<br>
-* Expected number of RNG calls is a an agreeable O(n log n).
+* Expected number of RNG calls is an agreeableO(n log n)
 */
 public class AllPossibleSolutions {
 	public final int MAX_ITERATION = 11;//3^11 = 177,147 solutions to randomly generate like the coupon collector's problem

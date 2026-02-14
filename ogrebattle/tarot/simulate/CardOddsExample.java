@@ -3,7 +3,7 @@ package ogrebattle.tarot.simulate;
 import ogrebattle.printer.Util;
 
 /**
- * This random hands approach is inferior to the <code>ogrebattle.tarot.exact</code> approach that finds
+ * This random hands approach is inferior to the {@link ogrebattle.tarot.exact.CardOddsExample}</code> approach that finds
  * exact odds to back up the calculations given below that the simulation here merely converges to.<br>
  * The exception where simulation is useful is for drawing more than 7 cards in one setting, such as many Joker pulls,
  * that brute-forcing becomes impractical.<br>

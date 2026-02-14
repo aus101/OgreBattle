@@ -9,11 +9,11 @@ import ogrebattle.tarot.pojo.Tarot;
 /**
  * Exact odds of hand combinations using BigDecimal for division to prevent floating point error.<br>
  * As these odds are exact, they are deterministic.<br>
- * Compare to simulated odds in <code>ogrebattle.tarot.simulate.CardOddsExample.java<code>.<br>
+ * Compare to simulated odds in {@link ogrebattle.tarot.simulate.CardOddsExample}.<br>
  */
 public class CardOddsExample {
-	private static AllPossibleHands sevenCards = new AllPossibleHands(7, true);//do not sort hands so runs faster
 	private static AllPossibleHands sixCards = new AllPossibleHands(6, true);//do not sort hands so runs faster
+	private static AllPossibleHands sevenCards = new AllPossibleHands(7, true);//do not sort hands so runs faster
 	
 	//all static not desirable but no real reason to change
 	public static void main(String[] args) {
