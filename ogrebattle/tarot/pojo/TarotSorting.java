@@ -9,21 +9,7 @@ import java.util.TreeSet;
  * Equal length assumed so comparison is simple
  */
 public class TarotSorting {
-	public static class IntArrayComparator implements Comparator<int[]> {
-		@Override 
-		public int compare(int[] ar1, int[] ar2) {
-			if (ar1 == ar2)
-				return 0;
-			for(int i=0; i< ar1.length; i++) {
-			if (ar1[i] > ar2[i])
-				return 1;
-			if (ar1[i] < ar2[i])
-				return -1;//else equal so continue
-			}
-			return 0;
-		}
-	}
-
+	
 	/**
 	 * Equal length is not assumed, a set with same order but fewer cards comes first
 	 */
@@ -75,6 +61,23 @@ public class TarotSorting {
 	/**
 	 * Equal length is assumed
 	 */
+	public static class IntArrayComparator implements Comparator<int[]> {
+		@Override 
+		public int compare(int[] ar1, int[] ar2) {
+			if (ar1 == ar2) 
+				return 0;
+			for(int i=0; i< ar1.length; i++) {
+				if (ar1[i] == ar2[i])
+					continue;
+				else return ar1[i] - ar2[i];
+			}
+			return 0;//numbers at every index are equal
+		}
+	}
+	
+	/**
+	 * Equal length is assumed
+	 */
 	public static class SolutionsComparator implements Comparator<ArrayList<Integer>> {
 		@Override
 		public int compare(ArrayList<Integer> ts1, ArrayList<Integer> ts2) {
@@ -94,8 +97,8 @@ public class TarotSorting {
 				if (card1 == card2)
 					continue;
 				else return card1 - card2;
-		}
-			return 0;//all numbers are equal
+			}
+			return 0;//numbers at every index are equal
 		}
 	}
 	
@@ -115,7 +118,7 @@ public class TarotSorting {
 					continue;
 				else return array1[i] - array2[i];
 			}
-			return 0;//all numbers are equal
+			return 0;//numbers at every index are equal
 		}
 	}
 }

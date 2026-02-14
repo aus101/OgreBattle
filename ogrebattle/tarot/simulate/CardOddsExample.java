@@ -104,7 +104,6 @@ import ogrebattle.printer.Util;
 public class CardOddsExample {
 	//default 1 million should run in less than 1 second a modern computer, 10 million in less than 2 seconds
 	private static int HANDS = 1_000_000;
-	private final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	
 	public static void main(String[] args) {
 		if (args.length > 0) {
@@ -120,7 +119,7 @@ public class CardOddsExample {
 		long start = System.nanoTime();
 		d.setup(HANDS);
 		long end = System.nanoTime();
-		System.out.println((double)(end - start)/NANOSECONDS_IN_1_SECOND  + " seconds to execute for " + HANDS + " hands" + System.lineSeparator());
+		System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for " + HANDS + " hands" + System.lineSeparator());
 		
 		System.out.println(TarotDeck.getfoolCount() + ": " + Util.percent(TarotDeck.getfoolCount(), TarotDeck.getTotalHands())
 			+ " hands with Fool");

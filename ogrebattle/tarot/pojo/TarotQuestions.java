@@ -43,7 +43,7 @@ public enum TarotQuestions {
         this.values = values;
     }
     
-    public int[][] getAllValues() {
+    public int[][] getValues() {
     	return values;
     }
     

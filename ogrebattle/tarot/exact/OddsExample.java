@@ -2,8 +2,6 @@ package ogrebattle.tarot.exact;
 
 import static ogrebattle.tarot.pojo.TarotSorting.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +9,8 @@ import java.util.TreeSet;
 
 import ogrebattle.lordtypes.Ianuki;
 import ogrebattle.lordtypes.IceCloud;
+import ogrebattle.printer.Util;
+import ogrebattle.tarot.generator.AllPossibleHands;
 import ogrebattle.tarot.pojo.LORD;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.tarot.pojo.TarotQuestions;
@@ -51,7 +51,7 @@ public class OddsExample {
 		handsGenerator = new AllPossibleHands(6, true);// unsorted (true) is faster
 		long end = System.nanoTime();
 
-		System.out.println((double) (end - start) / NANOSECONDS_IN_1_SECOND + " seconds to execute for "
+		System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for "
 				+ handsGenerator.size() + " hands");
 	}
 	
@@ -260,32 +260,24 @@ public class OddsExample {
 		}
 	}
 	
+	/**
+	 * ompare to simulated odds in <code>ogrebattle.tarot.simulate.OddsExample.java<code>.<br>
+	 */
 	public void verifyOdds() {
 		final int combin = 170544;//COMBIN(22,7)
 		AllPossibleHands sevenCards = new AllPossibleHands(7, true);
 		System.out.println("Odds of 1 specific card in opening hand of 7:");
-		printPercent(sevenCards.countContains(Tarot.Fool), combin, 4);
+		System.out.println(
+				Util.percentCalc(sevenCards.countContains(Tarot.Fool), combin, 4));
 		System.out.println();
 		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
-		printPercent(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4);
+		System.out.println(
+				Util.percentCalc(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4));
 		System.out.println();
 		System.out.println("Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:");
-		printPercent(sevenCards.countContainsAndContainsAny(Tarot.Fool,
-				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4);
-	}
-	
-	/**
-	 * Exact odds of hand combinations using BigDecimal to prevent floating point error.<br>
-	 * Compare to simulated odds in <code>ogrebattle.tarot.simulate.OddsExample.java<code>.<br>
-	 * @param successes hands that matched given criteria
-	 * @param totalHands total hands possible that were iterated through
-	 * @param precision decimal places, with rounding on last decimal
-	 */
-	private static void printPercent(int successes, int totalHands, int precision) {
-		System.out.println(successes + " / " + totalHands);
-		BigDecimal num = new BigDecimal(successes);
-		BigDecimal denom = new BigDecimal(totalHands);
-		System.out.println(num.multiply(new BigDecimal(100)).divide(denom, precision, RoundingMode.HALF_UP) + "%");
+		System.out.println(
+				Util.percentCalc(sevenCards.countContainsAndContainsAny(Tarot.Fool,
+				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4));
 	}
 
 	public void printRandomHand() {

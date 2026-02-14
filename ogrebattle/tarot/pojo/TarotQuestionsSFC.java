@@ -9,11 +9,11 @@ package ogrebattle.tarot.pojo;
  * Game sums the total and determines the Lord type once the bonus card has been chosen.
  */
 public enum TarotQuestionsSFC {
-	Magician  (new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}),  //same point values given as in all other releases 
-	Priestess (new int[][]{{2,1,5,1}, {3,2,1,4}, {1,4,3,5}}), //rearranged point values in all subsequent releases
-	Empress   (new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}),   //new point values given in all subsequent release 
+	Magician  (new int[][]{{2,4,1,4}, {3,2,1,5}, {1,5,2,2}}),      //same point values given as in all other releases 
+	Priestess (new int[][]{{2,1,5,1}, {3,2,1,4}, {1,4,3,5}}),      //rearranged point values in all subsequent releases
+	Empress   (new int[][]{{5,4,2,4}, {3,1,4,5}, {4,2,5,1}}),      //new point values given in all subsequent release 
 	
-	Emperor   (new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}),   //Gives Empress point values in all subsequent releases, this downward shift applies for all subsequent cards
+	Emperor   (new int[][]{{3,2,5,2}, {5,3,1,4}, {4,1,4,3}}),      //Gives Empress point values in all subsequent releases, this downward shift applies for all subsequent cards
 	Hierophant(new int[][]{{1,2,4,2}, {5,2,5,3}, {4,5,1,4}}),
 	Lovers    (new int[][]{{2,5,1,4}, {3,1,5,3}, {5,4,2,5}}),
 	
@@ -36,7 +36,7 @@ public enum TarotQuestionsSFC {
     Sun       (new int[][]{{2,1,1,1}, {1,3,2,3}, {3,2,3,2}}),
     Judgment  (new int[][]{{3,4,4,1}, {4,3,2,2}, {2,1,3,3}}), 
     Fool      (new int[][]{{1,1,2,5}, {4,2,4,2}, {2,5,2,1}}),
-    World     (new int[][]{{15,12,15,8}, {15,14,0,8}, {0,3,15,8}});//much higher point values than all other releases, has Fool points in those
+    World     (new int[][]{{15,12,15,8}, {15,14,0,8}, {0,3,15,8}});//MUCH higher point values than all other releases, World has Fool's points in those
     
 	private int[][] values = new int[4][3];
 	
@@ -44,7 +44,7 @@ public enum TarotQuestionsSFC {
         this.values = values;
     }
     
-    public int[][] getAllValues() {
+    public int[][] getValues() {
     	return values;
     }
     
