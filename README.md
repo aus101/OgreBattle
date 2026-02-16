@@ -35,7 +35,7 @@ The enumerated Tarot cards preserve the in-game ordering of Fool before World. F
 Perhaps the ordering will be retconned in a future remaster/revision considering Fool came first in the physical Tactics Ogre PSP preorder deck and is first in most any deck found in modern times.   
 
 ## Notice
-Not for distribution or use, or use or distribution of a deriviative work on:     
+Not for distribution or use, or use or distribution of a derivative work on:     
 ```
     - Fandom or Fandom-owned properties, including GameFAQs
     - Creative Commons licenses, ideal for Fandom   
