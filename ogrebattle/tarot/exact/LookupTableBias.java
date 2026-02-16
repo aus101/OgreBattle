@@ -6,6 +6,11 @@ import java.math.RoundingMode;
 import ogrebattle.printer.Util;
 import ogrebattle.tarot.pojo.Tarot;
 
+/**
+ * The game semi-randomly generates a byte from 0 to FF (0 to 255) inclusive and then multiplies by the range<br>
+ * and uses the first two bytes as the value within that range. Multiply by 22 to generate a Tarot card or 3<br>
+ * for awarding either a +0, +1 or +2 point stat bonus at level up. Will the EV be (0+1+2)/3 = +1.0?
+ */
 public class LookupTableBias {
 	//String.format nice and all but ghetto-fabulous is more fun
 	public static void main(String[] args) {
@@ -70,6 +75,12 @@ public class LookupTableBias {
 		.append("Relative increase of 1 in 11 = " + (new BigDecimal("1").divide(ELEVEN, 4, RoundingMode.HALF_UP).movePointRight(2)) + "% for 12 versus 11");
 		
 		System.out.println(sb.toString());
+		System.out.println(new StringBuilder(Util.newLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the "
+				+ "HP/STR/AGI/INT +0, +1, +2 level up stat bonus,").append(Util.newLine).append("+0 is 0x00 to 0x55 (86 values), +1 is 0x86"
+				+ "to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).").append(Util.newLine).append("Thus with sufficiently random RNG, "
+				+ "+0 occurs at 33.59375% and +1 and +2 are each at 33.203125%.").append(Util.newLine).append("EV is +0.99609375 per stat"
+				+" gained from EXP for 4 stats: HP, STR, AGI, INT.").append(Util.newLine)
+				.append("That's 1 stat point lost due to bias every (250 levels)/(4 stats) = 63 levels gained across your army.").toString());
 	}
 }
 /*
@@ -357,4 +368,10 @@ World       : 11
 11 out of 256 = 4.29688%
 12 out of 256 = 4.6875%
 Relative increase of 1 in 11 = 9.09% for 12 versus 11
+
+If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the HP/STR/AGI/INT +0, +1, +2 level up stat bonus,
++0 is 0x00 to 0x55 (86 values), +1 is 0x86to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).
+Thus with sufficiently random RNG, +0 occurs at 33.59375% and +1 and +2 are each at 33.203125%.
+EV is +0.99609375 per stat gained from EXP for 4 stats: HP, STR, AGI, INT.
+That's 1 stat point lost due to bias every (250 levels)/(4 stats) = 63 levels gained across your army.
 */
