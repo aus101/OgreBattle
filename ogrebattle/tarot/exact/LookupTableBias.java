@@ -7,9 +7,11 @@ import ogrebattle.printer.Util;
 import ogrebattle.tarot.pojo.Tarot;
 
 /**
- * The game semi-randomly generates a byte from 0 to FF (0 to 255) inclusive and then multiplies by the range<br>
- * and uses the first two bytes as the value within that range. Multiply by 22 to generate a Tarot card or 3<br>
- * for awarding either a +0, +1 or +2 point stat bonus at level up. Will the EV be (0+1+2)/3 = +1.0?
+ * The game semi-randomly generates two bytes from 00 to FF (0 to 255) inclusive then multiplies by a number.<br>
+ * Multiply by 22 to generate a Tarot card or 3 for awarding a +0, +1 or +2 point stat bonus at level up.<br>
+ * The two most significant bytes of the product (first in Little Endian) are matched to a result in the [00,FF] interval.<br>
+ * Each card is equally likely in theory but what about in practice? 22 is not a factor of 256.<br>
+ * Will the EV bonus for HP, STR, AGI and INT be (0+1+2)/3 = +1.0? The PROMOTE (Promotion) item also awards said bonus.
  */
 public class LookupTableBias {
 	//String.format nice and all but ghetto-fabulous is more fun
