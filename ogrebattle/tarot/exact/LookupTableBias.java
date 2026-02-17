@@ -8,9 +8,15 @@ import ogrebattle.tarot.pojo.Tarot;
 
 /**
  * The game semi-randomly generates two bytes from 00 to FF (0 to 255) inclusive then multiplies by a number.<br>
- * Multiply by 22 to generate a Tarot card or 3 for awarding a +0, +1 or +2 point stat bonus at level up.<br>
- * The two most significant bytes of the product (first in Little Endian) are matched to a result in the [00,FF] interval.<br>
- * Each card is equally likely in theory but what about in practice? 22 is not a factor of 256.<br>
+ * Possible values in base 10 for multiplying the range:<br>
+ * - 3 for awarding a +0, +1 or +2 point stat bonus at level up<br>
+ * - 6 for the 5-10 point spread on stat up items<br>
+ * - 22 to generate a Tarot card<br>
+ * - 92 for buried treasures<br>
+ * - 8 for the RNG spread on damage but is factor of 256 so no lookup table bias<br>
+ * The two most significant bytes of the product (first in Little Endian) mathematically must be from 0 to range-1.<br>
+ * Clean mapping from 0x00 Magician to 0x15 World (0 to 21 in base 10) and +0, +1 or +2 added to the stat.<br>
+ * Each card cannot be equally likely given 22 is not a factor of 256 (0x16 in 0x100). Nor is 3, 6 or 92.<br>
  * Will the EV bonus for HP, STR, AGI and INT be (0+1+2)/3 = +1.0? The PROMOTE (Promotion) item also awards said bonus.
  */
 public class LookupTableBias {
@@ -22,6 +28,7 @@ public class LookupTableBias {
 		StringBuilder sb = new StringBuilder("16 10   H  D   CARD").append(Util.newLine);
 
 		for(int i=0; i<256; i++) {
+			//Multiply by 3 for stat bonus at level up, or 6 for stat item boost, or 92 for buried treasure
 			int number = i * Tarot.DECK_SIZE;//equivalent to game's multiply by 0x16
 			String temp = Integer.toHexString(number).toUpperCase();
 			if (temp.length() > 2) {
@@ -376,4 +383,12 @@ If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the 
 Thus with sufficiently random RNG, +0 occurs at 33.59375% and +1 and +2 are each at 33.203125%.
 EV is +0.99609375 per stat gained from EXP for 4 stats: HP, STR, AGI, INT.
 That's 1 stat point lost due to bias every (250 levels)/(4 stats) = 63 levels gained across your army.
+
+Bonus spread for stat up items such as from Anywhere Jack:
++5  00 to 2A (00  to 42)  43
++6  2B to 55 (43  to 85)  43
++7  56 to 7F (86  to 127) 42
++8  80 to AA (128 to 170) 43
++9  AB to D5 (171 to 213) 43
++10 D6 to DD (214 to 255) 42
 */
