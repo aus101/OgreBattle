@@ -2,7 +2,7 @@
 ## Purpose of the Repository
 Educational, hacking and speedrunning efforts to understand the amazingly obtuse and complex mechances behind SNES/PSX/SS Ogre Battle continue to this day.  
    
-Herein is an Ogre Battle Tarot card generator to determine the exact odds of various Tarot cards in the opening hands of 1 to 7 cards. A New Game begins with 7 cards: 6 from questions and 1 from the bonus pick.    
+Herein lies an Ogre Battle Tarot card generator to determine the exact odds of various Tarot cards in the opening hands of 1 to 7 cards. A New Game begins with 7 cards: 6 from questions and 1 from the bonus pick.    
 Brute-forcing all hand combinations where order does not matter is done for 6 cards in under 1 second and under 2 seconds for 7 cards on a stock i5 desktop computer.    
 No external Java libraries are used. No need for Maven or Gradle.            
 
