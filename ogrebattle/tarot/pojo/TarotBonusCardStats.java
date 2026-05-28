@@ -102,6 +102,31 @@ public enum TarotBonusCardStats {
 	}
 }
 /*
+ALI
+
+Magician: -8
+Priestess: +5
+Empress: +3
+Emperor: +4
+Hierophant: -5
+Lovers: +7
+Chariot: +7
+Strength: +3
+Hermit: +7
+Fortune: +6
+Justice: +7
+HangedMan: +7
+Death: -7
+Temperance: -1
+Devil: -7
+Tower: -1
+Star: +3
+Moon: +6
+Sun: +7
+Judgment: +2
+Fool: -3
+World: -7
+
 Magician
 HP : -4
 STR: -8
