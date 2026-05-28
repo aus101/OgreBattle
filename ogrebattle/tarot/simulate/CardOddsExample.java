@@ -13,11 +13,11 @@ import ogrebattle.printer.Util;
  * <br>
  * EXACT ODDS:<br>
  * <br>The subtraction of occurrences in the 1 AND (1 of X) calculations is necessary to remove<br>
- * double-counted occurrences, as it were. Odds here with the hypergeometric distribution are<br>
- * generally easier to calculate than with combinatorics. With more complex hands, such as in<br>
+ * double-counted occurrences as it were. Odds here with the hypergeometric distribution are<br>
+ * generally easier to calculate than with combinatorics. With more complex hands such as in<br>
  * poker, combinatorics is the most practical approach for exact odds.<br>
  * <br>
- * Desired Tarot pulled in the first 6 cards: 20349 / 74613<br>
+ * Desired Tarot pulled in the first 6 cards: 20349 / 74613 = 3/11<br>
  * = COMBIN(21,5) / COMBIN(22,6)<br>
  * = HYPGEOM.DIST(1,6,1,22,0)<br>
  * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)<br>
@@ -28,33 +28,36 @@ import ogrebattle.printer.Util;
  * = COMBIN(21,6) / COMBIN(22,7)<br>
  * = COMBIN(21,15) / COMBIN(22,7)<br>
  * = HYPGEOM.DIST(1,7,1,22,0)<br>
- * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)*(15/16)<br>
+ * = 1 - (21/22)*(20/21)*(19/20)*(18/19)*(17/18)*(16/17)*(15/16) = 7/22<br>
  * = 31.81%, 81 repeating of course<br>
  *  <br>
- *  At least 1 of 2 desired Tarot cards pulled: 93024 / 170544<br>
+ *  At least 1 of 2 desired Tarot cards pulled: 93024 / 170544 = 6/11<br>
  *  = SUM(COMBIN(21,6), COMBIN(20,6)) / COMBIN(22,7)<br>
  *  = 1 - COMBIN(20,7) / COMBIN(22,7)<br>
  *  = 1 - HYPGEOM.DIST(0,7,2,22,0)<br>
+ *  = 1 - (20/22)*(19/21)*(18/20)*(17/19)*(16/18)*(15/17)*(14/16)<br>
  *  = 54.54%, 54 repeating of course<br>
  *  <br>
- *  Desired card AND (at least 1 of 2 other desired Tarot cards): 27132 / 170544<br>
- *  = COMBIN(19,6) / COMBIN(22,7), = 0.5 * COMBIN(21,6) / COMBIN(22,7)<br>
+ *  Desired card AND (at least 1 of 2 other desired Tarot cards): 27132 / 170544 = 7/44<br>
+ *  = COMBIN(19,6) / COMBIN(22,7)<br>
+ *  = 0.5 * COMBIN(21,6) / COMBIN(22,7)<br>
  *  = 0.5 * SUM(COMBIN(20,6), COMBIN(20,5)) / COMBIN(22,7)<br>
  *  = SUM(2 * COMBIN(20,5), -COMBIN(19,4)) / COMBIN(22,7)<br>
  *  = SUM(HYPGEOM.DIST(1,6,1,20,0) * HYPGEOM.DIST(1,7,2,22,0),
  *  HYPGEOM.DIST(1,5,1,20,0) * HYPGEOM.DIST(2,7,2,22,0))<br>
  *  = 15.90%, 90 repeating of course<br>
  *  <br>
- * At least 1 of 3 desired Tarot cards pulled: 120156 / 170544<br>
+ * At least 1 of 3 desired Tarot cards pulled: 120156 / 170544 = 31/44<br>
  * = SUM(COMBIN(21,6), COMBIN(20,6), COMBIN(19,6)) / COMBIN(22,7)<br>
  * = SUM(2 * COMBIN(21,6), COMBIN(19,5)) / COMBIN(22,7)<br>
  * = SUM(COMBIN(20,6), 3 * COMBIN(19,6)) / COMBIN(22,7)<br>
  * = 1 - COMBIN(19,7) / COMBIN(22,7)<br>
  * = 1 - HYPGEOM.DIST(0,7,3,22,0)<br>
  * = SUM(HYPGEOM.DIST(1,7,3,22,0), HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
+ * = 1 - (19/22)*(18/21)*(17/20)*(16/19)*(15/18)*(14/17)*(13/16)
  * = 70.45%, 45 repeating of course<br>
  * <br>
- * Desired card AND (at least 1 of 3 other cards): 35700 / 170544<br>
+ * Desired card AND (at least 1 of 3 other cards): 35700 / 170544 = 175/836<br>
  *  = SUM(COMBIN(19,6), COMBIN(19,5), -COMBIN(18,4)) / COMBIN(22,7)<br>
  *  = SUM(COMBIN(18,6), 2 * COMBIN(18,5)) / COMBIN(22,7)<br>
  *  = SUM(3 * COMBIN(20,5), 3 * -COMBIN(19,4), COMBIN(18, 3)) / COMBIN(22,7)
@@ -63,37 +66,39 @@ import ogrebattle.printer.Util;
  *  HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  ≈ 20.93%<br>
  *  <br>
- *  Desired card AND (at least 2 of 3 other cards): 9996 / 170544<br>
+ *  Desired card AND (at least 2 of 3 other cards): 9996 / 170544 = 49/836<br>
  *  = SUM(COMBIN(20,5), -COMBIN(19,4), 2 * -COMBIN(18,3)) / COMBIN(22,7)<br>
  *  = SUM(COMBIN(19,4),  2 * COMBIN(18,4)) / COMBIN(22,7)<br>
  *  = SUM(HYPGEOM.DIST(2,7,3,22,0) * HYPGEOM.DIST(1,5,1,19,0),
  *    HYPGEOM.DIST(3,7,3,22,0) * HYPGEOM.DIST(1,4,1,19,0))<br>
  *  ≈ 5.86%<br>
  *  <br>
- *  2 desired cards: 15504 / 170544<br>
+ *  2 desired cards: 15504 / 170544 = 1/11<br>
  *  = COMBIN(20,5) / COMBIN(22,7)<br>
- *  = COMBIN(20,15) / COMBIN(22,7)
+ *  = COMBIN(20,15) / COMBIN(22,7)<br>
+ *  = COMBIN(7,12) * (2/22)*(1/21)<br>
  *  = HYPGEOM.DIST(2,7,2,22,0)<br>
- *  = 9.09%, 09 repeating of course: 6x less than odds of at least 1 of 2 <br>
+ *  = 9.09%, 09 repeating of course: 6x less than odds of at least 1 of 2<br>
  *  <br>
- *  3 desired cards: 3876 / 170544<br>
+ *  3 desired cards: 3876 / 170544 = 1/44<br>
  *  = COMBIN(19,4) / COMBIN(22,7)<br>
  *  = COMBIN(19,15) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(3,7,3,22,0)<br>
  *  = 2.27%, 27 repeating of course<br>
  *  <br>
- *  At least 2 out of 3 desired cards: 38760 / 170544<br>
+ *  At least 2 out of 3 desired cards: 38760 / 170544 = 5/22<br>
  *  = SUM(3 * COMBIN(20,5), 2 * -COMBIN(19,4)) / COMBIN(22,7)<br>
  *  = SUM(3 * COMBIN(19,5), COMBIN(19,4)) / COMBIN(22,7)<br>
  *  = SUM(HYPGEOM.DIST(2,7,3,22,0), HYPGEOM.DIST(3,7,3,22,0))<br>
- *  = 22.27%, 27 repeating of course: 10x greater than previous odds
+ *  = 2 * (20/22)*(19/21)*(18/20)*(17/19)*(16/18)*(15/17)*(14/16)<br>
+ *  = 22.27%, 27 repeating of course: 10x greater than previous odds<br>
  *  <br>
- *  Tower in first 6 cards and 1 of 5 specific cards as the 7th bonus card: 101745 / 1566873<br>
+ *  Tower in first 6 cards and 1 of 5 specific cards as the 7th bonus card: 101745 / 1566873 = 5/77<br>
  *  = COMBIN(21,5) / COMBIN(22/6) * COMBIN(5,1) / COMBIN(21,1) = COMBIN(21,5) / COMBIN(22/6) * (5/21)<br>
  *  = HYPGEOM.DIST(1,6,1,22,0) * HYPGEOM.DIST(1,1,5,21,0)<br>
  *  = 6.49%<br>
  *  <br>
- *  4 desired cards: 816 / 170544<br>
+ *  4 desired cards: 816 / 170544 = 1/209<br>
  *  = COMBIN(19,4) / COMBIN(22,7)<br>
  *  = HYPGEOM.DIST(4,7,4,22,0)<br>
  *  ≈ 0.4785%<br> 

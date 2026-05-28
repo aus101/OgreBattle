@@ -28,7 +28,7 @@ public class Util {
 	protected static final int[] IANUKI_BASE        = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};//final can still be modified
 	protected static final int[] ICE_CLOUD_BASE     = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};//just not reallocated with = new
 	protected static final int[] IANUKI_SFC_BASE    = new int[]{2,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};
-	protected static final int[] ICE_CLOUD_SFC_BASE = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};
+	protected static final int[] ICE_CLOUD_SFC_BASE = new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};
 	
 	public static String matrixStringBuilder(int[][] holder) {
 		StringBuilder sb = new StringBuilder();
@@ -348,6 +348,36 @@ public class Util {
 		printAllTBCS(": +");
 	}
 	
+	public static void printBonusCardOneStat(String stat) {
+		printBonusCardOneStat(": ", stat);
+		
+	}
+	
+	public static void printBonusCardOneStatPlus(String stat) {
+		printBonusCardOneStat(": +", stat);
+	}
+	
+	private static void printBonusCardOneStat(String symbol, String stat) {
+    	stat = stat.toUpperCase();
+    	int index = -1;
+    	index = TarotBonusCardStats.STATS.indexOf(stat);
+    	if (index == -1) {
+    		System.out.println("Stat must be HP, STR, AGI, INT, CHA, ALI or LUK. Not case sensitive.");
+    		return;
+    	}
+    	System.out.println(stat + newLine);
+    	
+		StringBuilder sb = new StringBuilder();
+		TarotBonusCardStats[] allCards = TarotBonusCardStats.values();
+		
+		for(int c=0; c<Tarot.DECK_SIZE; c++) {
+			int tarot[] = allCards[c].getValues();
+			String spacer = (tarot[index] >= 0) ? symbol : ": ";//alignment of positive and negative numbers			
+			sb.append(allCards[c].toString()).append(spacer).append(tarot[index]).append(newLine);			
+		}
+		System.out.println(sb.toString());
+	}
+	
 	private static void printTBCS(int[] tarot, String symbol, String name) {
 		StringBuilder sb = new StringBuilder(name).append(newLine);
 		for(int t=0; t<tarot.length; t++) {
@@ -355,7 +385,6 @@ public class Util {
 			if (t == 0) spacer = " " + spacer;//for HP having 2 letters
 			sb.append(TarotBonusCardStats.STATS.get(t)).append(spacer).append(tarot[t]).append(newLine);
 		}
-		//want ending line separator to have a line between each Tarot card
 		System.out.println(sb.toString());
 	}
 	
