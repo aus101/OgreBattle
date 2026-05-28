@@ -56,6 +56,10 @@ public enum TarotBonusCardStats {
 	TarotBonusCardStats(int[] values) {
         this.values = values;
     }
+	
+    public int getValue(int index) {
+    	return values[index];
+    }
     
     public int[] getValues() {
     	return values;
@@ -70,6 +74,7 @@ public enum TarotBonusCardStats {
     }
 
 	public static void main(String[] args) {
+		Util.printBonusCardOneStatPlus("ALI");
 //      Example with output showing with and without the + sign on positive values
 //		Util.printArray(Priestess.getValues());
 //		Util.printTarotBonusCardStats(Tarot.Priestess);//use enum from Tarot class
