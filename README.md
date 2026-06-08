@@ -4,7 +4,7 @@ Educational, hacking and speedrunning efforts to understand the amazingly obtuse
    
 Herein lies an Ogre Battle Tarot card generator to determine the exact odds of various Tarot cards in the opening hands of 1 to 7 cards. A New Game begins with 7 cards: 6 from questions and 1 from the bonus pick.    
 Brute-forcing all hand combinations where order does not matter is done for 6 cards in under 1 second and under 2 seconds for 7 cards on a stock i5 desktop computer.    
-No external Java libraries are used. No need for Maven or Gradle.            
+No external Java libraries are used by design. Accessible to Java beginners without requiring Maven or Gradle.            
 
 The focus is solving for the optimal set of answers to Warren's 6 question for each Lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
 Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.CardOddsExample.java** as can be seen by running the mains.     
@@ -19,11 +19,10 @@ More recently, **ogrebattle.joker.Joker.java** was added to determine the distri
 The most recent update included **ogrebattle.tarot.pojo.TarotBonusCardStats** that shows the Opinion Leader's starting stat adjustments that are possible from the 7th bonus card. The values are consistent in every release.
 
 ## Additional Details
-The code is robust enough to work with hands of 1 to 7 cards, or more cards if using the simulate package that converges to the correct odds where brute-forcing would be impractical.    
-The bonus card drawn at the end alters the Opinion Leader's stats. This repository does not record or delve into the stat changes.    
+The code is robust enough to work with hands of 1 to 7 cards, or more cards if using the simulate package that converges to the true odds where brute-forcing would be impractical.
 
 ## Note of Caution
-OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card. Bias in the 0 to 255 RNG generator is explored  in **ogrebattle.tarot.exact.LookupTableBias**.
+OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card. Bias in the 0 to 255 RNG generator is explored in **ogrebattle.tarot.exact.LookupTableBias**.
 
 The true in-game odds could be higher or lower or variable to some extent based the RNG spread, Opinion Leader name and sex, the frame counter, or other sources of entropy for the starting seed and randomness. Most likely in SNES and Saturn not all starting 7 card hands are possible.       
 
