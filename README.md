@@ -10,7 +10,7 @@ The focus is solving for the optimal set of answers to Warren's 6 question for e
 Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.CardOddsExample.java** as can be seen by running the mains.     
 Alternatively and equivalently, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc. More complex probabilities would need the code approach.  
      
-Previously published sets of answers for each Lord type had about a 65% success rate. The odds are raised here to 99.18-100% for all releases but the original Super Famicom. That release has bugged point values except for Magician and boosted points for World. Is 97.62-100% instead.   
+Previously published sets of answers for each Lord type had about a 65% success rate. The odds are raised here to 99.18-100% for all releases but the original Super Famicom. That release has downshifted point values except for Magician and boosted points for World. Answer sets achieve 97.62-100% instead.   
 The Lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 93.41% and 61.45%, respectively.    
 Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.  
 
