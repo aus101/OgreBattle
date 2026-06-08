@@ -11,7 +11,7 @@ public class DEC {
 		final Tarot[] cards = Tarot.values();	
 		final String CONVERT = "FC F8 FE 08 03 F8 05 03 FE 01 FD 04 05 FD 05 02 03 04 07 03 07 07 05 04 02 07 04 03 03 FB FD 04 02 FB FD 04 02 FD FC 03 07 04 07 03 07 FB 06 07 FB 04 07 03 F9 02 03 F9 FC FE FD 07 05 07 02 FC FB 07 FE 04 06 FF 02 02 03 04 02 07 01 FD F9 FC 05 06 07 FF FB FD FC FF 02 F9 07 01 01 01 FF 01 FF FF 03 07 01 FB 04 F9 FE FC 03 F9 05 05 FF FE 02 04 07 01 02 03 07 FD FE FC 05 02 06 07 04 03 FC 05 03 07 01 FF FE FD FF 07 02 FF FC FD FE FC 03 FD FE FC 07 F9 07 01 F9 F9";
 		final String[] bytes = CONVERT.split(" ");
-		StringBuilder sb = new StringBuilder(TarotBonusCardStats.STATS.toString()).append(Util.newLine).append(Util.newLine);
+		StringBuilder sb = new StringBuilder(TarotBonusCardStats.STATS.toString()).append(Util.doubleNewLine);
 		for(int i=0; i<bytes.length; i++) {
 			String temp = bytes[i];
 			if (temp.startsWith("F")) {//Two's complement for negative numbers:
@@ -43,7 +43,7 @@ public class DEC {
 			}
 			sb.append(temp);
 			if ((i + 1) % 7 == 0 && (i / 7) != 21) {//don't append extra lines after World the last card
-				sb.append(Util.newLine).append(Util.newLine);
+				sb.append(Util.doubleNewLine);
 			} else {
 				sb.append(" ");
 			}

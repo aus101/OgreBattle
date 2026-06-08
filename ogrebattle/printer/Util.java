@@ -23,6 +23,7 @@ public class Util {
 	private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 	private static final NumberFormat COMMAS = NumberFormat.getInstance(Locale.US);
 	public static final String newLine = System.lineSeparator();
+	public static final String doubleNewLine = System.lineSeparator() + System.lineSeparator();
 	private static final Tarot[] VALUES = Tarot.values();
 	//one answer set for each lord type with multiple optimal answer sets, chosen for max 1's
 	protected static final int[] IANUKI_BASE        = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};//final can still be modified
