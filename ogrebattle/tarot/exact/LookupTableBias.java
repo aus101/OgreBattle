@@ -412,8 +412,32 @@ Fool        : 12
 World       : 11
 
 11 out of 256 = 4.29688%
-12 out of 256 = 4.6875%
+12 out of 256 = 4.68750%
 Relative increase of 1 in 11 = 9.09% for 12 versus 11
+
+If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 10;' for the hit rate that is sorted into 10% bins, 
+the RNG bias from rolling 0 to 9 for attack hit rates, with sufficiently random RNG, can be seen:
+0  00 to 19 (00  to 25)  26
+1  1A to 33 (26  to 51)  26
+2  34 to 4C (52  to 76)  25
+3  4D to 66 (77  to 102) 26
+4  67 to 7F (103 to 127) 25
+5  80 to 99 (128 to 153) 26
+6  9A to B3 (154 to 179) 26
+7  B4 to CC (180 to 204) 25
+8  CD to E6 (205 to 230) 26
+9  E7 to FF (231 to 255) 25
+
+Intended hit rate versus actual hit rate, no rounding:
+10%  26/255  = 10.15625%
+20%  52/256  = 20.3125%
+30%  77/256  = 30.078125%
+40%  103/256 = 40.234375%
+50%  128/256 = 50%
+60%  154/256 = 60.15625%
+70%  180/256 = 70.3125%
+80%  205/256 = 80.078125%
+90%  231/256 = 90.234375%
 
 If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the HP/STR/AGI/INT +0, +1, +2 level up stat bonus,
 +0 is 0x00 to 0x55 (86 values), +1 is 0x86to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).
@@ -428,5 +452,6 @@ Bonus spread for stat up items such as from Anywhere Jack:
 +8  80 to AA (128 to 170) 43
 +9  AB to D5 (171 to 213) 43
 +10 D6 to DD (214 to 255) 42
+
 The 43 totals are 1/256 more likely than the 43 totals. Relative increase of 1 in 42 = 2.38%.
 */
