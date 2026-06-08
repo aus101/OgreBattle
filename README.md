@@ -11,10 +11,10 @@ Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** 
 Alternatively and equivalently, calculations for Tarot cards odds are calculated exactly in **ogrebattle.tarot.simulate.CardOddsExample.java**'s Javadoc. More complex probabilities would need the code approach.  
      
 Previously published sets of answers for each Lord type had about a 65% success rate. The odds are raised here to 99.18-100% for all releases but the original Super Famicom. That release has downshifted point values except for Magician and boosted points for World. Answer sets achieve 97.62-100% instead.   
-The Lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 93.41% and 61.45%, respectively.    
+The Lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 76.02% and 60.39% for Super Famicom and 80.64% and 58.45% for all other releases, respectively.    
 Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.  
 
-More recently, **ogrebattle.joker.Joker.java** was added to determine the distribution of drawing Tarot cards with Jokers. Speficially, the Fool count is tracked as that the the difference between a successful speedrun and a reset. The same card twice in a row is impossible whether liberating or drawing a Joker. Under the hood, the RNG will iterate again if the card repeats. The RNG cycle is > 256.
+More recently, **ogrebattle.joker.Joker.java** was added to determine the distribution of drawing Tarot cards with Jokers. Speficially, the Fool count is tracked as that the the difference between a successful speedrun and a reset. The same card twice in a row is impossible whether liberating or drawing a Joker. Under the hood, the RNG will iterate again if the card repeats. The RNG period is > 256.
 
 The most recent update included **ogrebattle.tarot.pojo.TarotBonusCardStats** that shows the Opinion Leader's starting stat adjustments that are possible from the 7th bonus card. The values are consistent in every release.
 
