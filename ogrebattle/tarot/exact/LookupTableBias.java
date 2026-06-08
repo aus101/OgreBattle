@@ -81,24 +81,50 @@ public class LookupTableBias {
 		.append("11 out of 256 = " + new BigDecimal("11").divide(TWO_HUNDRED_FIFTY_SIX,
 				7, RoundingMode.HALF_UP).movePointRight(2)).append("%").append(Util.newLine)
 		.append("12 out of 256 = " + new BigDecimal("12").divide(TWO_HUNDRED_FIFTY_SIX,
-				6, RoundingMode.HALF_UP).movePointRight(2)).append("%").append(Util.newLine)
+				6, RoundingMode.HALF_UP).movePointRight(2)).append("0%").append(Util.newLine)//the 0 added due to the 9 rounding up
 		.append("Relative increase of 1 in 11 = " + (new BigDecimal("1").divide(ELEVEN, 4, RoundingMode.HALF_UP).movePointRight(2)) + "% for 12 versus 11")
+		
+		//start hit rate explanation
+		.append(Util.doubleNewLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 10;' for the "
+				+ "hit rate that is sorted into 10% bins, ").append(Util.newLine).append("the RNG bias from rolling 0 to 9 for attack hit rates, "
+						+ "with sufficiently random RNG, can be seen:")
+		.append(Util.newLine).append("0  00 to 19 (00  to 25)  26")
+		.append(Util.newLine).append("1  1A to 33 (26  to 51)  26")
+		.append(Util.newLine).append("2  34 to 4C (52  to 76)  25")
+		.append(Util.newLine).append("3  4D to 66 (77  to 102) 26")
+		.append(Util.newLine).append("4  67 to 7F (103 to 127) 25")		
+		.append(Util.newLine).append("5  80 to 99 (128 to 153) 26")
+		.append(Util.newLine).append("6  9A to B3 (154 to 179) 26")
+		.append(Util.newLine).append("7  B4 to CC (180 to 204) 25")
+		.append(Util.newLine).append("8  CD to E6 (205 to 230) 26")
+		.append(Util.newLine).append("9  E7 to FF (231 to 255) 25")	
+		.append(Util.doubleNewLine).append("Intended hit rate versus actual hit rate, no rounding:")
+		.append(Util.newLine).append("10%  26/255  = 10.15625%")
+		.append(Util.newLine).append("20%  52/256  = 20.3125%")
+		.append(Util.newLine).append("30%  77/256  = 30.078125%")
+		.append(Util.newLine).append("40%  103/256 = 40.234375%")		
+		.append(Util.newLine).append("50%  128/256 = 50%")
+		.append(Util.newLine).append("60%  154/256 = 60.15625%")
+		.append(Util.newLine).append("70%  180/256 = 70.3125%")
+		.append(Util.newLine).append("80%  205/256 = 80.078125%")
+		.append(Util.newLine).append("90%  231/256 = 90.234375%")
+		
 		//start level up stat bonus explanation
-		.append(Util.newLine).append(Util.newLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the "
+		.append(Util.doubleNewLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the "
 				+ "HP/STR/AGI/INT +0, +1, +2 level up stat bonus,").append(Util.newLine).append("+0 is 0x00 to 0x55 (86 values), +1 is 0x86"
 				+ "to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).").append(Util.newLine).append("Thus with sufficiently random RNG, "
 				+ "+0 occurs at 33.59375% and +1 and +2 are each at 33.203125%.").append(Util.newLine).append("EV is +0.99609375 per stat"
 				+" gained from EXP for 4 stats: HP, STR, AGI, INT.").append(Util.newLine)
 				.append("That's 1 stat point lost due to bias every (250 levels)/(4 stats) = 63 levels gained across your army.")
 		//start item stat bonus explanation
-		.append(Util.newLine).append(Util.newLine).append("Bonus spread for stat up items such as from Anywhere Jack:")
+		.append(Util.doubleNewLine).append("Bonus spread for stat up items such as from Anywhere Jack:")
 		.append(Util.newLine).append("+5  00 to 2A (00  to 42)  43")
 		.append(Util.newLine).append("+6  2B to 55 (43  to 85)  43")
 		.append(Util.newLine).append("+7  56 to 7F (86  to 127) 42")
 		.append(Util.newLine).append("+8  80 to AA (128 to 170) 43")
 		.append(Util.newLine).append("+9  AB to D5 (171 to 213) 43")
 		.append(Util.newLine).append("+10 D6 to DD (214 to 255) 42")
-		.append(Util.newLine).append("The 43 totals are 1/256 more likely than the 43 totals. Relative increase of 1 in 42 = 2.38%.");
+		.append(Util.doubleNewLine).append("The 43 totals are 1/256 more likely than the 43 totals. Relative increase of 1 in 42 = 2.38%.");
 		
 		System.out.print(sb.toString());
 	}
@@ -386,8 +412,32 @@ Fool        : 12
 World       : 11
 
 11 out of 256 = 4.29688%
-12 out of 256 = 4.6875%
+12 out of 256 = 4.68750%
 Relative increase of 1 in 11 = 9.09% for 12 versus 11
+
+If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 10;' for the hit rate that is sorted into 10% bins, 
+the RNG bias from rolling 0 to 9 for attack hit rates, with sufficiently random RNG, can be seen:
+0  00 to 19 (00  to 25)  26
+1  1A to 33 (26  to 51)  26
+2  34 to 4C (52  to 76)  25
+3  4D to 66 (77  to 102) 26
+4  67 to 7F (103 to 127) 25
+5  80 to 99 (128 to 153) 26
+6  9A to B3 (154 to 179) 26
+7  B4 to CC (180 to 204) 25
+8  CD to E6 (205 to 230) 26
+9  E7 to FF (231 to 255) 25
+
+Intended hit rate versus actual hit rate, no rounding:
+10%  26/255  = 10.15625%
+20%  52/256  = 20.3125%
+30%  77/256  = 30.078125%
+40%  103/256 = 40.234375%
+50%  128/256 = 50%
+60%  154/256 = 60.15625%
+70%  180/256 = 70.3125%
+80%  205/256 = 80.078125%
+90%  231/256 = 90.234375%
 
 If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the HP/STR/AGI/INT +0, +1, +2 level up stat bonus,
 +0 is 0x00 to 0x55 (86 values), +1 is 0x86to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).
@@ -402,5 +452,6 @@ Bonus spread for stat up items such as from Anywhere Jack:
 +8  80 to AA (128 to 170) 43
 +9  AB to D5 (171 to 213) 43
 +10 D6 to DD (214 to 255) 42
+
 The 43 totals are 1/256 more likely than the 43 totals. Relative increase of 1 in 42 = 2.38%.
 */
