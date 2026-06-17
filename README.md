@@ -40,6 +40,6 @@ Not for distribution or use, or use or distribution of a derivative work on:
     - SuperFamicom.org
     - Creative Commons licenses, ideal for Fandom to take over
     - Video with video sponsor
-    - Video or website with association to lootboxes or gacha games
+    - Video or website associated with lootboxes or gacha games
 ```
 Derivate works must include and follow this notice.
