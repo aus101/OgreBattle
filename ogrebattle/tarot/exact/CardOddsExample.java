@@ -2,9 +2,9 @@ package ogrebattle.tarot.exact;
 
 import java.util.Arrays;
 
-import ogrebattle.printer.Util;
 import ogrebattle.tarot.generator.AllPossibleHands;
 import ogrebattle.tarot.pojo.Tarot;
+import ogrebattle.util.Printer;
 
 /**
  * Exact odds of hand combinations using BigDecimal for division to prevent floating point error.<br>
@@ -18,53 +18,53 @@ public class CardOddsExample {
 	//all static not desirable but no real reason to change
 	public static void main(String[] args) {
 		System.out.println("Random hand of 6 with game's Tarot ordering:");
-		Util.printRandomHand(sixCards);
+		Printer.printRandomHand(sixCards);
 		System.out.println();
 		//repeated to show randomness versus same hand or iterated hand, unless 1 in 38760 of same hand twice
 		System.out.println("Another random hand of 6 with game's Tarot ordering:");
-		Util.printRandomHand(sixCards);
+		Printer.printRandomHand(sixCards);
 		System.out.println();
 		System.out.println("Odds of 1 specific card in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContains(Tarot.Fool), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContains(Tarot.Fool), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
-				sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
+				sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAndContainsAny(Tarot.Fool,
-				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAndContainsAny(Tarot.Fool,
+				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of 2 out of 3 or all 3 specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAndContainsAny(Tarot.Devil,
-				Tarot.Chariot, Tarot.Hermit), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAndContainsAny(Tarot.Devil,
+				Tarot.Chariot, Tarot.Hermit), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of 2 out of 2 specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAll(Tarot.Devil, Tarot.Chariot), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAll(Tarot.Devil, Tarot.Chariot), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of at least 2 out of 3 specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAtLeastXOutOfThese(2, Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
-				sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAtLeastXOutOfThese(2, Tarot.Devil, Tarot.Chariot, Tarot.Hermit),
+				sevenCards.combinations(), Printer.PRECISION_PRINT);
 		System.out.println();
 		
 		System.out.println("Odds of containing one specific card and at least 2 out of 3 other specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 2,
-				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 2,
+				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		
 		System.out.println();
 		System.out.println("Odds of containing one specific card and NONE of 3 other specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
-				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
+				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit)), sevenCards.combinations(), Printer.PRECISION_PRINT);
 		
 		System.out.println();
 		System.out.println("Odds of containing one specific card and NONE of 4 other specific cards in opening hand of 7:");
-		Util.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
-				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit, Tarot.Tower)), sevenCards.combinations(), Util.PRECISION_PRINT);
+		Printer.percentPrint(sevenCards.countContainsAndContainsAtLeastXOutOfThese(Tarot.Fool, 0,
+				Arrays.asList(Tarot.Devil, Tarot.Chariot, Tarot.Hermit, Tarot.Tower)), sevenCards.combinations(), Printer.PRECISION_PRINT);
 	}
 }
 /*

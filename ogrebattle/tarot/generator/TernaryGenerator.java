@@ -2,7 +2,8 @@ package ogrebattle.tarot.generator;
 
 import java.util.Arrays;
 
-import ogrebattle.printer.Util;
+import ogrebattle.util.Printer;
+import ogrebattle.util.Util;
 
 /**
  * 3 answers to each Tarot card question is a base 3 system. Can generate all possible answer sets by iterating in base 3 and<br>
@@ -19,14 +20,14 @@ public class TernaryGenerator {
 	public static void main(String[] args) {
 		System.out.println("little endian base " + BASE + " to 3 significant digits:");
 		
-		System.out.println(Util.matrixStringBuilder(
+		System.out.println(Printer.matrixStringBuilder(
 				littleEndianGenerator(3)));
 		
 		int offset = 5;//works fine with negative numbers
 		
 		System.out.println("big endian base " + BASE + " with +" + offset + " offset to 4 significant digits:");
 		
-		System.out.println(Util.matrixStringBuilder(
+		System.out.println(Printer.matrixStringBuilder(
 				bigEndianGenerator(4, offset)));
 			
 		int exponent = 13;
@@ -36,7 +37,7 @@ public class TernaryGenerator {
 		long end = System.nanoTime();
 		
 		System.out.println(exponent + ": " + (double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds with base " + BASE
-				+ " to generate all " + Util.numberSeparator((int) Math.pow(BASE, exponent)) +" arrays of length "
+				+ " to generate all " + Printer.numberSeparator((int) Math.pow(BASE, exponent)) +" arrays of length "
 				+ exponent + ", i.e. 3^" + exponent);	
 	}
 /*
