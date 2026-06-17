@@ -1,6 +1,6 @@
 package ogrebattle.tarot.pojo;
 
-import ogrebattle.printer.Util;
+import ogrebattle.util.Printer;
 
 /**
  * Programmatically generate the bonus card stat changes using the array to prevent human error
@@ -39,21 +39,21 @@ public class DEC {
 			}
 			
 			if ((i + 7) % 7 == 0) {//append new line for the next card
-				sb.append(cards[i / 7].toString()).append(Util.newLine);
+				sb.append(cards[i / 7].toString()).append(Printer.newLine);
 			}
 			sb.append(temp);
 			if ((i + 1) % 7 == 0 && (i / 7) != 21) {//don't append extra lines after World the last card
-				sb.append(Util.doubleNewLine);
+				sb.append(Printer.doubleNewLine);
 			} else {
 				sb.append(" ");
 			}
 		}
 		sb.replace(sb.length()-1, sb.length(), "");//remove last space after World's LUK
 
-		String tarotBonusCardStats = Util.bonusStatsString();
+		String tarotBonusCardStats = Printer.bonusStatsString();
 		String check = sb.toString().equals(tarotBonusCardStats) ? "Yes" : "No";
-		System.out.println(new StringBuilder("Is TarotBonusCardStats.java bonus card data equal to DEC's? ").append(check).append(Util.newLine).toString());
-		System.out.println(TarotBonusCardStats.STATS + Util.newLine);
+		System.out.println(new StringBuilder("Is TarotBonusCardStats.java bonus card data equal to DEC's? ").append(check).append(Printer.newLine).toString());
+		System.out.println(TarotBonusCardStats.STATS + Printer.newLine);
 		System.out.println(sb.toString());
 	}
 }

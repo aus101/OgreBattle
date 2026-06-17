@@ -9,11 +9,12 @@ import java.util.TreeSet;
 
 import ogrebattle.lordtypes.Ianuki;
 import ogrebattle.lordtypes.IceCloud;
-import ogrebattle.printer.Util;
 import ogrebattle.tarot.generator.AllPossibleHands;
 import ogrebattle.tarot.pojo.LORD;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.tarot.pojo.TarotQuestions;
+import ogrebattle.util.Printer;
+import ogrebattle.util.Util;
 
 /**
  * Not really intended to be clean, reusable code. Rather to show how to use AllPossibleHands to derive optimal solutions.
@@ -267,15 +268,15 @@ public class OddsExample {
 		AllPossibleHands sevenCards = new AllPossibleHands(7, true);
 		System.out.println("Odds of 1 specific card in opening hand of 7:");
 		System.out.println(
-				Util.percentCalc(sevenCards.countContains(Tarot.Fool), combin, 4));
+				Printer.percentCalc(sevenCards.countContains(Tarot.Fool), combin, 4));
 		System.out.println();
 		System.out.println("Odds of at least 1 of 3 specific cards in opening hand of 7:");
 		System.out.println(
-				Util.percentCalc(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4));
+				Printer.percentCalc(sevenCards.countContainsAny(Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4));
 		System.out.println();
 		System.out.println("Odds of Fool and at least 1 of 3 other specific cards in opening hand of 7:");
 		System.out.println(
-				Util.percentCalc(sevenCards.countContainsAndContainsAny(Tarot.Fool,
+				Printer.percentCalc(sevenCards.countContainsAndContainsAny(Tarot.Fool,
 				Tarot.Devil, Tarot.Chariot, Tarot.Hermit), combin, 4));
 	}
 

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ogrebattle.printer.Util;
+import ogrebattle.util.Printer;
 
 /**
  * The 7th bonus card does not affect the Lord type but instead alters the Lord / Opinion Leader's starting stats.<br>
@@ -74,12 +74,13 @@ public enum TarotBonusCardStats {
     }
 
 	public static void main(String[] args) {
-		Util.printBonusCardOneStatPlus("ALI");
-//      Example with output showing with and without the + sign on positive values
-//		Util.printArray(Priestess.getValues());
-//		Util.printTarotBonusCardStats(Tarot.Priestess);//use enum from Tarot class
-//		Util.printTarotBonusCardStatsPlus(World);//use enum from this class
-/*		[3,-2,1,-3,4,5,-3]
+		Printer.printBonusCardOneStatPlus("ALI");
+		Printer.printAllTarotBonusCardStatsPlus();
+/*      Example with output showing with and without the + sign on positive values
+		Printer.printArray(Priestess.getValues());
+		Printer.printTarotBonusCardStats(Tarot.Priestess);//use enum from Tarot class
+		Printer.printTarotBonusCardStatsPlus(World);//use enum from this class
+		[3,-2,1,-3,4,5,-3]
 				Priestess
 				HP:   3
 				STR: -2
@@ -98,7 +99,6 @@ public enum TarotBonusCardStats {
 				ALI: -7
 				LUK: -7
 */				
-		Util.printAllTarotBonusCardStatsPlus();
 	}
 }
 /*

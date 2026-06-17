@@ -1,7 +1,8 @@
 package ogrebattle.tarot.exact;
 
 import java.util.Arrays;
-import ogrebattle.printer.Util;
+import ogrebattle.util.Util;
+import ogrebattle.util.Printer;
 //static import to reduce clutter
 import static ogrebattle.tarot.pojo.LORD.*;
 
@@ -10,9 +11,7 @@ import ogrebattle.tarot.pojo.TarotAnswers;
 /**
  * Not really intended to be clean, reusable code. Rather to show how to use {@link ogrebattle.tarot.generator.AllPossibleHands} to derive optimal solutions.
  * The commented out code shows how to iterate through Ianuki or Ice Cloud that have more than one optimal set of Tarot answers.
- * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer for odds improvement.
- * More Ice Cloud solutions could theoretically exist but would be at least 3 Tarot card changes from all solutions given.
- * Perhaps the best extension would be finding optimal solutions for any Lord being the second highest total.<br>
+ * The rotateUp and rotateDown code check all 44 combinations from changing 1 Tarot card answer for odds improvement.<br>
  */
 
 public class LordOddsExample {
@@ -52,7 +51,7 @@ public class LordOddsExample {
 		odds.justCount(new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2}, ICE_CLOUD);
 		
 		System.out.println(System.lineSeparator() + "Print answers for Phantom Lord that work 98.74% of the time");
-		Util.printAnswersByTarot(phantom);
+		Printer.printAnswersByTarot(phantom);
 		
 		System.out.println("Count of each lord type by choosing all 1's for the 6 Tarot card questions:");
 		System.out.println("countMatches(all1s)");

@@ -1,6 +1,7 @@
 package ogrebattle.tarot.simulate;
 
-import ogrebattle.printer.Util;
+import ogrebattle.util.Printer;
+import ogrebattle.util.Util;
 
 /**
  * This random hands approach is inferior to the {@link ogrebattle.tarot.exact.CardOddsExample}</code> approach that finds
@@ -126,13 +127,13 @@ public class CardOddsExample {
 		long end = System.nanoTime();
 		System.out.println((double) (end - start) / Util.NANOSECONDS_IN_1_SECOND + " seconds to execute for " + HANDS + " hands" + System.lineSeparator());
 		
-		System.out.println(TarotDeck.getfoolCount() + ": " + Util.percent(TarotDeck.getfoolCount(), TarotDeck.getTotalHands())
+		System.out.println(TarotDeck.getfoolCount() + ": " + Printer.percent(TarotDeck.getfoolCount(), TarotDeck.getTotalHands())
 			+ " hands with Fool");
-		System.out.println(TarotDeck.getDevilCharotHermitCount() + ": " + Util.percent(TarotDeck.getDevilCharotHermitCount(), TarotDeck.getTotalHands())
+		System.out.println(TarotDeck.getDevilCharotHermitCount() + ": " + Printer.percent(TarotDeck.getDevilCharotHermitCount(), TarotDeck.getTotalHands())
 			+ " hands with Devil, Chariot and/or Hermit");
-		System.out.println(TarotDeck.getValidHands() + ": " + Util.percent(TarotDeck.getValidHands(), TarotDeck.getTotalHands())
+		System.out.println(TarotDeck.getValidHands() + ": " + Printer.percent(TarotDeck.getValidHands(), TarotDeck.getTotalHands())
 		 + " hands with Fool and at least 1 of the 3 damage cards");
-		System.out.println(TarotDeck.getInvalidHands() + ": " + Util.percent(TarotDeck.getInvalidHands(),  TarotDeck.getTotalHands())
+		System.out.println(TarotDeck.getInvalidHands() + ": " + Printer.percent(TarotDeck.getInvalidHands(),  TarotDeck.getTotalHands())
 		 + " hands with Fool and NONE of the 3 damage cards");
 	}
 }
