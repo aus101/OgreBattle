@@ -111,7 +111,7 @@ public class LookupTableBias {
 		
 		//start level up stat bonus explanation
 		.append(Util.doubleNewLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the "
-				+ "HP/STR/AGI/INT +0, +1, +2 level up stat bonus,").append(Util.newLine).append("+0 is 0x00 to 0x55 (86 values), +1 is 0x86"
+				+ "HP/STR/AGI/INT +0, +1, +2 level up stat bonus,").append(Util.newLine).append("+0 is 0x00 to 0x55 (86 values), +1 is 0x86 "
 				+ "to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).").append(Util.newLine).append("Thus with sufficiently random RNG, "
 				+ "+0 occurs at 33.59375% and +1 and +2 are each at 33.203125%.").append(Util.newLine).append("EV is +0.99609375 per stat"
 				+" gained from EXP for 4 stats: HP, STR, AGI, INT.").append(Util.newLine)

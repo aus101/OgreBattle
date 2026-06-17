@@ -12,7 +12,7 @@ import ogrebattle.printer.Util;
  * For instance, Priestess modifies starting HP by +0, +1, +2 or +3. Starting STR is modified by +0, -1 or -2.<br>
  * Note that PSX further gives +1 to STR, AGI and INT to every unit leader, including the Lord / Opinion Leader.<br>
  * There is no disputing these values. They can be found by searching any release for "FC F8 FE 08" for the start<br>
- * of the 154 byte (7x22) table, i.e. Magician. Negative values are represented in 2's compliment so that FC = -4.<br>
+ * of the 154 byte (7x22) table, i.e. Magician. Negative values are represented in Two's complement so that FC = -4.<br>
  * <br>Values generated from <code>DEC.java</code><br>
  */
 public enum TarotBonusCardStats {

@@ -411,6 +411,27 @@ public class Util {
 		System.out.println(sb.toString());
 	}
 	
+	public static String bonusStatsString() {
+		TarotBonusCardStats[] allCards = TarotBonusCardStats.values();
+		StringBuilder sb = new StringBuilder();
+		
+		for(int c=0; c<Tarot.DECK_SIZE; c++) {
+			sb.append(allCards[c].toString()).append(newLine);//appending the name
+			int tarot[] = allCards[c].getValues();
+			
+			for(int t=0; t<tarot.length; t++) {
+				String spacer = (tarot[t] >= 0) ? "+" : "";//alignment of positive and negative numbers
+				sb.append(spacer).append(tarot[t]).append(" ");
+			}
+			sb.replace(sb.length()-1, sb.length(), "");//remove last space on LUK
+			
+			//want ending line separator to have a line between each Tarot card
+			if (c < Tarot.DECK_SIZE-1)//except not at World the last card
+				sb.append(doubleNewLine);
+		}
+		return sb.toString();
+	}
+	
 	public static void printAnswersByTarotAlphabetical(TarotAnswers solution) {
 		printAnswersByTarotAlphabetical(solution.getAnswers());
 	}
