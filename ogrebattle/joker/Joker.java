@@ -3,7 +3,8 @@ package ogrebattle.joker;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import ogrebattle.printer.Util;
+import ogrebattle.util.Printer;
+import ogrebattle.util.Util;
 
 public class Joker {
 	protected final int CARDCOUNT;
@@ -44,17 +45,17 @@ public class Joker {
 			totalCards = (long) LOOPS * j.getCardCount();
 			//totalCards = new BigDecimal(LOOPS).multiply(new BigDecimal(j.getCardCount())).longValueExact();
 		}
-		System.out.println(Util.nanoToMinutesSeconds(end - start) + " to execute for " + Util.numberSeparator(LOOPS) + " iterations at "
-				+ Util.numberSeparator(j.getCardCount()) + " cards apiece = " + Util.numberSeparator(totalCards) + " total cards");
+		System.out.println(Util.nanoToMinutesSeconds(end - start) + " to execute for " + Printer.numberSeparator(LOOPS) + " iterations at "
+				+ Printer.numberSeparator(j.getCardCount()) + " cards apiece = " + Printer.numberSeparator(totalCards) + " total cards");
 		String s;
 		if (tally != 1) {
 			s = " matches or 1 for every ";
 		} else {
 			s = " match or 1 for every ";
 		} 
-		System.out.println(Util.percentAlt(tally, totalCards, Util.PRECISION_PRINT, s) + " Joker/Liberation pulls");
+		System.out.println(Printer.percentAlt(tally, totalCards, Printer.PRECISION_PRINT, s) + " Joker/Liberation pulls");
 		System.out.println(System.lineSeparator() + "Odds of the expected number of matches for iterations of "
-				+ Util.numberSeparator(j.getCardCount()) + " cards:" + System.lineSeparator());
+				+ Printer.numberSeparator(j.getCardCount()) + " cards:" + System.lineSeparator());
 		j.printTrackerPercent();
 	}
 	
@@ -175,9 +176,9 @@ public class Joker {
 	public void printTrackerPercent() {
 		for (int i=0; i<tracker.length-1; i++) {
 			System.out.println(new StringBuilder().append(i).append(" found: ")
-					.append(Util.percentAlt(tracker[i], LOOPS, Util.PRECISION_PRINT)).append(" iterations"));
+					.append(Printer.percentAlt(tracker[i], LOOPS, Printer.PRECISION_PRINT)).append(" iterations"));
 		}
-		StringBuilder s10 = new StringBuilder("10 or more found: ").append(Util.percentAlt(tracker[10], LOOPS, Util.PRECISION_PRINT));//last index
+		StringBuilder s10 = new StringBuilder("10 or more found: ").append(Printer.percentAlt(tracker[10], LOOPS, Printer.PRECISION_PRINT));//last index
 		if (tracker[TEN_OR_MORE] > 0) {
 			s10.append(" iterations");
 		}
