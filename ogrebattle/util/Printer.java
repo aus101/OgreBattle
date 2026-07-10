@@ -1,9 +1,10 @@
-package ogrebattle.printer;
+package ogrebattle.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import ogrebattle.tarot.generator.AllPossibleHands;
@@ -17,19 +18,13 @@ import ogrebattle.tarot.simulate.TarotDeck;
 /**
  * Print! Print! Print! Or return a String to print!
  */
-public class Util {
+public class Printer {
 	public static int PRECISION_PRINT = 4;//4 decimals
-	public final static int NANOSECONDS_IN_1_SECOND = 1_000_000_000;
 	private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 	private static final NumberFormat COMMAS = NumberFormat.getInstance(Locale.US);
 	public static final String newLine = System.lineSeparator();
 	public static final String doubleNewLine = System.lineSeparator() + System.lineSeparator();
 	private static final Tarot[] VALUES = Tarot.values();
-	//one answer set for each lord type with multiple optimal answer sets, chosen for max 1's
-	protected static final int[] IANUKI_BASE        = new int[]{1,1,2,1,2,2,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2};//final can still be modified
-	protected static final int[] ICE_CLOUD_BASE     = new int[]{3,1,2,2,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2};//just not reallocated with = new
-	protected static final int[] IANUKI_SFC_BASE    = new int[]{2,1,1,2,3,3,2,2,1,2,2,3,1,2,1,2,3,2,1,2,2,2};
-	protected static final int[] ICE_CLOUD_SFC_BASE = new int[]{3,1,3,1,1,2,1,3,3,1,3,1,1,3,3,1,2,3,3,3,2,1};
 	
 	public static String matrixStringBuilder(int[][] holder) {
 		StringBuilder sb = new StringBuilder();
@@ -54,41 +49,6 @@ public class Util {
 		}
 		sb.append(holder[holder.length-1]).append("]");
 		System.out.println(sb.toString());
-	}
-	
-	public static int[] IanukiBaseDeepCopy() {
-		int[] temp = new int[Tarot.DECK_SIZE];
-		System.arraycopy(IANUKI_BASE, 0, temp, 0, Tarot.DECK_SIZE);
-		return temp;
-	}
-	
-	public static int[] IceCloudBaseDeepCopy() {
-		int[] temp = new int[Tarot.DECK_SIZE];
-		System.arraycopy(ICE_CLOUD_BASE, 0, temp, 0, Tarot.DECK_SIZE);
-		return temp;
-	}
-	
-	public static int[] IanukiSFCBaseDeepCopy() {
-		int[] temp = new int[Tarot.DECK_SIZE];
-		System.arraycopy(IANUKI_SFC_BASE, 0, temp, 0, Tarot.DECK_SIZE);
-		return temp;
-	}
-
-	public static int[] IceCloudSFCBaseDeepCopy() {
-		int[] temp = new int[Tarot.DECK_SIZE];
-		System.arraycopy(ICE_CLOUD_SFC_BASE, 0, temp, 0, Tarot.DECK_SIZE);
-		return temp;
-	}
-	
-	public static int[] lordToInt(LORD... lordOrder) {
-		int[] order = null;
-		if (lordOrder != null) {
-			order = new int[lordOrder.length];
-			for(int i=0; i<lordOrder.length; i++) {
-				order[i] = lordOrder[i].O;
-			}
-		}
-		return order;
 	}
 	
 	/**
@@ -229,7 +189,6 @@ public class Util {
 		sb.append(answers[solutionSize-1]).append("};").append(newLine);
 		System.out.println(sb.toString());
 	}
-
 	
 	public static void printAnswersByTarot(TarotAnswers solution) {
 		printAnswersByTarot(solution.getAnswers());
@@ -240,7 +199,7 @@ public class Util {
 		for(int i=0; i<Tarot.DECK_SIZE; i++) {
 			sb.append(//pad right
 					String.format("%-" + 12 + "." + 12 + "s", String.valueOf(VALUES[i])))
-					.append(": ").append(answers[i]).append(Util.newLine);
+					.append(": ").append(answers[i]).append(Printer.newLine);
 			//String.format(String.valueOf(values[i])) + ": " + answers[i]);
 		}
 		System.out.println(sb.toString());
@@ -279,32 +238,32 @@ public class Util {
 		
 		StringBuilder sb = new StringBuilder();
 		if (onesInit) {
-			sb.append(Util.newLine);
+			sb.append(Printer.newLine);
 			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (ones[i] != 0) {
 					sb.append(//pad right
 							String.format("%-" + 12 + "." + 12 + "s", String.valueOf(VALUES[i])))
-							.append(": ").append(ones[i]).append(Util.newLine);
+							.append(": ").append(ones[i]).append(Printer.newLine);
 				}
 			}
 		}
 		if (twosInit) {
-			sb.append(Util.newLine);
+			sb.append(Printer.newLine);
 			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (twos[i] != 0) {
 					sb.append(//pad right
 							String.format("%-" + 12 + "." + 12 + "s", String.valueOf(VALUES[i])))
-							.append(": ").append(twos[i]).append(Util.newLine);
+							.append(": ").append(twos[i]).append(Printer.newLine);
 				}
 			}
 		}
 		if (threesInit) {
-			sb.append(Util.newLine);
+			sb.append(Printer.newLine);
 			for(int i=0; i<Tarot.DECK_SIZE; i++) {
 				if (threes[i] != 0) {
 					sb.append(//pad right
 							String.format("%-" + 12 + "." + 12 + "s", String.valueOf(VALUES[i])))
-							.append(": ").append(threes[i]).append(Util.newLine);
+							.append(": ").append(threes[i]).append(Printer.newLine);
 				}
 			}
 		}
@@ -443,7 +402,7 @@ public class Util {
 		for(int i=0; i<Tarot.DECK_SIZE; i++) {
 			sb.append(//pad right
 			String.format("%-" + 12 + "." + 12 + "s", String.valueOf(values[i])))
-			.append(": ").append(answers[values[i].ordinal()]).append(Util.newLine);			
+			.append(": ").append(answers[values[i].ordinal()]).append(Printer.newLine);			
 		}
 		System.out.println(sb.toString());
 	}
@@ -480,44 +439,16 @@ public class Util {
 		return sb.toString();
 	}
 	
-	/**
-	 * @param nanoTime the time as a long in nanoseconds, such as the difference with 2 System.nanoTime() calls
-	 * @return String in human readable minutes and seconds with < 1 second as "less than 1 second"
-	 */
-	public static String nanoToMinutesSeconds(long nanoTime) {
-		long seconds = nanoTime / NANOSECONDS_IN_1_SECOND;
-		StringBuilder sb = new StringBuilder();
-		if (seconds < 60) {
-			if (seconds < 1) {
-				sb.append("less than 1 second");
-			} else if (seconds > 1) {
-				sb.append(seconds + " seconds");
-			} else {//== 1
-				sb.append("1 second");
-			} 
-		} else {
-			long minutes = seconds / 60;
-			long remainder = seconds % 60;
-			if (minutes > 1) {
-				sb.append(minutes).append(" minutes");
-			} else {
-				sb.append(minutes).append(" minute");
+	public static void printList(List<Integer> list, String first, String last) {
+		if (list.size() > 0) {
+			StringBuilder sb = new StringBuilder(first);
+			for(int i=0; i<list.size()-1; i++) {
+				sb.append(list.get(i)).append(",");
 			}
-			if (remainder > 0) {
-				if (remainder > 1) {
-					sb.append(", ").append(remainder).append(" seconds");
-				} else {//== 1
-					sb.append(", 1 second");
-				}
-			}
+			sb.append(list.get(list.size()-1)).append(last);
+			System.out.println(sb.toString());
 		}
-		return sb.toString();
 	}
-	/*
-	 * 43064913176100 717 minutes, 44 seconds
-	 * 43141650708600 719 minutes, 1 second
-	 * 42960766596100 716 minutes
-	 */
 	
 	/**
 	 * @param number the number as an int
