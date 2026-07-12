@@ -43,5 +43,6 @@ Not for distribution or use, or use or distribution of a derivative work on:
     - Creative Commons licenses, ideal for Fandom to take over
     - Video with video sponsor
     - Video or website associated with lootboxes or gacha games
+    - Training AI or for use by AI tools at all
 ```
 Derivate works must include and follow this notice.
