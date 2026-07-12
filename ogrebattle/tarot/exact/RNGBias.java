@@ -15,7 +15,7 @@ public class RNGBias {
 	 * I pulled Nue's Shield on English disc with real PS2 and Spockrocket pulled it on real Saturn. Bug fixed.<br>
 	 * Could adjust for those by upping RANGE to 0x5D (93) from 0x5C (92).
 	 */
-	protected static final Quantity EQUIP = new Quantity(0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
+	protected static final Quantity EQUIP = new Quantity("Equipment", 0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
 	
 	/**
 	 * Consumable items received from defeating an enemy or neutral unit<br>
@@ -23,12 +23,12 @@ public class RNGBias {
 	 * Bug is most likely fixed in PSX and Saturn but not confirmed. Can be bought at Galf's / Antanjyl's shop in every release.<br>
 	 * No RNG bias if range is unbugged to 0x20 (32) since it's a factor of 256.
 	 */
-	protected static final Quantity ITEM =  new Quantity(0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
+	protected static final Quantity ITEM =  new Quantity("Consumable Item", 0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
 	
 	/**
 	 * Also for drawing from Liberation. Not showing redraw effect.
 	 */
-	protected static final Quantity CARD =  new Quantity(0, Tarot.DECK_SIZE, 187, 117);//22 Tarot cards
+	protected static final Quantity CARD =  new Quantity("Card from Joker or Liberation", 0, Tarot.DECK_SIZE, 187, 117);//22 Tarot cards
 	
 	public static void main(String[] args) {
 		RNGBias generator = new RNGBias();
@@ -41,7 +41,7 @@ public class RNGBias {
 	}
 	
 	public StringBuilder findRNGBias(Quantity q) {
-		return findRNGBias(q.getClass().getSimpleName(), q.START, q.RANGE, q.FORMAT_HEX, q.FORMAT_DEC);
+		return findRNGBias(q.NAME, q.START, q.RANGE, q.FORMAT_HEX, q.FORMAT_DEC);
 	}
 	
 	//String.format nice and all but ghetto-fabulous is more fun
@@ -129,31 +129,31 @@ public class RNGBias {
 	
 	protected StringBuilder moreBias() {
 		StringBuilder sb = new StringBuilder();
+		
 		//start hit rate explanation
-		//int number = i * range
 		sb.append("If 'range' in int number = i * range;' is 10 for the "
 				+ "hit rate that is sorted into 10% bins, ").append(Printer.newLine).append("the RNG bias from rolling 0 to 9 for attack hit rates, "
 						+ "with sufficiently random RNG, can be seen:")
-		.append(Printer.newLine).append("0  00 to 19 (00  to 25)  26")
-		.append(Printer.newLine).append("1  1A to 33 (26  to 51)  26")
-		.append(Printer.newLine).append("2  34 to 4C (52  to 76)  25")
-		.append(Printer.newLine).append("3  4D to 66 (77  to 102) 26")
-		.append(Printer.newLine).append("4  67 to 7F (103 to 127) 25")		
-		.append(Printer.newLine).append("5  80 to 99 (128 to 153) 26")
-		.append(Printer.newLine).append("6  9A to B3 (154 to 179) 26")
-		.append(Printer.newLine).append("7  B4 to CC (180 to 204) 25")
-		.append(Printer.newLine).append("8  CD to E6 (205 to 230) 26")
-		.append(Printer.newLine).append("9  E7 to FF (231 to 255) 25")	
-		.append(Printer.doubleNewLine).append("Intended hit rate versus actual hit rate, no rounding:")
-		.append(Printer.newLine).append("10%  26/255  = 10.15625%")
-		.append(Printer.newLine).append("20%  52/256  = 20.3125%")
-		.append(Printer.newLine).append("30%  77/256  = 30.078125%")
-		.append(Printer.newLine).append("40%  103/256 = 40.234375%")		
-		.append(Printer.newLine).append("50%  128/256 = 50%")
-		.append(Printer.newLine).append("60%  154/256 = 60.15625%")
-		.append(Printer.newLine).append("70%  180/256 = 70.3125%")
-		.append(Printer.newLine).append("80%  205/256 = 80.078125%")
-		.append(Printer.newLine).append("90%  231/256 = 90.234375%")
+			.append(Printer.newLine).append("0  00 to 19 (00  to 25)  26")
+			.append(Printer.newLine).append("1  1A to 33 (26  to 51)  26")
+			.append(Printer.newLine).append("2  34 to 4C (52  to 76)  25")
+			.append(Printer.newLine).append("3  4D to 66 (77  to 102) 26")
+			.append(Printer.newLine).append("4  67 to 7F (103 to 127) 25")		
+			.append(Printer.newLine).append("5  80 to 99 (128 to 153) 26")
+			.append(Printer.newLine).append("6  9A to B3 (154 to 179) 26")
+			.append(Printer.newLine).append("7  B4 to CC (180 to 204) 25")
+			.append(Printer.newLine).append("8  CD to E6 (205 to 230) 26")
+			.append(Printer.newLine).append("9  E7 to FF (231 to 255) 25")	
+			.append(Printer.doubleNewLine).append("Intended hit rate versus actual hit rate, no rounding:")
+			.append(Printer.newLine).append("10%  26/255  = 10.15625%")
+			.append(Printer.newLine).append("20%  52/256  = 20.3125%")
+			.append(Printer.newLine).append("30%  77/256  = 30.078125%")
+			.append(Printer.newLine).append("40%  103/256 = 40.234375%")		
+			.append(Printer.newLine).append("50%  128/256 = 50%")
+			.append(Printer.newLine).append("60%  154/256 = 60.15625%")
+			.append(Printer.newLine).append("70%  180/256 = 70.3125%")
+			.append(Printer.newLine).append("80%  205/256 = 80.078125%")
+			.append(Printer.newLine).append("90%  231/256 = 90.234375%")
 		
 		//start level up stat bonus explanation
 		.append(Printer.doubleNewLine).append("If 'range' in int number = i * range;' is 3 for the "
@@ -161,21 +161,23 @@ public class RNGBias {
 				+ "to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).").append(Printer.newLine).append("EV is 255/256 due to +0 mapping to an extra bit "
 				+ "= +0.99609375 gained per stat across 4 stats: HP, STR, AGI, INT.").append(Printer.newLine)
 				.append("That translates to 1 stat point lost due to RNG bias every (256 levels)/(4 stats) = 64 levels gained across your army.")
+				
 		//start item stat bonus explanation
-		.append(Printer.doubleNewLine).append("Bonus spread for stat up items such as from Anywhere Jack:")
-		.append(Printer.newLine).append("+5  00 to 2A (00  to 42)  43")
-		.append(Printer.newLine).append("+6  2B to 55 (43  to 85)  43")
-		.append(Printer.newLine).append("+7  56 to 7F (86  to 127) 42")
-		.append(Printer.newLine).append("+8  80 to AA (128 to 170) 43")
-		.append(Printer.newLine).append("+9  AB to D5 (171 to 213) 43")
-		.append(Printer.newLine).append("+10 D6 to DD (214 to 255) 42")
-		.append(Printer.doubleNewLine).append("The 43 totals are 1/256 more likely than the 42 totals. Relative increase of 1 in 42 = 2.38%.");
+			.append(Printer.doubleNewLine).append("Bonus spread for stat up items such as from Anywhere Jack:")
+			.append(Printer.newLine).append("+5  00 to 2A (00  to 42)  43")
+			.append(Printer.newLine).append("+6  2B to 55 (43  to 85)  43")
+			.append(Printer.newLine).append("+7  56 to 7F (86  to 127) 42")
+			.append(Printer.newLine).append("+8  80 to AA (128 to 170) 43")
+			.append(Printer.newLine).append("+9  AB to D5 (171 to 213) 43")
+			.append(Printer.newLine).append("+10 D6 to DD (214 to 255) 42")
+			.append(Printer.doubleNewLine).append("The 43 totals are 1/256 more likely than the 42 totals. Relative increase of 1 in 42 = 2.38%. ")
+			.append(Printer.newLine).append("Can also use for the HP offset on character generation, where [-2, -1, +0, +2, +2] odds map to [+5, +10]");
 		
 		return sb;
 	}
 }
 /*
-16 10   H  D   Quantity
+16 10   H  D   Equipment
 00 0:   0  0:  8
 01 1:   0  0:  8
 02 2:   0  0:  8
@@ -433,7 +435,7 @@ FD 253: 5A 90: 62
 FE 254: 5B 91: 63
 FF 255: 5B 91: 63
 
-16 10   H  D   Quantity
+16 10   H  D   Consumable Item
 00 0:   0  0:  97
 01 1:   0  0:  97
 02 2:   0  0:  97
@@ -691,7 +693,7 @@ FD 253: 1E 30: B5
 FE 254: 1E 30: B5
 FF 255: 1E 30: B5
 
-16 10   H  D   Quantity
+16 10   H  D   Card from Joker or Liberation
 00 0:   0  0:  Magician
 01 1:   0  0:  Magician
 02 2:   0  0:  Magician
@@ -986,5 +988,6 @@ Bonus spread for stat up items such as from Anywhere Jack:
 +9  AB to D5 (171 to 213) 43
 +10 D6 to DD (214 to 255) 42
 
-The 43 totals are 1/256 more likely than the 42 totals. Relative increase of 1 in 42 = 2.38%.
+The 43 totals are 1/256 more likely than the 42 totals. Relative increase of 1 in 42 = 2.38%. 
+Can also use for the HP offset on character generation, where [-2, -1, +0, +2, +2] odds map to [+5, +10]
 */
