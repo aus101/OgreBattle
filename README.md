@@ -3,8 +3,8 @@
 Educational, hacking and speedrunning efforts to understand the amazingly obtuse and complex mechances behind SNES/PSX/SS Ogre Battle continue to this day.  
    
 Herein lies an Ogre Battle Tarot card generator to determine the exact odds of various Tarot cards in the opening hands of 1 to 7 cards. A New Game begins with 7 cards: 6 from questions and 1 from the bonus pick.    
-Brute-forcing all hand combinations where order does not matter is done for 6 cards in under 1 second and under 2 seconds for 7 cards on a stock i5 desktop computer.    
-No external Java libraries are used by design. Accessible to Java beginners without requiring Maven or Gradle.            
+Brute-forcing all hand combinations where order does not matter is done for 6 cards in under 1 second and under 2 seconds for 7 cards on a stock i5 desktop computer.  
+No external Java libraries are used or features past Java 7 by design. Accessible to Java beginners without requiring Maven or Gradle.
 
 The focus is solving for the optimal set of answers to Warren's 6 question for each Lord type as well as calculating exact odds of specific Tarot cards in the first 7 cards.    
 Lord type answers are solved in **ogrebattle.tarot.exact.LordOddsExample.java** and Tarot card odds are solved in **ogrebattle.tarot.exact.CardOddsExample.java** as can be seen by running the mains.     
@@ -14,15 +14,17 @@ Previously published sets of answers for each Lord type had about a 65% success 
 The Lord type with the second highest and third highest point totals do affect starting units. Solutions for Ianuki 1st, Ice Cloud 2nd and Phantom 1st, Ice Cloud 2nd are given since they are relevant for FIRESEAL speedrunning. These odds are 76.02% and 60.39% for Super Famicom and 80.64% and 58.45% for all other releases, respectively.    
 Tarot card odds for iterating each hand and counting in-code, compared with both combinatorics and hypergeometic distribution calculations, match perfectly.  
 
-More recently, **ogrebattle.joker.Joker.java** was added to determine the distribution of drawing Tarot cards with Jokers. Speficially, the Fool count is tracked as that the the difference between a successful speedrun and a reset. The same card twice in a row is impossible whether liberating or drawing a Joker. Under the hood, the RNG will iterate again if the card repeats. The RNG period is > 256.
+Subsequently, **ogrebattle.joker.Joker.java** was added to determine the distribution of drawing Tarot cards with Jokers. Speficially, the Fool count is tracked as that the the difference between a successful speedrun and a reset. The same card twice in a row is impossible whether liberating or drawing a Joker. Under the hood, the RNG will iterate again if the card repeats. The RNG period is > 256.
 
-The most recent update included **ogrebattle.tarot.pojo.TarotBonusCardStats** that shows the Opinion Leader's starting stat adjustments that are possible from the 7th bonus card. The values are consistent in every release.
+More recently, **ogrebattle.tarot.pojo.TarotBonusCardStats** was added that shows the Opinion Leader's starting stat adjustments that are possible from the 7th bonus card. The values are consistent in every release.
+
+The last major update was **ogrebattle.tarot.exact.RNGBias** to show the RNG bias in using 0 to 0xFF (0 to 255) as the range for "randomly" generating numbers that aren't a factor of 256. For instance, some buried treasures can be found with chance of 2/256 and other with 3/256 - a major 50% increase.
 
 ## Additional Details
 The code is robust enough to work with hands of 1 to 7 cards, or more cards if using the simulate package that converges to the true odds where brute-forcing would be impractical.
 
 ## Note of Caution
-OF COURSE, the RNG is biased and the calculated odds do not take RNG bias into account. 22 Tarot don't cleanly divide 256 and there seems to be some bias to avoid repitition on Joker card pulls. PSX can draw an "impossible" 1 World in the questions and another World as the bonus card. Bias in the 0 to 255 RNG generator is explored in **ogrebattle.tarot.exact.LookupTableBias**.
+OF COURSE, the RNG is not sufficiently random and past RNG calls can be used to predict future calls. What is supposed to be a, say, 3/256 chance requires a random enough distribution to overcome bias in the seeding and iteration. Still, the odds should be close.
 
 The true in-game odds could be higher or lower or variable to some extent based the RNG spread, Opinion Leader name and sex, the frame counter, or other sources of entropy for the starting seed and randomness. Most likely in SNES and Saturn not all starting 7 card hands are possible.       
 
