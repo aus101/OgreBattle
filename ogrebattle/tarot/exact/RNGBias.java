@@ -12,32 +12,32 @@ public class RNGBias {
 	/**
 	 * Buried treasured and liberation rewards from temples<br>
 	 * Only valid for SNES and SFC releases due to PSX and Saturn adding Nue's Shield / らいじゅうのたて into the pool.
-	 * I pulled Nue's Shield on English disc with real PS2 and Spockrocket pulled it on real Saturn. Bug was fixed.<br>
-	 * Could adjust for those by upping RANGE to 0x5D (92) from 0x5C (93).
+	 * I pulled Nue's Shield on English disc with real PS2 and Spockrocket pulled it on real Saturn. Bug fixed.<br>
+	 * Could adjust for those by upping RANGE to 0x5D (93) from 0x5C (92).
 	 */
 	protected static final Quantity EQUIP = new Quantity(0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
 	
 	/**
-	 * Consumable items received from defeatiung an enemy or neutral unit<br>
-	 * Range is 0x1F (31) not 0x200 (32) due to SNES and SFC bug that makes Crystal Ball impossible to obtain from defeating an enemy or neutral unit.<br>
+	 * Consumable items received from defeating an enemy or neutral unit<br>
+	 * Range is 0x1F (31). not 0x200 (32) due to SNES and SFC bug that makes Crystal Ball impossible to obtain from defeating an enemy or neutral unit.<br>
 	 * Bug is most likely fixed in PSX and Saturn but not confirmed. Can be bought at Galf's / Antanjyl's shop in every release.<br>
-	 * No RNG bias if range is unbugged to 0x20 (32).
+	 * No RNG bias if range is unbugged to 0x20 (32) since it's a factor of 256.
 	 */
 	protected static final Quantity ITEM =  new Quantity(0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
 	
 	/**
-	 * Also for drawing from Liberation. No redraw effect.
+	 * Also for drawing from Liberation. Not showing redraw effect.
 	 */
 	protected static final Quantity CARD =  new Quantity(0, Tarot.DECK_SIZE, 187, 117);//22 Tarot cards
 	
 	public static void main(String[] args) {
-		RNGBias e = new RNGBias();
+		RNGBias generator = new RNGBias();
 		
-		System.out.println(e.findRNGBias(EQUIP));
-		System.out.println(e.findRNGBias(ITEM));
-		System.out.println(e.findRNGBias(CARD));
+		System.out.println(generator.findRNGBias(EQUIP));
+		System.out.println(generator.findRNGBias(ITEM));
+		System.out.println(generator.findRNGBias(CARD));
 		
-		System.out.println(e.moreBias());
+		System.out.println(generator.moreBias());
 	}
 	
 	public StringBuilder findRNGBias(Quantity q) {
