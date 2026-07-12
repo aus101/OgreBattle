@@ -3,51 +3,54 @@ package ogrebattle.tarot.exact;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import ogrebattle.tarot.pojo.CONSUMABLES;
-import ogrebattle.tarot.pojo.EQUIPMENT;
-import ogrebattle.tarot.pojo.JOKER;
+import ogrebattle.tarot.pojo.Quantity;
 import ogrebattle.tarot.pojo.Tarot;
 import ogrebattle.util.Printer;
 import ogrebattle.util.Util;
 
 public class RNGBias {
-	protected static int[] tracker;//class member for Tarot card printing
-	//String.format nice and all but ghetto-fabulous is more fun
-	public static void main(String[] args) {	
+	/**
+	 * Buried treasured and liberation rewards from temples<br>
+	 * Only valid for SNES and SFC releases due to PSX and Saturn adding Nue's Shield / らいじゅうのたて into the pool.
+	 * I pulled Nue's Shield on English disc with real PS2 and Spockrocket pulled it on real Saturn. Bug was fixed.<br>
+	 * Could adjust for those by upping RANGE to 0x5D (92) from 0x5C (93).
+	 */
+	protected static final Quantity EQUIP = new Quantity(0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
+	
+	/**
+	 * Consumable items received from defeatiung an enemy or neutral unit<br>
+	 * Range is 0x1F (31) not 0x200 (32) due to SNES and SFC bug that makes Crystal Ball impossible to obtain from defeating an enemy or neutral unit.<br>
+	 * Bug is most likely fixed in PSX and Saturn but not confirmed. Can be bought at Galf's / Antanjyl's shop in every release.<br>
+	 * No RNG bias if range is unbugged to 0x20 (32).
+	 */
+	protected static final Quantity ITEM =  new Quantity(0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
+	
+	/**
+	 * Also for drawing from Liberation. No redraw effect.
+	 */
+	protected static final Quantity CARD =  new Quantity(0, Tarot.DECK_SIZE, 187, 117);//22 Tarot cards
+	
+	public static void main(String[] args) {
 		RNGBias e = new RNGBias();
 		
-		System.out.println(e.findRNGBias
-				("EQUIP",
-				EQUIPMENT.START.i,
-				EQUIPMENT.RANGE.i,
-				EQUIPMENT.FORMAT_HEX.i,
-				EQUIPMENT.FORMAT_DEC.i));
-		
-		System.out.println(e.findRNGBias
-				("ITEM",
-				CONSUMABLES.START.i,
-				CONSUMABLES.RANGE.i,
-				CONSUMABLES.FORMAT_HEX.i,
-				CONSUMABLES.FORMAT_DEC.i));
-		
-		System.out.println(e.tarotBuilder
-				(e.findRNGBias
-				("CARD",
-				JOKER.START.i,
-				JOKER.RANGE.i,
-				JOKER.FORMAT_HEX.i,
-				JOKER.FORMAT_DEC.i)));
+		System.out.println(e.findRNGBias(EQUIP));
+		System.out.println(e.findRNGBias(ITEM));
+		System.out.println(e.findRNGBias(CARD));
 		
 		System.out.println(e.moreBias());
 	}
 	
+	public StringBuilder findRNGBias(Quantity q) {
+		return findRNGBias(q.getClass().getSimpleName(), q.START, q.RANGE, q.FORMAT_HEX, q.FORMAT_DEC);
+	}
+	
+	//String.format nice and all but ghetto-fabulous is more fun
 	protected StringBuilder findRNGBias(String name, int start, int range, int formatHex, int formatDec) {
 		String key = "16 10   H  D   " + name;
 		final int[] values = new int[range];
 		for(int i=0; i<range; i++) {
 			values[i] = start + i;
 		}
-		tracker = new int[range];
 		String[] results = new String[Util.RNG_RANGE];
 		StringBuilder sb = new StringBuilder(key).append(Printer.newLine);
 	
@@ -67,8 +70,7 @@ public class RNGBias {
 			sb.append(temp).append(" ").append(i);
 			
 			int base10 = Integer.parseInt(results[i], 16);
-			int card = values[base10];//named as much because was originally Tarot card
-			tracker[base10]++;
+			int index = values[base10];
 	
 			if (i < 10) {
 				sb.append(":   ");
@@ -94,13 +96,18 @@ public class RNGBias {
 			if (range == Tarot.DECK_SIZE) {
 				sb.append(Tarot.values()[base10]).append(Printer.newLine);//i.e. append "World" instead of "21"
 			} else {
-				sb.append(Integer.toHexString(card).toUpperCase()).append(Printer.newLine);
+				sb.append(Integer.toHexString(index).toUpperCase()).append(Printer.newLine);
 			}
 		}
 		return sb;
 	}
 	
 	protected StringBuilder tarotBuilder(StringBuilder sb) {
+		int[] tracker = new int[Util.RNG_RANGE];
+		for(int i=0; i<Util.RNG_RANGE; i++) {
+			tracker[i] = i;//index 0=0, index 1=1, etc.
+		}
+		
 		sb.append(Printer.newLine);
 		for(Tarot t : Tarot.values()) {
 			String tarot = String.format("%-" + 12 + "." + 12 + "s", t.toString());//pad right
@@ -108,7 +115,7 @@ public class RNGBias {
 		}
 
 		BigDecimal ELEVEN = new BigDecimal("11");
-		BigDecimal TWO_HUNDRED_FIFTY_SIX = new BigDecimal("256");
+		BigDecimal TWO_HUNDRED_FIFTY_SIX = new BigDecimal(Util.RNG_RANGE);
 		//print Tarot card results
 		sb.append(Printer.newLine)
 		.append("11 out of 256 = " + new BigDecimal("11").divide(TWO_HUNDRED_FIFTY_SIX,
@@ -123,7 +130,8 @@ public class RNGBias {
 	protected StringBuilder moreBias() {
 		StringBuilder sb = new StringBuilder();
 		//start hit rate explanation
-		sb.append(Printer.doubleNewLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 10;' for the "
+		//int number = i * range
+		sb.append("If 'range' in int number = i * range;' is 10 for the "
 				+ "hit rate that is sorted into 10% bins, ").append(Printer.newLine).append("the RNG bias from rolling 0 to 9 for attack hit rates, "
 						+ "with sufficiently random RNG, can be seen:")
 		.append(Printer.newLine).append("0  00 to 19 (00  to 25)  26")
@@ -148,7 +156,7 @@ public class RNGBias {
 		.append(Printer.newLine).append("90%  231/256 = 90.234375%")
 		
 		//start level up stat bonus explanation
-		.append(Printer.doubleNewLine).append("If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the "
+		.append(Printer.doubleNewLine).append("If 'range' in int number = i * range;' is 3 for the "
 				+ "HP/STR/AGI/INT +0, +1, +2 level up stat bonus,").append(Printer.newLine).append("+0 is 0x00 to 0x55 (86 values), +1 is 0x86 "
 				+ "to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).").append(Printer.newLine).append("EV is 255/256 due to +0 mapping to an extra bit "
 				+ "= +0.99609375 gained per stat across 4 stats: HP, STR, AGI, INT.").append(Printer.newLine)
@@ -167,7 +175,7 @@ public class RNGBias {
 	}
 }
 /*
-16 10   H  D   EQUIP
+16 10   H  D   Quantity
 00 0:   0  0:  8
 01 1:   0  0:  8
 02 2:   0  0:  8
@@ -425,7 +433,7 @@ FD 253: 5A 90: 62
 FE 254: 5B 91: 63
 FF 255: 5B 91: 63
 
-16 10   H  D   ITEM
+16 10   H  D   Quantity
 00 0:   0  0:  97
 01 1:   0  0:  97
 02 2:   0  0:  97
@@ -683,7 +691,7 @@ FD 253: 1E 30: B5
 FE 254: 1E 30: B5
 FF 255: 1E 30: B5
 
-16 10   H  D   CARD
+16 10   H  D   Quantity
 00 0:   0  0:  Magician
 01 1:   0  0:  Magician
 02 2:   0  0:  Magician
@@ -941,35 +949,7 @@ FD 253: 15 21: World
 FE 254: 15 21: World
 FF 255: 15 21: World
 
-Magician    : 12
-Priestess   : 12
-Empress     : 11
-Emperor     : 12
-Hierophant  : 12
-Lovers      : 11
-Chariot     : 12
-Strength    : 12
-Hermit      : 11
-Fortune     : 12
-Justice     : 11
-HangedMan   : 12
-Death       : 12
-Temperance  : 11
-Devil       : 12
-Tower       : 12
-Star        : 11
-Moon        : 12
-Sun         : 12
-Judgment    : 11
-Fool        : 12
-World       : 11
-
-11 out of 256 = 4.29688%
-12 out of 256 = 4.68750%
-Relative increase of 1 in 11 = 9.09% for 12 versus 11
-
-
-If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 10;' for the hit rate that is sorted into 10% bins, 
+If 'range' in int number = i * range;' is 10 for the hit rate that is sorted into 10% bins, 
 the RNG bias from rolling 0 to 9 for attack hit rates, with sufficiently random RNG, can be seen:
 0  00 to 19 (00  to 25)  26
 1  1A to 33 (26  to 51)  26
@@ -993,7 +973,7 @@ Intended hit rate versus actual hit rate, no rounding:
 80%  205/256 = 80.078125%
 90%  231/256 = 90.234375%
 
-If 'int number = i * Tarot.DECK_SIZE;' is instead 'int number = i * 3;' for the HP/STR/AGI/INT +0, +1, +2 level up stat bonus,
+If 'range' in int number = i * range;' is 3 for the HP/STR/AGI/INT +0, +1, +2 level up stat bonus,
 +0 is 0x00 to 0x55 (86 values), +1 is 0x86 to 0x170 (85 values) and +2 is 0x171 to 0x255 (85 values).
 EV is 255/256 due to +0 mapping to an extra bit = +0.99609375 gained per stat across 4 stats: HP, STR, AGI, INT.
 That translates to 1 stat point lost due to RNG bias every (256 levels)/(4 stats) = 64 levels gained across your army.
