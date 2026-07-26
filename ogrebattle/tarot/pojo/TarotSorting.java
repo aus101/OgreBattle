@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
- * Equal length assumed so comparison is simple
+ * Every sort function but method {@link TreeSetTarotComparator}'s <code>compare</code> assumes equal length to run faster
  */
 public class TarotSorting {
 	

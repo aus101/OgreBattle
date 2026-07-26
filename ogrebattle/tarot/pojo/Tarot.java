@@ -12,6 +12,27 @@ public enum Tarot {
 	HangedMan, Death, Temperance, Devil, Tower, Star, Moon, Sun, Judgment, Fool, World;
 	
 	public static final int DECK_SIZE = values().length;
+	
+	public static Tarot reverse(int o) {
+		Tarot reverse;
+		switch (o)//Java 12 can return in the switch and not need breaks but let's not force Java 12+
+		{
+		    case 0: reverse = Magician;
+		        break;
+		    case 1: reverse = Priestess;
+		        break;
+		    case 2: reverse = Empress;
+		    	break;
+		    case 3: reverse = Emperor;
+		    	break;
+		    case 4: reverse = Emperor;
+	    		break;		    	
+		    case 5: reverse = Emperor;
+    			break;			    	
+		    default: reverse = null;
+		}
+		return reverse;
+	}
    
 /*   If not using TarotSorting.java then can use these instead: 
     //Tarot.values() orders this way by default

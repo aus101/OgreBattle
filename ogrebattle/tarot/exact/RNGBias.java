@@ -15,7 +15,7 @@ public class RNGBias {
 	 * I pulled Nue's Shield on English disc with real PS2 and Spockrocket pulled it on real Saturn. Bug fixed.<br>
 	 * Could adjust for those by upping RANGE to 0x5D (93) from 0x5C (92).
 	 */
-	protected static final Quantity EQUIP = new Quantity("Equipment", 0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
+	protected static final Quantity EQUIP = new Quantity("Equipment ID", 0x8, 0x5C, 45, 28);//8 hex is 8 base 10, and 5C hex is 92 base 10, meant for hex values
 	
 	/**
 	 * Consumable items received from defeating an enemy or neutral unit<br>
@@ -23,7 +23,7 @@ public class RNGBias {
 	 * Bug is most likely fixed in PSX and Saturn but not confirmed. Can be bought at Galf's / Antanjyl's shop in every release.<br>
 	 * No RNG bias if range is unbugged to 0x20 (32) since it's a factor of 256.
 	 */
-	protected static final Quantity ITEM =  new Quantity("Consumable Item", 0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
+	protected static final Quantity ITEM =  new Quantity("Consumable Item ID", 0x97, 0x1F, 133, 83);//97 hex is 151 base 10, and 1F hex is 31 base 10, meant for hex values
 	
 	/**
 	 * Also for drawing from Liberation. Not showing redraw effect.
@@ -84,7 +84,6 @@ public class RNGBias {
 			if (i < formatHex) {
 				sb.append(" ");
 			}
-			
 			sb.append(" ").append(base10).append(":");
 			
 			if(i < formatDec) {
